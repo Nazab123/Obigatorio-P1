@@ -19,6 +19,7 @@ let registrar = document.querySelector("#btnRegistrar")
 function registrarPostulante() {
 
     let respuesta = ""
+    let contadorNumPas
     // case insensitive
     let usuario = document.querySelector("#txtUsuario").value.trim().toLowerCase()
     // case sensitive
@@ -40,16 +41,26 @@ function registrarPostulante() {
         respuesta="la contraseña no debe estar vacia"
 
     }else if(nombre.length < 5){
-        respuesta="la contraseña debe tener al menos 5 caracteres"
+        respuesta="la nombre debe tener al menos 5 caracteres"
 
     }else if (password === ""){
-        respuesta="el nombre no debe estar vacio"
+        respuesta="la contraseña no debe estar vacia"
 
     }else if (experiencia === ""){
         respuesta="selecione una opcion de experiencia"
 
     }else if (area === ""){
         respuesta="selecione una opcion de area"
+    }else{
+        for(let i = 0; i< password.length; i++){
+
+            if(isNaN(Number(password.charAt(i)))){
+                contadorNumPas++
+            }
+
+            if()
+
+        }
     }
 /*
 me faltannn
