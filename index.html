@@ -13,12 +13,12 @@
     <section id="pantallaLogin">
         <h2>Iniciar sesión</h2>
 
-        <label for="txtLoginUsuario">Usuario</label>
-        <input type="text" id="txtLoginUsuario">
+        <label>Usuario</label>
+        <input type="text" id="txtUsuarioLogin">
         <br><br>
 
-        <label for="txtLoginPassword">Contraseña</label>
-        <input type="password" id="txtLoginPassword">
+        <label>Contraseña</label>
+        <input type="password" id="txtPasswordLogin">
         <br><br>
 
         <button id="btnLogin">Ingresar</button>
@@ -30,19 +30,19 @@
     <section id="pantallaRegistro">
         <h2>Registro de Postulante</h2>
 
-        <label for="txtUsuario">Usuario</label>
+        <label>Usuario</label>
         <input type="text" id="txtUsuario">
         <br><br>
 
-        <label for="txtPassword">Contraseña</label>
+        <label>Contraseña</label>
         <input type="password" id="txtPassword">
         <br><br>
 
-        <label for="txtNombre">Nombre completo</label>
+        <label>Nombre completo</label>
         <input type="text" id="txtNombre">
         <br><br>
 
-        <label for="slcExperiencia">Experiencia</label>
+        <label>Experiencia</label>
         <select id="slcExperiencia">
             <option value="">Seleccione...</option>
             <option value="Junior">Junior</option>
@@ -51,7 +51,7 @@
         </select>
         <br><br>
 
-        <label for="slcArea">Área</label>
+        <label>Área</label>
         <select id="slcArea">
             <option value="">Seleccione...</option>
             <option value="Tecnología">Tecnología</option>
@@ -73,7 +73,48 @@
 
         <p id="pBienvenidaPostulante"></p>
 
+        <button id="btnVerOfertas">Ver ofertas laborales</button>
+        <button id="btnVerMisPostulaciones">Mis postulaciones</button>
+        <button id="btnVerOfertasDestacadas">Ofertas destacadas</button>
         <button id="btnCerrarSesionPostulante">Cerrar sesión</button>
+    </section>
+
+    <section id="pantallaOfertasPostulante">
+        <h2>Ofertas laborales activas</h2>
+
+        <label>Filtro</label>
+        <select id="slcFiltroOfertas">
+            <option value="area">Ver solo mi área</option>
+            <option value="todas">Ver todas</option>
+        </select>
+
+        <button id="btnAplicarFiltroOfertas">Aplicar filtro</button>
+
+        <div id="divListadoOfertas"></div>
+
+        <p id="pOfertasPostulante"></p>
+
+        <button id="btnVolverMenuPostulante1">Volver</button>
+    </section>
+
+    <section id="pantallaMisPostulaciones">
+        <h2>Mis postulaciones</h2>
+
+        <div id="divMisPostulaciones"></div>
+
+        <p id="pMisPostulaciones"></p>
+
+        <button id="btnVolverMenuPostulante2">Volver</button>
+    </section>
+
+    <section id="pantallaOfertasDestacadas">
+        <h2>Ofertas destacadas</h2>
+
+        <div id="divOfertasDestacadas"></div>
+
+        <p id="pOfertasDestacadas"></p>
+
+        <button id="btnVolverMenuPostulante3">Volver</button>
     </section>
 
     <section id="pantallaAdmin">
@@ -81,8 +122,113 @@
 
         <p id="pBienvenidaAdmin"></p>
 
+        <button id="btnCrearOferta">Crear oferta laboral</button>
+        <button id="btnVerListadoOfertasAdmin">Listado de ofertas</button>
+        <button id="btnVerPostulacionesPendientes">Postulaciones pendientes</button>
+        <button id="btnVerEstadisticasAdmin">Estadísticas</button>
         <button id="btnCerrarSesionAdmin">Cerrar sesión</button>
     </section>
+
+    <section id="pantallaCrearOferta">
+        <h2>Crear oferta laboral</h2>
+
+        <label>Título de la oferta</label>
+        <input type="text" id="txtTituloOferta">
+        <br><br>
+
+        <label>Empresa</label>
+        <input type="text" id="txtEmpresaOferta">
+        <br><br>
+
+        <label>Descripción</label>
+        <textarea id="txtDescripcionOferta"></textarea>
+        <br><br>
+
+        <label>Nivel requerido</label>
+        <select id="slcNivelOferta">
+            <option value="">Seleccione...</option>
+            <option value="Junior">Junior</option>
+            <option value="Semi-Senior">Semi-Senior</option>
+            <option value="Senior">Senior</option>
+        </select>
+        <br><br>
+
+        <label>Área</label>
+        <select id="slcAreaOferta">
+            <option value="">Seleccione...</option>
+            <option value="Tecnología">Tecnología</option>
+            <option value="Diseño">Diseño</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Administración">Administración</option>
+            <option value="Otros">Otros</option>
+        </select>
+        <br><br>
+
+        <label>Límite de postulaciones</label>
+        <input type="number" id="txtLimitePostulaciones">
+        <br><br>
+
+        <label>Cantidad de vacantes</label>
+        <input type="number" id="txtCantidadVacantes">
+        <br><br>
+
+        <label>Oferta destacada</label>
+        <select id="slcOfertaDestacada">
+            <option value="">Seleccione...</option>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+        <br><br>
+
+        <button id="btnGuardarOferta">Guardar oferta</button>
+        <button id="btnVolverMenuAdmin1">Volver</button>
+
+        <p id="pCrearOferta"></p>
+    </section>
+
+    <section id="pantallaListadoOfertasAdmin">
+        <h2>Listado de ofertas</h2>
+
+        <div id="divListadoOfertasAdmin"></div>
+
+        <p id="pListadoOfertasAdmin"></p>
+
+        <button id="btnVolverMenuAdmin2">Volver</button>
+    </section>
+
+    <section id="pantallaPostulacionesPendientes">
+        <h2>Postulaciones pendientes</h2>
+
+        <div id="divPostulacionesPendientes"></div>
+
+        <p id="pPostulacionesPendientes"></p>
+
+        <button id="btnVolverMenuAdmin3">Volver</button>
+    </section>
+
+    <section id="pantallaEstadisticasAdmin">
+        <h2>Estadísticas del sistema</h2>
+
+        <label>Buscar oferta por título</label>
+        <input type="text" id="txtBuscarOfertaEstadistica">
+        <button id="btnBuscarOfertaEstadistica">Buscar</button>
+
+        <h3>Postulaciones por oferta</h3>
+        <div id="divTablaPostulacionesPorOferta"></div>
+
+        <h3>Total de ofertas por estado</h3>
+        <p id="pTotalOfertasPorEstado"></p>
+
+        <h3>Porcentaje de vacantes cubiertas</h3>
+        <p id="pPorcentajeVacantesCubiertas"></p>
+
+        <h3>Postulante con más postulaciones activas</h3>
+        <p id="pPostulanteMasPostulaciones"></p>
+
+        <button id="btnVolverMenuAdmin4">Volver</button>
+    </section>
+
+    <script src="js/codigo.js"></script>
 
 </body>
 

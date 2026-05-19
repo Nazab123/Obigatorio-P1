@@ -1,7 +1,13 @@
 
 
-
-class Sistema {
+//acá guardo mis array entonces no le pongo parámetros
+class Sistema { 
+    constructor (){
+        this.postulantes = []
+        this.admins = []
+        this.ofertas = []
+        this.postulaciones = []
+    }
 
 }
 
@@ -19,7 +25,7 @@ let registrar = document.querySelector("#btnRegistrar")
 function registrarPostulante() {
 
     let respuesta = ""
-    let contadorNumPas
+    let contadorNumPas = 0
     // case insensitive
     let usuario = document.querySelector("#txtUsuario").value.trim().toLowerCase()
     // case sensitive
@@ -30,6 +36,7 @@ function registrarPostulante() {
     let area = document.querySelector("#slcArea").value
 
     //validacionesss
+    // el profe dijo que quería que se fueran sumando los errores es decir que si tiene todos los errores que pe aparezcan todos los emnsjaes de error
 
     if (usuario===""){
         respuesta="el usuario no debe estar vacio"
@@ -54,11 +61,17 @@ function registrarPostulante() {
     }else{
         for(let i = 0; i< password.length; i++){
 
-            if(isNaN(Number(password.charAt(i)))){
+            if(!isNaN(Number(password.charAt(i)))){
                 contadorNumPas++
             }
+//acá me falta validar mayúsculas y minúsculas, le voy a preguntar al profe bien como hacer
+            if(){
 
-            if()
+            }
+
+            if(){
+
+            }
 
         }
     }
@@ -73,7 +86,33 @@ me faltannn
 
 }
 
-class Postulante {
+function login (){
+
+    let btnIniciarSesion = document.querySelector("#btnLogin")
+    let txtUsuarioLogin = document.querySelector("#txtUsuarioLogin").value
+    let txtPasswordLogin = document.querySelector("#txtPasswordLogin").value
+    let PResultadoLogin = document.querySelector("#pLogin")
+
+
+//validar y ver si es postulante o admin
+
+
+/*  Los postulantes deberán poder ingresar a la aplicación utilizando su nombre de usuario y su 
+    contraseña, recibiendo los avisos de error que correspondan en caso de que las credenciales no sean 
+    correctas. Además, deberán contar con la posibilidad de cerrar sesión y, a continuación, iniciar una 
+    nueva sesión en caso de que así lo deseen.   */
+}
+
+class Postulante { 
+    
+    constructor(usuario, password, nombre, experiencia, area){
+        this.usuario = usuario
+        this.password = password
+        this.nombre = nombre
+        this.experiencia = experiencia
+        this.area = area
+    }
+
 
 }
 
