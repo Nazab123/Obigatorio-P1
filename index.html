@@ -13,11 +13,11 @@
     <section id="pantallaLogin">
         <h2>Iniciar sesión</h2>
 
-        <label>Usuario</label>
+        <label for="txtUsuarioLogin">Usuario</label>
         <input type="text" id="txtUsuarioLogin">
         <br><br>
 
-        <label>Contraseña</label>
+        <label for="txtPasswordLogin">Contraseña</label>
         <input type="password" id="txtPasswordLogin">
         <br><br>
 
@@ -30,19 +30,19 @@
     <section id="pantallaRegistro">
         <h2>Registro de Postulante</h2>
 
-        <label>Usuario</label>
+        <label for="txtUsuario">Usuario</label>
         <input type="text" id="txtUsuario">
         <br><br>
 
-        <label>Contraseña</label>
+        <label for="txtPassword">Contraseña</label>
         <input type="password" id="txtPassword">
         <br><br>
 
-        <label>Nombre completo</label>
+        <label for="txtNombre">Nombre completo</label>
         <input type="text" id="txtNombre">
         <br><br>
 
-        <label>Experiencia</label>
+        <label for="slcExperiencia">Experiencia</label>
         <select id="slcExperiencia">
             <option value="">Seleccione...</option>
             <option value="Junior">Junior</option>
@@ -51,7 +51,7 @@
         </select>
         <br><br>
 
-        <label>Área</label>
+        <label for="slcArea">Área</label>
         <select id="slcArea">
             <option value="">Seleccione...</option>
             <option value="Tecnología">Tecnología</option>
@@ -82,7 +82,7 @@
     <section id="pantallaOfertasPostulante">
         <h2>Ofertas laborales activas</h2>
 
-        <label>Filtro</label>
+        <label for="slcFiltroOfertas">Filtro</label>
         <select id="slcFiltroOfertas">
             <option value="area">Ver solo mi área</option>
             <option value="todas">Ver todas</option>
@@ -132,19 +132,19 @@
     <section id="pantallaCrearOferta">
         <h2>Crear oferta laboral</h2>
 
-        <label>Título de la oferta</label>
+        <label for="txtTituloOferta">Título de la oferta</label>
         <input type="text" id="txtTituloOferta">
         <br><br>
 
-        <label>Empresa</label>
+        <label for="txtEmpresaOferta">Empresa</label>
         <input type="text" id="txtEmpresaOferta">
         <br><br>
 
-        <label>Descripción</label>
+        <label for="txtDescripcionOferta">Descripción</label>
         <textarea id="txtDescripcionOferta"></textarea>
         <br><br>
 
-        <label>Nivel requerido</label>
+        <label for="slcNivelOferta">Nivel requerido</label>
         <select id="slcNivelOferta">
             <option value="">Seleccione...</option>
             <option value="Junior">Junior</option>
@@ -153,7 +153,7 @@
         </select>
         <br><br>
 
-        <label>Área</label>
+        <label for="slcAreaOferta">Área</label>
         <select id="slcAreaOferta">
             <option value="">Seleccione...</option>
             <option value="Tecnología">Tecnología</option>
@@ -164,15 +164,15 @@
         </select>
         <br><br>
 
-        <label>Límite de postulaciones</label>
+        <label for="txtLimitePostulaciones">Límite de postulaciones</label>
         <input type="number" id="txtLimitePostulaciones">
         <br><br>
 
-        <label>Cantidad de vacantes</label>
+        <label for="txtCantidadVacantes">Cantidad de vacantes</label>
         <input type="number" id="txtCantidadVacantes">
         <br><br>
 
-        <label>Oferta destacada</label>
+        <label for="slcOfertaDestacada">Oferta destacada</label>
         <select id="slcOfertaDestacada">
             <option value="">Seleccione...</option>
             <option value="si">Sí</option>
@@ -209,7 +209,7 @@
     <section id="pantallaEstadisticasAdmin">
         <h2>Estadísticas del sistema</h2>
 
-        <label>Buscar oferta por título</label>
+        <label for="txtBuscarOfertaEstadistica">Buscar oferta por título</label>
         <input type="text" id="txtBuscarOfertaEstadistica">
         <button id="btnBuscarOfertaEstadistica">Buscar</button>
 
