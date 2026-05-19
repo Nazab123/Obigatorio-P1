@@ -1,0 +1,137 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f2f4f8;
+    color: #222;
+}
+
+h1 {
+    text-align: center;
+    background: #1f4f8b;
+    color: white;
+    padding: 25px;
+    margin: 0 0 30px 0;
+}
+
+section {
+    width: 90%;
+    max-width: 700px;
+    margin: 25px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+h2 {
+    color: #1f4f8b;
+    margin-top: 0;
+    border-bottom: 2px solid #e0e6ef;
+    padding-bottom: 10px;
+}
+
+h3 {
+    color: #333;
+    margin-top: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccd3dd;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+button {
+    background: #1f4f8b;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    margin: 6px 6px 6px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+button:hover {
+    background: #163b69;
+}
+
+p {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+div {
+    margin-top: 15px;
+}
+
+/* Para tarjetas de ofertas o postulaciones que armes desde JS */
+.oferta,
+.postulacion,
+.card {
+    background: #f8fafc;
+    border: 1px solid #d9e1ec;
+    border-left: 5px solid #1f4f8b;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+/* Botones secundarios */
+#btnIrRegistro,
+#btnVolverLogin,
+[id*="Volver"],
+[id*="CerrarSesion"] {
+    background: #6c757d;
+}
+
+#btnIrRegistro:hover,
+#btnVolverLogin:hover,
+[id*="Volver"]:hover,
+[id*="CerrarSesion"]:hover {
+    background: #555d63;
+}
+
+/* Mensajes */
+#pLogin,
+#pResultado,
+#pCrearOferta,
+#pOfertasPostulante,
+#pMisPostulaciones,
+#pOfertasDestacadas,
+#pListadoOfertasAdmin,
+#pPostulacionesPendientes {
+    color: #1f4f8b;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    section {
+        width: 95%;
+        padding: 18px;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 8px;
+    }
+}
