@@ -36,6 +36,8 @@ function login (){
 
         if (adminEncontrado.password === txtPasswordLogin) {
             respuestaLogin = "Login correcto como administrador";
+            //aca te voy a agregar para las pantallas 
+                mostrarPantalla("pantallaAdmin");
         } else {
             respuestaLogin = "Contraseña incorrecta";
         }
@@ -45,6 +47,8 @@ function login (){
 
         if (postulanteEncontrado.password === txtPasswordLogin) {
             respuestaLogin = "Login correcto como postulante";
+            //aca igual .
+                mostrarPantalla("pantallaPostulante");
         } else {
             respuestaLogin = "Contraseña incorrecta";
         }
@@ -92,8 +96,61 @@ let resultadoLog = document.querySelector("#pResultado");
 let registrar = document.querySelector("#btnRegistrar");
 let btnIniciarSesion = document.querySelector("#btnLogin");
 
+
+
+      /* ----------------- PANTALLAS  XD ------------ */
+//agregue esto que es para la funcion ahora explico mas abajo en otro comentario
+// Esto es para mostrar y ocultar los section , en resumen le paso los id de casa section . recorro con el for y si concide pimba lo mueestra 
+let pantallas = document.querySelectorAll("section");
+let btnIrRegistro = document.querySelector("#btnIrRegistro");
+
+
+
+function mostrarPantalla(idPantalla){
+    for(let i = 0; i< pantallas.length; i++){
+
+        pantallas[i].style.display = "none";
+    }
+
+    document.querySelector("#" + idPantalla).style.display = "block";
+}
+
+
+
+
+
+// use esta para guiarme Nazita , igual te explico todo en clase.
 registrar.addEventListener("click", registrarPostulante);
 btnIniciarSesion.addEventListener("click", login);
+
+
+btnIrRegistro.addEventListener("click", irRegistro);
+volver.addEventListener("click", irLogin);
+
+let btnCerrarSesionPostulante = document.querySelector("#btnCerrarSesionPostulante");
+let btnCerrarSesionAdmin = document.querySelector("#btnCerrarSesionAdmin");
+
+btnCerrarSesionPostulante.addEventListener("click", irLogin);
+btnCerrarSesionAdmin.addEventListener("click", irLogin);
+
+mostrarPantalla("pantallaLogin");
+
+// Nazita
+// osea no tiene mucha ciencia pero ta jajaj son funciones para el ir a las "pantallas" pongamosle .
+function irRegistro(){
+    mostrarPantalla("pantallaRegistro");
+}
+
+function irLogin(){
+    mostrarPantalla("pantallaLogin");
+}
+
+
+
+
+
+
+
 
     //validacionesss
     // el profe dijo que quería que se fueran sumando los errores es decir que si tiene todos los errores que pe aparezcan todos los mensajes de error
