@@ -271,4 +271,11 @@ let contadorNumPas = 0;
     contadorNumPas
     }
 
+    agregarOferta()
+    agregarPostulacion()
+    buscarAdminPorUsuario()
+    buscarPostulantePorUsuario()
+    existeUsuario()
+    listarOfertasParaPostulante()
+    procesarPostulacion()
 }

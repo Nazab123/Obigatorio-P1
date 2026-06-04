@@ -1,8 +1,9 @@
-let postu
+let postulanteAutoincrement = 1
 
 class Postulante { 
     
     constructor(usuario, password, nombre, experiencia, area){
+        this.#id = postulanteAutoincrement++
         this.usuario = usuario;
         this.password = password;
         this.nombre = nombre;
