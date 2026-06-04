@@ -1,5 +1,19 @@
 
 //acá guardo mis array entonces no le pongo parámetros
+// los array siempre van en plural
+//no todas las clases tienen que ir en sistema
+// las clases si a las otras
+//si yo uso un atrivuto privado eso lo declaro antes del constructor
+/* 
+TODAS LAS CLASES LLEVA ID TODOS ID AUTOINCEMENTAL
+
+no registrar un postulante que ya exista
+
+
+
+*/
+
+
 class Sistema { 
     constructor (){
         this.postulantes = [];
@@ -7,7 +21,6 @@ class Sistema {
         this.ofertas = [];
         this.postulaciones = [];
     }
-
 }
 
 let sistema = new Sistema();
@@ -15,9 +28,16 @@ let admin1 = new Admin("adminrodri", "Rodri123", "Rodri");
 let admin2 = new Admin("admingerard", "Gerard123", "El Gerry");
 let admin3 = new Admin("adminnaza", "Naza123", "Naza");
 
+//validar precargas por mas que san precargas
+
+
 sistema.admins.push(admin1);
 sistema.admins.push(admin2);
 sistema.admins.push(admin3);
+
+
+/* yo voy a teneer en el main todo lo de html, nada se conecta con el hml menossss el main, las vitas y todo van en el ,ain mi clase sistema habla con el main 
+*/
 
 function login (){
 
@@ -144,10 +164,6 @@ function irRegistro(){
 function irLogin(){
     mostrarPantalla("pantallaLogin");
 }
-
-
-
-
 
 
 

@@ -1,3 +1,5 @@
+let postu
+
 class Postulante { 
     
     constructor(usuario, password, nombre, experiencia, area){

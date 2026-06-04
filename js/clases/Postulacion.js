@@ -1,4 +1,9 @@
+let postulacionAutoincrement = 1;
+
 class Postulacion {
+    constructor(idPos){
+
+    }
 
 }
 
