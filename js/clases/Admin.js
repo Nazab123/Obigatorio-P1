@@ -1,7 +1,11 @@
 let adminAutoincrement = 1;
 
 class Admin { 
+
+    #id;
+
         constructor(usuario, password, nombre){
+
         this.#id = adminAutoincrement;
         adminAutoincrement++;
         this.usuario = usuario;
@@ -9,7 +13,9 @@ class Admin {
         this.nombre = nombre;
     }
 
-    getId() { return this.#id; }
+    getId(){
+        return this.#id; 
+    }
 
 }
 

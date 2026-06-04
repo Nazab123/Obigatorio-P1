@@ -12,7 +12,9 @@ class Postulacion {
         this.estado = "pendiente";
     }
     
-    getId() { return this.#id; }
+    getId() { 
+        return this.#id; 
+    }
 
 }
 
