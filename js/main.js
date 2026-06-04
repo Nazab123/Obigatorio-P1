@@ -3,17 +3,17 @@
 
 
 
-function login (){
+function login() {
 
     let txtUsuarioLogin = document.querySelector("#txtUsuarioLogin").value.toLowerCase().trim();
     let txtPasswordLogin = document.querySelector("#txtPasswordLogin").value;
     let PResultadoLogin = document.querySelector("#pLogin");
-    let respuestaLogin = ""
+    let respuestaLogin = "";
 
-        let posicionAdmin = indexOfAdmin(txtUsuarioLogin)
-        let posicionPostulante = indexOfPostulante(txtUsuarioLogin)
+    let posicionAdmin = indexOfAdmin(txtUsuarioLogin);
+    let posicionPostulante = indexOfPostulante(txtUsuarioLogin);
 
-// acá valido si es admin o postulante
+    // acá valido si es admin o postulante
     if (posicionAdmin !== -1) {
 
         let adminEncontrado = sistema.admins[posicionAdmin];
@@ -21,7 +21,7 @@ function login (){
         if (adminEncontrado.password === txtPasswordLogin) {
             respuestaLogin = "Login correcto como administrador";
             //aca te voy a agregar para las pantallas 
-                mostrarPantalla("pantallaAdmin");
+            mostrarPantalla("pantallaAdmin");
         } else {
             respuestaLogin = "Contraseña incorrecta";
         }
@@ -32,15 +32,15 @@ function login (){
         if (postulanteEncontrado.password === txtPasswordLogin) {
             respuestaLogin = "Login correcto como postulante";
             //aca igual .
-                mostrarPantalla("pantallaPostulante");
+            mostrarPantalla("pantallaPostulante");
         } else {
             respuestaLogin = "Contraseña incorrecta";
         }
 
-    }else {
-    respuestaLogin = "nao nao";
+    } else {
+        respuestaLogin = "nao nao";
     }
-    PResultadoLogin.innerHTML = respuestaLogin
+    PResultadoLogin.innerHTML = respuestaLogin;
 }
 
 
@@ -48,12 +48,12 @@ function login (){
 // podrían ir dentro de Sistema, pero por ahora las dejo acá para no complicar las clases con los metodos .
 // Más adelante estas funciones podrían ir dentro de Sistema ( creo yo , verificar con profe o chati )
 
-function indexOfAdmin(txtUsuarioLogin){
+function indexOfAdmin(txtUsuarioLogin) {
 
-    for(let i = 0; i < sistema.admins.length; i++){
+    for (let i = 0; i < sistema.admins.length; i++) {
         let adminActual = sistema.admins[i];
 
-        if(adminActual.usuario === txtUsuarioLogin){
+        if (adminActual.usuario === txtUsuarioLogin) {
             return i;
         }
     }
@@ -61,12 +61,12 @@ function indexOfAdmin(txtUsuarioLogin){
     return -1;
 }
 
-function indexOfPostulante(txtUsuarioLogin){
+function indexOfPostulante(txtUsuarioLogin) {
 
-    for(let i = 0; i < sistema.postulantes.length; i++){
+    for (let i = 0; i < sistema.postulantes.length; i++) {
         let postulanteActual = sistema.postulantes[i];
 
-        if(postulanteActual.usuario === txtUsuarioLogin){
+        if (postulanteActual.usuario === txtUsuarioLogin) {
             return i;
         }
     }
@@ -88,7 +88,7 @@ let btnIniciarSesion = document.querySelector("#btnLogin");
 
 
 
-      /* ----------------- PANTALLAS  XD ------------ */
+/* ----------------- PANTALLAS  XD ------------ */
 //agregue esto que es para la funcion ahora explico mas abajo en otro comentario
 // Esto es para mostrar y ocultar los section , en resumen le paso los id de casa section . recorro con el for y si concide pimba lo mueestra 
 let pantallas = document.querySelectorAll("section");
@@ -96,9 +96,8 @@ let btnIrRegistro = document.querySelector("#btnIrRegistro");
 
 
 
-function mostrarPantalla(idPantalla){
-    for(let i = 0; i< pantallas.length; i++){
-
+function mostrarPantalla(idPantalla) {
+    for (let i = 0; i < pantallas.length; i++) {
         pantallas[i].style.display = "none";
     }
 
@@ -127,11 +126,11 @@ mostrarPantalla("pantallaLogin");
 
 // Nazita
 // osea no tiene mucha ciencia pero ta jajaj son funciones para el ir a las "pantallas" pongamosle .
-function irRegistro(){
+function irRegistro() {
     mostrarPantalla("pantallaRegistro");
 }
 
-function irLogin(){
+function irLogin() {
     mostrarPantalla("pantallaLogin");
 }
 
@@ -144,8 +143,8 @@ function irLogin(){
 
 
 
-    //validacionesss
-    // el profe dijo que quería que se fueran sumando los errores es decir que si tiene todos los errores que pe aparezcan todos los mensajes de error
+//validacionesss
+// el profe dijo que quería que se fueran sumando los errores es decir que si tiene todos los errores que pe aparezcan todos los mensajes de error
 
 function registrarPostulante() {
 
@@ -161,55 +160,55 @@ function registrarPostulante() {
     let area = document.querySelector("#slcArea").value;
     let resultadoContra = validarContra(password);
 
-    if (usuario === ""){
+    if (usuario === "") {
         respuesta += "el usuario no debe estar vacio<br>";
 
-    } if(usuario.length < 5){
+    } if (usuario.length < 5) {
         respuesta += "el usuario debe tener al menos 5 caracteres<br>";
 
-    } if (password === ""){
+    } if (password === "") {
         respuesta += "la contraseña no debe estar vacia<br>";
 
-    } if(password.length < 5){
+    } if (password.length < 5) {
         respuesta += "la contraseña debe tener al menos 5 caracteres<br>";
 
-    } if(nombre.length < 5){
+    } if (nombre.length < 5) {
         respuesta += "el nombre debe tener al menos 5 caracteres<br>";
 
-    } if (experiencia === ""){
+    } if (experiencia === "") {
         respuesta += "seleccione una opcion de experiencia<br>";
 
-    } if (area === ""){
+    } if (area === "") {
         respuesta += "seleccione una opcion de area<br>";
 
-    } if (indexOfAdmin(usuario) !== -1 || indexOfPostulante(usuario) !== -1){
-    respuesta += "el usuario ya existe<br>";
+    } if (indexOfAdmin(usuario) !== -1 || indexOfPostulante(usuario) !== -1) {
+        respuesta += "el usuario ya existe<br>";
 
-    } if(resultadoContra.contadorNumPas === 0){
-    respuesta += "la contraseña debe tener al menos un numero<br>";
+    } if (resultadoContra.contadorNumPas === 0) {
+        respuesta += "la contraseña debe tener al menos un numero<br>";
 
-    } if(resultadoContra.tieneMayus === false){
-    respuesta += "la contraseña debe tener al menos una mayuscula<br>";
+    } if (resultadoContra.tieneMayus === false) {
+        respuesta += "la contraseña debe tener al menos una mayuscula<br>";
 
-    } if(resultadoContra.tieneMinus === false){
-    respuesta += "la contraseña debe tener al menos una minuscula<br>";
+    } if (resultadoContra.tieneMinus === false) {
+        respuesta += "la contraseña debe tener al menos una minuscula<br>";
 
     }
 
-    if(respuesta === ""){
+    if (respuesta === "") {
 
-    let nuevoPostulante = new Postulante(
-        usuario,
-        password,
-        nombre,
-        experiencia,
-        area
-    );
+        let nuevoPostulante = new Postulante(
+            usuario,
+            password,
+            nombre,
+            experiencia,
+            area
+        );
 
-    sistema.postulantes.push(nuevoPostulante);
+        sistema.postulantes.push(nuevoPostulante);
 
-    respuesta = "registro procesado";
-}
+        respuesta = "registro procesado";
+    }
 
     resultadoLog.innerHTML = respuesta;
 
