@@ -77,10 +77,29 @@ sistema.admins.push(admin3);
 
 
 /* VALIDACIONES  */
- let posicionAdmin = indexOfAdmin(txtUsuarioLogin);
+    let posicionAdmin = indexOfAdmin(txtUsuarioLogin);
     let posicionPostulante = indexOfPostulante(txtUsuarioLogin);
 
     // acá valido si es admin o postulante
+
+/* 
+guardar unicamente en 1 sola varible sea dmin o sea postulante 
+
+el objeto
+peroooooo0, despues necesito un this. y ahi me guardo si es postulante o admin
+
+
+
+
+yo saco el id de la postulacuon cuando yo este en la postulacion voy a pasar mi oferta paso el bojeto enter
+
+
+*/
+
+
+
+
+*/
     if (posicionAdmin !== -1) {
 
         let adminEncontrado = sistema.admins[posicionAdmin];
