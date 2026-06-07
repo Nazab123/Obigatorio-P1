@@ -14,3 +14,7 @@ function cerrarSesionAdmin() {
     sistema.usuarioLogueado = null;
     irA("view-login", initLogin);
 }
+
+//crear una funcion para cerrar sesion .
+//volver a null en sistema  y luego llamar a la funcion sistema .
+//despues llamaria a la funcion cerrar sesion y estamos .

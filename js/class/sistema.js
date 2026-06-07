@@ -15,7 +15,9 @@ no registrar un postulante que ya exista
 
 
 class Sistema { 
+    #tipoUser ;
     constructor (){
+        this.#tipoUser = null;
         this.postulantes = [];
         this.admins = [];
         this.ofertas = [];
@@ -28,7 +30,7 @@ class Sistema {
 
   //PRECARGA DE DATOS PAPÁ
 
-  precargaDatos(){
+precargaDatos(){// usar las funciones , cambiar esto y no hacer push .
 let admin1 = new Admin("adminrodri", "Rodri123", "Rodri");
 let admin2 = new Admin("admingerard", "Gerard123", "El Gerry");
 let admin3 = new Admin("adminnaza", "Naza123", "Naza");
@@ -181,15 +183,14 @@ let resultadoContra = this.validarContra(password);
 
         if (adminEncontrado.password === password) {
             this.usuarioLogueado = adminEncontrado;
-            return {
-                mensaje: "Login correcto como administrador",
-                tipo: "admin"
-            };
+            this.#tipoUser = "Admin";
+            return true;
+
         }
 
-        return {mensaje:"Contraseña incorrecta",
-            tipo: ""
-        };
+        return false;
+            
+      
     }
 
     if (posicionPostulante !== -1) {
@@ -197,21 +198,21 @@ let resultadoContra = this.validarContra(password);
 
         if (postulanteEncontrado.password === password) {
             this.usuarioLogueado = postulanteEncontrado;
-            return{
-                   mensaje: "Login correcto como postulante",
-                tipo: "postulante"
-            };
+            this.#tipoUser = "Postulante";
+            return true;
+                   
         }
-
-        return {mensaje:"Contraseña incorrecta",
-            tipo: ""
-        };
+        return false;
     }
 
-    return {mensaje:"Usuario inexistente",
-        tipo: ""
-    };
-}
+    return false;
+   
+ }
+
+
+ getTipoUser(){
+    return this.#tipoUser;
+ }
 }
 
 let sistema = new Sistema();

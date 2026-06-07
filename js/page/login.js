@@ -24,17 +24,17 @@ function login() {
 
     let respuesta = sistema.login(usuario, password);
     console.log("respuesta", respuesta);
+    if(respuesta ){
+        if(sistema.getTipoUser() === "Admin"){
+              irA("view-admin", initAdmin);
+        }else{
+             irA("view-postulante", initPostulante);
+        }
+    }else{
+         pLogin.innerHTML = "Usuario y/o contraseña incorrecta";
+    }
+    //modifique esto.
 
-    pLogin.innerHTML = respuesta;
-
-    //condiciones para navegar a las paginas de admin 
-    if (respuesta.tipo === "admin") {
-    irA("view-admin", initAdmin);
-}
-
-if (respuesta.tipo === "postulante") {
-    irA("view-postulante", initPostulante);
-}
 } 
 
 function irRegistro() {

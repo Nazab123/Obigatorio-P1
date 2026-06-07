@@ -6,7 +6,7 @@ function irA(idTemplate, funcionInicio) {
 
     contenedor.innerHTML = template.innerHTML;
 
-    if (funcionInicio !== undefined) {
+    if (funcionInicio !== undefined) {//puede tomarmelo como falso cuando es 0 o no exite.
         funcionInicio();
     }
 }
