@@ -10,20 +10,16 @@ function initLogin() {
     btnIrRegistro.addEventListener("click", irRegistro);
 }
 
-/* LOGIN NASHEE */
 /*
 Antes esto  estaba en main.
 */
 function login() {
-    console.log("entre al login");
 
     let usuario = document.querySelector("#txtUsuarioLogin").value.trim().toLowerCase();
     let password = document.querySelector("#txtPasswordLogin").value;
-
     let pLogin = document.querySelector("#pLogin");
 
     let respuesta = sistema.login(usuario, password);
-    console.log("respuesta", respuesta);
     if(respuesta ){
         if(sistema.getTipoUser() === "Admin"){
               irA("view-admin", initAdmin);

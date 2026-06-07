@@ -2,11 +2,13 @@ let ofertaLaboralAutoincrement = 1;
 
 class OfertaLaboral {
 
-    #id
+    #estado;
+    #id;
 
     constructor(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada){
 
         this.#id = "JOB_OFFER_" + ofertaLaboralAutoincrement++;
+        this.#estado = "Activa";
 
         this.titulo = titulo;
         this.empresa = empresa;
@@ -16,10 +18,25 @@ class OfertaLaboral {
         this.limitePostulaciones = limitePostulaciones;
         this.cantidadVacantes = cantidadVacantes;
         this.destacada = destacada;
-        this.estado = "Activa";
     }
+
     getId() { 
         return this.#id; 
     }
+
+        getEstado() { 
+        return this.#estado;
+    }
+/* 
+cuando creo la oferta esta activa, cuando se cubre el maximo de postulaciones o se cubren todas las vacantes pasa a ser inactiva, cuando el admin la cierra manualmente se pone cerrada */
+    cerrarOferta(){
+        this.#estado = "Cerrada"
+    }
+
+    inactivarOferta(){
+        this.#estado = "Inactiva"
+    }
+
+    //preguntar al profe si se vuelve de inactiva a acriva en algun momento o de cerrada a inavtiva o activa.
     
 }

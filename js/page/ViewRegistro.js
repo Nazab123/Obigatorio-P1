@@ -27,7 +27,6 @@ function registrarPostulante() {
         area
     );
 
-    console.log("respuesta del sistema:", respuesta);
     pResultado.innerHTML = respuesta;
 }
 
