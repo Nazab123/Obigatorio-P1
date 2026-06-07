@@ -20,7 +20,10 @@ class Sistema {
         this.admins = [];
         this.ofertas = [];
         this.postulaciones = [];
-        this.precargaDatos();// puse esto dentro para cargar los datos iniciales que tengamos , esta determinado por eso lo pongo en el constructor a chequear 
+
+        this.usuarioLogueado = null;
+
+        this.precargaDatos();// puse esto dentro para cargar los datos iniciales que tengamos , esta determinado por eso lo pongo en el constructor a chequear S
     }
 
   //PRECARGA DE DATOS PAPÁ
@@ -105,14 +108,13 @@ let contadorNumPas = 0;
     contadorNumPas
     }
 }
-
 /* REGISTRAR POSTULANTES */
 // lo mismo aca ,  todo lo que es responsabilidad de sistemas lo puse aca adentro .
 //osea en resumen pense en lo global pero no usando variables globales porqye sistemas ya es la clase que conecta todo con todo .
 registrarPostulante(usuario, password, nombre, experiencia, area){
 
 let respuesta ="";
-let resultadoContra = validarContra(password);
+let resultadoContra = this.validarContra(password);
 
     if (usuario === "") {
         respuesta += "el usuario no debe estar vacio<br>";
@@ -135,7 +137,7 @@ let resultadoContra = validarContra(password);
     } if (area === "") {
         respuesta += "seleccione una opcion de area<br>";
 
-    } if (indexOfAdmin(usuario) !== -1 || indexOfPostulante(usuario) !== -1) {
+    } if (this.indexOfAdmin(usuario) !== -1 || this.indexOfPostulante(usuario) !== -1) {
         respuesta += "el usuario ya existe<br>";
 
     } if (resultadoContra.contadorNumPas === 0) {
@@ -165,6 +167,50 @@ let resultadoContra = validarContra(password);
     }
     return respuesta;
 
+}
+
+
+//agregue esta funcion para que estaba en main aca . ya sabes que hace la hiciste vos . lo unico que cambie fueron los sistema. por this. ya que estamos dentro de la clase y esto es un metodo de la clase sistema .
+// esta funcion aca en sistema valida contra , guarda user y decide si es admin o postulante . difiere del login que hay en login.js que solo lee los datos del HTML los obtiene y llama a esta clase .(te dejo esto porque tenes que entender el flujo de lo que hago naza )
+ login(usuario, password) {
+    let posicionAdmin = this.indexOfAdmin(usuario);
+    let posicionPostulante = this.indexOfPostulante(usuario);
+     
+    if (posicionAdmin !== -1) {
+        let adminEncontrado = this.admins[posicionAdmin];
+
+        if (adminEncontrado.password === password) {
+            this.usuarioLogueado = adminEncontrado;
+            return {
+                mensaje: "Login correcto como administrador",
+                tipo: "admin"
+            };
+        }
+
+        return {mensaje:"Contraseña incorrecta",
+            tipo: ""
+        };
+    }
+
+    if (posicionPostulante !== -1) {
+        let postulanteEncontrado = this.postulantes[posicionPostulante];
+
+        if (postulanteEncontrado.password === password) {
+            this.usuarioLogueado = postulanteEncontrado;
+            return{
+                   mensaje: "Login correcto como postulante",
+                tipo: "postulante"
+            };
+        }
+
+        return {mensaje:"Contraseña incorrecta",
+            tipo: ""
+        };
+    }
+
+    return {mensaje:"Usuario inexistente",
+        tipo: ""
+    };
 }
 }
 
