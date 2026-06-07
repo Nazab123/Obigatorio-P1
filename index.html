@@ -10,8 +10,11 @@
 <body>
 
     <h1>Search work</h1>
+<div id="contenedorPrincipal"></div>
 
-    <section id="pantallaLogin">
+<!-- LOGIN  -->
+<template id="view-login">
+    <section>
         <h2>Iniciar sesión</h2>
 
         <label for="txtUsuarioLogin">Usuario</label>
@@ -27,8 +30,10 @@
 
         <p id="pLogin"></p>
     </section>
+</template>
 
-    <section id="pantallaRegistro">
+<template id="view-registro">
+    <section >
         <h2>Registro de Postulante</h2>
 
         <label for="txtUsuario">Usuario</label>
@@ -67,6 +72,7 @@
         <button id="btnVolverLogin">Volver al login</button>
         <p id="pResultado"></p>
     </section>
+</template>
 
     <section id="pantallaPostulante">
         <h2>Menú Postulante</h2>
@@ -228,12 +234,17 @@
         <button id="btnVolverMenuAdmin4">Volver</button>
     </section>
 
-<script src="js/clases/Admin.js"></script>
-<script src="js/clases/Postulante.js"></script>
-<script src="js/clases/OfertaLaboral.js"></script>
-<script src="js/clases/Postulacion.js"></script>
-<script src="js/clases/sistema.js"></script>
-<script src="utils/archive.js"></script>
+<script src="js/class/Admin.js"></script>
+<script src="js/class/Postulante.js"></script>
+<script src="js/class/OfertaLaboral.js"></script>
+<script src="js/class/Postulacion.js"></script>
+<script src="js/class/sistema.js"></script>
+
+<script src="js/utils/navegacion.js"></script>
+
+<script src="js/page/login.js"></script>
+<script src="js/page/registro.js"></script>
+
 <script src="js/main.js"></script>
 </body>
 
