@@ -231,6 +231,9 @@ Admins y postulaciones usan push porque todavía no tienen método propio.
         );
 
         this.ofertas.push(nuevaOferta);
+        
+    return "Oferta creada correctamente";
+
 
     }
 
