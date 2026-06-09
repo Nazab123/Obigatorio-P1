@@ -10,9 +10,7 @@ function initLogin() {
     btnIrRegistro.addEventListener("click", irRegistro);
 }
 
-/*
-Antes esto  estaba en main.
-*/
+/*Antes esto  estaba en main.*/
 function login() {
 
     let usuario = document.querySelector("#txtUsuarioLogin").value.trim().toLowerCase();

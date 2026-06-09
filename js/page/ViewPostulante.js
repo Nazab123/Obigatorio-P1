@@ -1,17 +1,17 @@
-
 function initPostulante(){
     let pBienvenidaPostulante = document.querySelector("#pBienvenidaPostulante");
     let btnVerOfertas = document.querySelector("#btnVerOfertas");
     let btnVerMisPostulaciones = document.querySelector("#btnVerMisPostulaciones");
     let btnVerOfertasDestacadas = document.querySelector("#btnVerOfertasDestacadas");
     let btnCerrarSesionPostulante = document.querySelector("#btnCerrarSesionPostulante"); 
-
-    pBienvenidaAdmin.innerHTML =
+    
+    pBienvenidaPostulante.innerHTML =
     "Bienvenido/a " + sistema.usuarioLogueado.nombre;
-
+    
+    btnVerOfertas.addEventListener("click", verOfertas);
+    btnVerMisPostulaciones.addEventListener("click", verMisPostulaciones);
+    btnVerOfertasDestacadas.addEventListener("click", verOfertasDestacadas);
     btnCerrarSesionPostulante.addEventListener("click", cerrarSesionPostulante);
-    
-    
 }
 
 function cerrarSesionPostulante() {
@@ -30,3 +30,4 @@ function verMisPostulaciones() {
 function verOfertasDestacadas() {
     irA("view-ofertas-destacadas", initOfertasDestacadas);
 }
+
