@@ -28,7 +28,7 @@ function crearOferta(){
 }
 
 function listadoOfertasAdmin (){
-     irA("view-listado-ofertas-admin", initListadoOfertasAdmin);
+     irA("view-table-ofertas-admin", initListadoOfertasAdmin);
 }
 
 function postulacionesPendientesAdmin (){

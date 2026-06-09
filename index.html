@@ -206,11 +206,26 @@
     </template>
 
 
-<template id="view-listado-ofertas-admin">
+<template id="view-table-ofertas-admin">
+
     <section id="pantallaListadoOfertasAdmin">
         <h2>Listado de ofertas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>titulo</th>
+                <th>empresa</th>
+                <th>nivel</th>
+                <th>area</th>
+                <th>destacada</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+            <tbody id="tbodyListadoOfertasAdmin"></tbody>
 
-        <div id="divListadoOfertasAdmin"></div>
+    </table>
 
         <p id="pListadoOfertasAdmin"></p>
 
