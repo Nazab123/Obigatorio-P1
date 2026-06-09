@@ -75,7 +75,7 @@
 </template>
 
 <template id="view-postulante">
-    <section>
+    <section id="pantallaPostulante">
         <h2>Menú Postulante</h2>
 
         <p id="pBienvenidaPostulante"></p>
@@ -88,7 +88,7 @@
 </template>
 
 <template id="view-ofertas-postulante">
-    <section>
+    <section id="pantallaOfertasPostulante">
         <h2>Ofertas laborales activas</h2>
 
         <label for="slcFiltroOfertas">Filtro</label>
@@ -108,7 +108,7 @@
 </template>
 
 <template id="view-mis-postulaciones">
-    <section>
+    <section id="pantallaMisPostulaciones">
         <h2>Mis postulaciones</h2>
 
         <div id="divMisPostulaciones"></div>
@@ -120,7 +120,7 @@
     </template>
 
 <template id="view-ofertas-destacadas">
-    <section>
+    <section id="pantallaOfertasDestacadas">
         <h2>Ofertas destacadas</h2>
 
         <div id="divOfertasDestacadas"></div>
@@ -133,7 +133,7 @@
 
     <template id="view-admin">
 
-    <section>
+    <section id="pantallaAdmin">
         <h2>Menú Administrador</h2>
 
         <p id="pBienvenidaAdmin"></p>
@@ -147,7 +147,7 @@
     </template>
 
 <template id="view-crear-oferta">    
-    <section>
+    <section id="pantallaCrearOferta">
         <h2>Crear oferta laboral</h2>
 
         <label for="txtTituloOferta">Título de la oferta</label>
@@ -206,11 +206,26 @@
     </template>
 
 
-<template id="view-listado-ofertas-admin">
-    <section>
-        <h2>Listado de ofertas</h2>
+<template id="view-table-ofertas-admin">
 
-        <div id="divListadoOfertasAdmin"></div>
+    <section id="pantallaListadoOfertasAdmin">
+        <h2>Listado de ofertas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>titulo</th>
+                <th>empresa</th>
+                <th>nivel</th>
+                <th>area</th>
+                <th>destacada</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+            <tbody id="tbodyListadoOfertasAdmin"></tbody>
+
+    </table>
 
         <p id="pListadoOfertasAdmin"></p>
 
@@ -220,7 +235,7 @@
     
 
 <template id="view-postulaciones-pendientes">
-    <section>
+    <section id="pantallaPostulacionesPendientes">
         <h2>Postulaciones pendientes</h2>
 
         <div id="divPostulacionesPendientes"></div>
@@ -232,7 +247,7 @@
 </template>
 
 <template id="view-estadisticas-admin">
-    <section>
+    <section id="pantallaEstadisticasAdmin">
         <h2>Estadísticas del sistema</h2>
 
         <label for="txtBuscarOfertaEstadistica">Buscar oferta por título</label>

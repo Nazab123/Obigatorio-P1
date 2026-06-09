@@ -18,4 +18,8 @@ function volverAdmin() {
 
 function mostrarPostulacionesPendientes() {
 
+    for(let i = 0; i < sistema.postulaciones.length; i++){
+
+    }
+
 }
