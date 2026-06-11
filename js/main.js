@@ -54,3 +54,5 @@ btnCerrarSesionAdmin.addEventListener("click", irLogin);
 
 //MOSTRAR PANTALLA DE LOGIN INICIAL .
 irA("view-login", initLogin);
+
+let sistema = new Sistema();

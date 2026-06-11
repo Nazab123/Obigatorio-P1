@@ -237,6 +237,71 @@ Admins y postulaciones usan push porque todavía no tienen método propio.
 
     }
 
+
+   //AGREGUE METODOS A SISTEMA PARA POSTULANTES 
+   //los llamo a todos en el view de OfertasPostulante , recorda que los metodos declarados aca son solo parametros , osea fijate que en lavista de ofertasPostulantes mi condicion llama a estos parametros usando los parametros de 
+    yaSePostulo(postulante, oferta) {
+    for (let i = 0; i < this.postulaciones.length; i++) {
+        let postulacionActual = this.postulaciones[i];
+
+        if (
+            postulacionActual.postulante === postulante &&
+            postulacionActual.ofertaLaboral === oferta
+        ) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
-let sistema = new Sistema();
+
+contarPostulacionesOferta(oferta) {
+    let contador = 0;
+
+    for (let i = 0; i < this.postulaciones.length; i++) {
+        if (this.postulaciones[i].ofertaLaboral === oferta) {
+            contador++;
+        }
+    }
+
+    return contador;
+}
+
+
+expCompatible(postulante, oferta) {
+    if (postulante.experiencia === "Senior") {
+        return true;
+    }
+
+    if (
+        postulante.experiencia === "Semi-Senior" &&
+        (oferta.nivel === "Semi-Senior" || oferta.nivel === "Junior")
+    ) {
+        return true;
+    }
+
+    if (
+        postulante.experiencia === "Junior" &&
+        oferta.nivel === "Junior"
+    ) {
+        return true;
+    }
+
+    return false;
+}
+
+
+//LA REAL POSTULASAO (Crack de los data.id deaau )
+postularse(postulante, oferta) {
+    if (oferta.getEstado() === "Activa" &&this.expCompatible(postulante, oferta) && !this.yaSePostulo(postulante, oferta) && this.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones) {
+        let nuevaPostulacion = new Postulacion(postulante, oferta);
+        this.postulaciones.push(nuevaPostulacion);
+
+        return "Postulación realizada correctamente";
+    }
+
+    return "No es posible postularse a esta oferta";
+}
+
+}
