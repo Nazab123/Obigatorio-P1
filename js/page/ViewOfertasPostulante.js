@@ -32,7 +32,7 @@ function mostrarOfertasPostulante(){
     let btnsPostularme = document.querySelectorAll(".btnPostularme");
     //aca voy a usar el ALL del profesor 
 for(let i =0; i < btnsPostularme.length;i ++){
-    btnsPostularme[i].addEventListener("click", funcion );
+    btnsPostularme[i].addEventListener("click", hacerPostulacion );
 }
 
 }
