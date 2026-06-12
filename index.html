@@ -114,15 +114,28 @@
 </template>
 
 <template id="view-mis-postulaciones">
-    <section id="pantallaMisPostulaciones">
+    <section>
         <h2>Mis postulaciones</h2>
-
-        <div id="divMisPostulaciones"></div>
-        
 
         <p id="pMisPostulaciones"></p>
 
         <button id="btnVolverMenuPostulante2">Volver</button>
+         <table>
+        <thead>
+            <tr>
+             <th>ID</th>
+             <th>titulo</th>
+             <th>empresa</th>
+             <th>nivel</th>
+             <th>area</th>
+             <th>destacada</th>
+             <th>Estado</th>
+            </tr>
+            
+        </thead>
+           <tbody id="tbodyListadoMisPos"></tbody>
+
+    </table>
 
     </section>
     </template>
