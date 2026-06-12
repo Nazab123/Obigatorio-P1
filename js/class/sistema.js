@@ -102,6 +102,7 @@ Admins y postulaciones usan push porque todavía no tienen método propio.
         this.postulaciones.push(new Postulacion(this.postulantes[0], this.ofertas[8]));
         this.postulaciones.push(new Postulacion(this.postulantes[4], this.ofertas[8]));
         this.postulaciones.push(new Postulacion(this.postulantes[8], this.ofertas[8]));
+        // hacer directamente en la funcion donde me postulo  asi no las pusheo .
 
 
         // ESTADOS VARIADOS DE POSTULACIONES
@@ -254,7 +255,7 @@ Admins y postulaciones usan push porque todavía no tienen método propio.
 
     return false;
 }
-
+// probar foreach.
 
 contarPostulacionesOferta(oferta) {
     let contador = 0;
@@ -289,10 +290,10 @@ expCompatible(postulante, oferta) {
     }
 
     return false;
-}
+}// en esta parte el unico que podria ver ambas postulaciones tanto jr ocmo señor seria el semi señor , el señor solo puede las señor y semi señor y el jr solo las jr y las de semi señor .
 
 
-//LA REAL POSTULASAO (Crack de los data.id deaau )
+//LA REAL POSTULASAO (Crack de los data.id deaau)
 postularse(postulante, oferta) {
     if (oferta.getEstado() === "Activa" &&this.expCompatible(postulante, oferta) && !this.yaSePostulo(postulante, oferta) && this.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones) {
         let nuevaPostulacion = new Postulacion(postulante, oferta);
@@ -303,5 +304,14 @@ postularse(postulante, oferta) {
 
     return "No es posible postularse a esta oferta";
 }
+
+//AGREGAR METODOS PARA MIS POSTULACIONES 
+// Primer metodo que necesito , voy a neceistas 3 metodos .
+
+obtenerMispostulaciones(postulante){
+ 
+}
+
+
 
 }

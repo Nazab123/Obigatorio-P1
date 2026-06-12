@@ -81,19 +81,32 @@
 </template>
 
 <template id="view-ofertas-postulante">
-    <section id="pantallaOfertasPostulante">
+   
         <h2>Ofertas laborales activas</h2>
-
         <label for="slcFiltroOfertas">Filtro</label>
         <select id="slcFiltroOfertas">
             <option value="area">Ver solo mi área</option>
             <option value="todas">Ver todas</option>
         </select>
 
+        
         <button id="btnAplicarFiltroOfertas">Aplicar filtro</button>
+         <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>titulo</th>
+                <th>empresa</th>
+                <th>nivel</th>
+                <th>area</th>
+                <th>destacada</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+           <tbody id="tbodyListadoOfertasPostulante"></tbody>
 
-        <div id="divListadoOfertas"></div>
-
+    </table>
         <p id="pOfertasPostulante"></p>
 
         <button id="btnVolverMenuPostulante1">Volver</button>
@@ -105,10 +118,12 @@
         <h2>Mis postulaciones</h2>
 
         <div id="divMisPostulaciones"></div>
+        
 
         <p id="pMisPostulaciones"></p>
 
         <button id="btnVolverMenuPostulante2">Volver</button>
+
     </section>
     </template>
 
@@ -121,6 +136,7 @@
         <p id="pOfertasDestacadas"></p>
 
         <button id="btnVolverMenuPostulante3">Volver</button>
+        
     </section>
 </template>
 

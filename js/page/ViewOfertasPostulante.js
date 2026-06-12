@@ -5,7 +5,7 @@ function initOfertasPostulante(){
 }
 
 function mostrarOfertasPostulante(){
-    let listadoOfertas = document.querySelector("#divListadoOfertas");
+    let listadoOfertas = document.querySelector("#tbodyListadoOfertasPostulante");
     
     listadoOfertas.innerHTML ="";
 
@@ -13,20 +13,23 @@ function mostrarOfertasPostulante(){
         let ofertaActual = sistema.ofertas[i];
 
         //CAMBIE LA CONDICION DE ESTE IF PORQUE AGREGUE METODOS EN SISTEMAS PARA QUE MUESTRE SOLO LAS POSTULACIONES A LAS CUALES SU expCompatible  sea ( ese es el nombre de mi metodo ).Entre otras .
-        if(
-    ofertaActual.getEstado() === "Activa" &&
-    sistema.expCompatible(sistema.usuarioLogueado, ofertaActual) && !sistema.yaSePostulo(sistema.usuarioLogueado, ofertaActual) && sistema.contarPostulacionesOferta(ofertaActual) < ofertaActual.limitePostulaciones){
-            listadoOfertas.innerHTML += `
-                <div>
-                    <h3>${ofertaActual.titulo}</h3>
-                    <p><strong>Empresa:</strong> ${ofertaActual.empresa}</p>
-                    <p><strong>Área:</strong> ${ofertaActual.area}</p>
-                    <p><strong>Nivel:</strong> ${ofertaActual.nivel}</p>
-                    <p><strong>Descripción:</strong> ${ofertaActual.descripcion}</p>
-                    <p><strong>Vacantes:</strong> ${ofertaActual.cantidadVacantes}</p>
-                    <button class="btnPostularme" data-id="${ofertaActual.getId()}">Postularme</button>
-                    <hr>
-                </div>`;
+        if(ofertaActual.getEstado() === "Activa" &&sistema.expCompatible(sistema.usuarioLogueado, ofertaActual) && !sistema.yaSePostulo(sistema.usuarioLogueado, ofertaActual) && sistema.contarPostulacionesOferta(ofertaActual) < ofertaActual.limitePostulaciones){
+
+                listadoOfertas.innerHTML += `
+                <tr>
+        <td>${ofertaActual.getId()}</td>
+        <td>${ofertaActual.titulo}</td>
+        <td>${ofertaActual.empresa}</td>
+        <td>${ofertaActual.nivel}</td>
+        <td>${ofertaActual.area}</td>
+        <td>${ofertaActual.destacada}</td>
+        <td>${ofertaActual.getEstado()}</td>
+        <td>
+            <button class="btnPostularme" data-id="${ofertaActual.getId()}">
+                Postularme
+            </button>
+        </td>
+    </tr>`;
         }
     }
     let btnsPostularme = document.querySelectorAll(".btnPostularme");
@@ -50,7 +53,6 @@ function hacerPostulacion(){
 
 
 }
-
 
 function volverMenuPostulante() {
     irA("view-postulante", initPostulante);
