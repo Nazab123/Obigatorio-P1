@@ -25,7 +25,7 @@ h1 {
     background: linear-gradient(90deg, #3b0b89, #8b5cf6);
     color: white;
     padding: 28px;
-    margin: 0 0 35px 0;
+    margin: 0;
     font-size: 32px;
 }
 
@@ -175,4 +175,70 @@ p {
     td button {
         width: auto;
     }
+}
+
+.menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.menu-nav a {
+    background: #7c3aed;
+    color: white;
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.menu-nav a:hover {
+    background: #6d28d9;
+}
+
+#btnCerrarSesionAdmin,
+#btnCerrarSesionPostulante {
+    background: #6b7280;
+}
+
+#btnCerrarSesionAdmin:hover,
+#btnCerrarSesionPostulante:hover {
+    background: #4b5563;
+}
+
+.navbar {
+    background: #3b0b89;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 15px 20px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.navbar {
+    margin: 0;
+}
+
+#btnCerrarSesionAdmin,
+#btnCerrarSesionPostulante {
+    background: #dc2626;
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+
+#btnCerrarSesionAdmin:hover,
+#btnCerrarSesionPostulante:hover {
+    background: #b91c1c;
+    text-decoration: none;
 }

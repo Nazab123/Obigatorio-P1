@@ -24,4 +24,19 @@ function findCasero(lista, atributo, valor) {
 //hay que llamarla y buscar con esto
 
 //me sirve SOLO para atrivutos PUBLICOSSSSS
-    
+
+/* este es mi find casero para los id
+ */
+function findCaseroID(lista, valor) {
+
+    for (let i = 0; i < lista.length; i++) {
+
+        let elementoActual = lista[i];
+
+        if (elementoActual.getId === valor) {
+            return i;
+        }
+    }
+
+    return -1;
+}
