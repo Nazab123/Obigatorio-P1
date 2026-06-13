@@ -102,6 +102,7 @@ Admins y postulaciones usan push porque todavía no tienen método propio.
         this.postulaciones.push(new Postulacion(this.postulantes[0], this.ofertas[8]));
         this.postulaciones.push(new Postulacion(this.postulantes[4], this.ofertas[8]));
         this.postulaciones.push(new Postulacion(this.postulantes[8], this.ofertas[8]));
+        // hacer directamente en la funcion donde me postulo  asi no las pusheo .
 
 
         // ESTADOS VARIADOS DE POSTULACIONES
@@ -237,6 +238,80 @@ Admins y postulaciones usan push porque todavía no tienen método propio.
 
     }
 
+
+   //AGREGUE METODOS A SISTEMA PARA POSTULANTES 
+   //los llamo a todos en el view de OfertasPostulante , recorda que los metodos declarados aca son solo parametros , osea fijate que en lavista de ofertasPostulantes mi condicion llama a estos parametros usando los parametros de 
+    yaSePostulo(postulante, oferta) {
+    for (let i = 0; i < this.postulaciones.length; i++) {
+        let postulacionActual = this.postulaciones[i];
+
+        if (
+            postulacionActual.postulante === postulante &&
+            postulacionActual.ofertaLaboral === oferta
+        ) {
+            return true;
+        }
+    }
+
+    return false;
+}
+// probar foreach.
+
+contarPostulacionesOferta(oferta) {
+    let contador = 0;
+
+    for (let i = 0; i < this.postulaciones.length; i++) {
+        if (this.postulaciones[i].ofertaLaboral === oferta) {
+            contador++;
+        }
+    }
+
+    return contador;
 }
 
-let sistema = new Sistema();
+
+expCompatible(postulante, oferta) {
+    if (postulante.experiencia === "Senior") {
+        return true;
+    }
+
+    if (
+        postulante.experiencia === "Semi-Senior" &&
+        (oferta.nivel === "Semi-Senior" || oferta.nivel === "Junior")
+    ) {
+        return true;
+    }
+
+    if (
+        postulante.experiencia === "Junior" &&
+        oferta.nivel === "Junior"
+    ) {
+        return true;
+    }
+
+    return false;
+}// en esta parte el unico que podria ver ambas postulaciones tanto jr ocmo señor seria el semi señor , el señor solo puede las señor y semi señor y el jr solo las jr y las de semi señor .
+
+
+//LA REAL POSTULASAO (Crack de los data.id deaau)
+postularse(postulante, oferta) {
+    if (oferta.getEstado() === "Activa" &&this.expCompatible(postulante, oferta) && !this.yaSePostulo(postulante, oferta) && this.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones) {
+        let nuevaPostulacion = new Postulacion(postulante, oferta);
+        this.postulaciones.push(nuevaPostulacion);
+
+        return "Postulación realizada correctamente";
+    }
+
+    return "No es posible postularse a esta oferta";
+}
+
+//AGREGAR METODOS PARA MIS POSTULACIONES 
+// Primer metodo que necesito , voy a neceistas 3 metodos .
+
+obtenerMispostulaciones(postulante){
+ 
+}
+
+
+
+}
