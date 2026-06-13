@@ -33,7 +33,7 @@ function findCaseroID(lista, valor) {
 
         let elementoActual = lista[i];
 
-        if (elementoActual.getId === valor) {
+        if (elementoActual.getId() === valor) {
             return i;
         }
     }

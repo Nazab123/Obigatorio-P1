@@ -37,6 +37,22 @@ cuando creo la oferta esta activa, cuando se cubre el maximo de postulaciones o 
         this.#estado = "Inactiva"
     }
 
-    //preguntar al profe si se vuelve de inactiva a acriva en algun momento o de cerrada a inavtiva o activa.
+/*
+este metodo lo uso cuando el admin edita una oferta desde el listado de ofertas.
+recibe los datos nuevos y actualiza los atributos del objeto sin crear una oferta nueva.
+*/
+    editarOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada) {
+    this.titulo = titulo;
+    this.empresa = empresa;
+    this.descripcion = descripcion;
+    this.nivel = nivel;
+    this.area = area;
+    this.limitePostulaciones = limitePostulaciones;
+    this.cantidadVacantes = cantidadVacantes;
+    this.destacada = destacada;
+}
     
 }
+    //preguntar al profe si se vuelve de inactiva a acriva en algun momento o de cerrada a inavtiva o activa.
+
+    //preguntar al profe si se edita una oferta cerrada
