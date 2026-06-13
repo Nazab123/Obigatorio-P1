@@ -15,7 +15,6 @@ class Postulacion {
     getId() { 
         return this.#id; 
     }
-
 }
 
 /*  

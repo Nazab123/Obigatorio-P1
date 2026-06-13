@@ -259,11 +259,26 @@
 
 <template id="view-postulaciones-pendientes">
     <section id="pantallaPostulacionesPendientes">
-        <h2>Postulaciones pendientes</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Postulante</th>
+                <th>Experiencia</th>
+                <th>Área de interes</th>
+                <th>Oferta</th>
+                <th>Empresa</th>
+                <th>Nivel requerido</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
 
-        <div id="divPostulacionesPendientes"></div>
+        <tbody id="tbodyPostulacionesPendientes">
 
-        <p id="pPostulacionesPendientes"></p>
+        </tbody>
+    </table>
+
+    <p id="pPostulacionesPendientes"></p>
 
         <button id="btnVolverMenuAdmin3">Volver</button>
     </section>
@@ -277,8 +292,23 @@
         <input type="text" id="txtBuscarOfertaEstadistica">
         <button id="btnBuscarOfertaEstadistica">Buscar</button>
 
-        <h3>Postulaciones por oferta</h3>
-        <div id="divTablaPostulacionesPorOferta"></div>
+<h3>Postulaciones por oferta</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Título de la oferta</th>
+            <th>Pendientes</th>
+            <th>Aceptadas</th>
+            <th>Rechazadas</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+
+    <tbody id="tbodyPostulacionesPorOferta">
+
+    </tbody>
+</table>
 
         <h3>Total de ofertas por estado</h3>
         <p id="pTotalOfertasPorEstado"></p>
