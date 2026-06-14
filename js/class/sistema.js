@@ -21,18 +21,18 @@ class Sistema {
     //PRECARGA DE DATOS PAPÁ
     precargaDatos() {
 
-/* 
-Las precargas se hacen desde métodos del sistema cuando existe validación.
-Postulantes pasan por registrarPostulante().
-Ofertas pasan por crearOferta().
-Admins y postulaciones usan push porque todavía no tienen método propio.
-
-(falta cambiarlo)
-*/
+        /* 
+        Las precargas se hacen desde métodos del sistema cuando existe validación.
+        Postulantes pasan por registrarPostulante().
+        Ofertas pasan por crearOferta().
+        Admins y postulaciones usan push porque todavía no tienen método propio.
+        
+        //CREE LOS METODOS PARA RESITRAS ADMIN Y REGISTRAR POSTULACIONES , CORTA .
+        */
         // ADMINISTRADORES
-        this.admins.push(new Admin("adminrodri", "Rodri123", "Rodri"));
-        this.admins.push(new Admin("admingerard", "Gerard123", "El Gerry"));
-        this.admins.push(new Admin("adminnaza", "Naza123", "Naza"));
+        this.registrarAdmin("adminrodri", "Rodri123", "Rodri");
+        this.registrarAdmin("admingerard", "Gerard123", "El Gerry");
+        this.registrarAdmin("adminnaza", "Naza123", "Naza");
 
 
         // POSTULANTES
@@ -73,68 +73,43 @@ Admins y postulaciones usan push porque todavía no tienen método propio.
         this.ofertas[5].inactivarOferta();
         this.ofertas[9].cerrarOferta();
 
-
         // POSTULACIONES
-        this.postulaciones.push(new Postulacion(this.postulantes[0], this.ofertas[0]));
-        this.postulaciones.push(new Postulacion(this.postulantes[4], this.ofertas[0]));
-        this.postulaciones.push(new Postulacion(this.postulantes[14], this.ofertas[0]));
+        this.registrarPostulacion(this.postulantes[0], this.ofertas[0], "aceptada");
+        this.registrarPostulacion(this.postulantes[4], this.ofertas[0], "pendiente");
+        this.registrarPostulacion(this.postulantes[14], this.ofertas[0], "rechazada");
 
-        this.postulaciones.push(new Postulacion(this.postulantes[1], this.ofertas[1]));
-        this.postulaciones.push(new Postulacion(this.postulantes[12], this.ofertas[1]));
+        this.registrarPostulacion(this.postulantes[1], this.ofertas[1], "pendiente");
+        this.registrarPostulacion(this.postulantes[12], this.ofertas[1], "aceptada");
 
-        this.postulaciones.push(new Postulacion(this.postulantes[6], this.ofertas[2]));
-        this.postulaciones.push(new Postulacion(this.postulantes[10], this.ofertas[2]));
+        this.registrarPostulacion(this.postulantes[6], this.ofertas[2], "rechazada");
+        this.registrarPostulacion(this.postulantes[10], this.ofertas[2], "pendiente");
 
-        this.postulaciones.push(new Postulacion(this.postulantes[3], this.ofertas[3]));
-        this.postulaciones.push(new Postulacion(this.postulantes[7], this.ofertas[3]));
-        this.postulaciones.push(new Postulacion(this.postulantes[11], this.ofertas[3]));
+        this.registrarPostulacion(this.postulantes[3], this.ofertas[3], "aceptada");
+        this.registrarPostulacion(this.postulantes[7], this.ofertas[3], "pendiente");
+        this.registrarPostulacion(this.postulantes[11], this.ofertas[3], "rechazada");
 
-        this.postulaciones.push(new Postulacion(this.postulantes[8], this.ofertas[4]));
-        this.postulaciones.push(new Postulacion(this.postulantes[14], this.ofertas[4]));
+        this.registrarPostulacion(this.postulantes[8], this.ofertas[4], "aceptada");
+        this.registrarPostulacion(this.postulantes[14], this.ofertas[4], "pendiente");
 
-        this.postulaciones.push(new Postulacion(this.postulantes[5], this.ofertas[5]));
-        this.postulaciones.push(new Postulacion(this.postulantes[1], this.ofertas[6]));
-        this.postulaciones.push(new Postulacion(this.postulantes[2], this.ofertas[6]));
+        this.registrarPostulacion(this.postulantes[5], this.ofertas[5], "aceptada");
+        this.registrarPostulacion(this.postulantes[1], this.ofertas[6], "pendiente");
+        this.registrarPostulacion(this.postulantes[2], this.ofertas[6], "rechazada");
 
-        this.postulaciones.push(new Postulacion(this.postulantes[7], this.ofertas[7]));
-        this.postulaciones.push(new Postulacion(this.postulantes[11], this.ofertas[7]));
+        this.registrarPostulacion(this.postulantes[7], this.ofertas[7], "pendiente");
+        this.registrarPostulacion(this.postulantes[11], this.ofertas[7], "aceptada");
 
-        this.postulaciones.push(new Postulacion(this.postulantes[0], this.ofertas[8]));
-        this.postulaciones.push(new Postulacion(this.postulantes[4], this.ofertas[8]));
-        this.postulaciones.push(new Postulacion(this.postulantes[8], this.ofertas[8]));
-        // hacer directamente en la funcion donde me postulo  asi no las pusheo .
+        this.registrarPostulacion(this.postulantes[0], this.ofertas[8], "pendiente");
+        this.registrarPostulacion(this.postulantes[4], this.ofertas[8], "rechazada");
+        this.registrarPostulacion(this.postulantes[8], this.ofertas[8], "aceptada");
 
-
-        // ESTADOS VARIADOS DE POSTULACIONES
-        this.postulaciones[0].estado = "aceptada";
-        this.postulaciones[1].estado = "pendiente";
-        this.postulaciones[2].estado = "rechazada";
-
-        this.postulaciones[3].estado = "pendiente";
-        this.postulaciones[4].estado = "aceptada";
-
-        this.postulaciones[5].estado = "rechazada";
-        this.postulaciones[6].estado = "pendiente";
-
-        this.postulaciones[7].estado = "aceptada";
-        this.postulaciones[8].estado = "pendiente";
-        this.postulaciones[9].estado = "rechazada";
-
-        this.postulaciones[10].estado = "aceptada";
-        this.postulaciones[11].estado = "pendiente";
-
-        this.postulaciones[12].estado = "aceptada";
-        this.postulaciones[13].estado = "pendiente";
-        this.postulaciones[14].estado = "rechazada";
-
-        this.postulaciones[15].estado = "pendiente";
-        this.postulaciones[16].estado = "aceptada";
-
-        this.postulaciones[17].estado = "pendiente";
-        this.postulaciones[18].estado = "rechazada";
-        this.postulaciones[19].estado = "aceptada";
     }
 
+
+    //METODOS PARA LAS PR-RECARGAS 
+    registrarAdmin(usuario, contrasenia, nombre) {
+        let nuevoAdmin = new Admin(usuario, contrasenia, nombre);
+        this.admins.push(nuevoAdmin);
+    }
 
 
     registrarPostulante(usuario, password, nombre, experiencia, area) {
@@ -165,6 +140,32 @@ Admins y postulaciones usan push porque todavía no tienen método propio.
         return respuesta;
     }
 
+    registrarPostulacion(postulante, oferta, estado) {
+        let nuevaPostulacion = new Postulacion(postulante, oferta);
+        nuevaPostulacion.estado = estado;
+        this.postulaciones.push(nuevaPostulacion);
+    }
+
+     crearOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada) {
+
+        let nuevaOferta = new OfertaLaboral(
+            titulo,
+            empresa,
+            descripcion,
+            nivel,
+            area,
+            limitePostulaciones,
+            cantidadVacantes,
+            destacada
+        );
+
+        this.ofertas.push(nuevaOferta);
+
+        return "Oferta creada correctamente";
+
+
+    }
+//----------------------------------------------------------------------------------
 
     login(usuario, password) {
 
@@ -218,100 +219,90 @@ Admins y postulaciones usan push porque todavía no tienen método propio.
         return null;
     }
 
-    crearOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada) {
+   
+    //AGREGUE METODOS A SISTEMA PARA POSTULANTES 
+    //los llamo a todos en el view de OfertasPostulante , recorda que los metodos declarados aca son solo parametros , osea fijate que en lavista de ofertasPostulantes mi condicion llama a estos parametros usando los parametros de 
+    yaSePostulo(postulante, oferta) {
+        for (let i = 0; i < this.postulaciones.length; i++) {
+            let postulacionActual = this.postulaciones[i];
 
-        let nuevaOferta = new OfertaLaboral(
-            titulo,
-            empresa,
-            descripcion,
-            nivel,
-            area,
-            limitePostulaciones,
-            cantidadVacantes,
-            destacada
-        );
+            if (
+                postulacionActual.postulante === postulante &&
+                postulacionActual.ofertaLaboral === oferta
+            ) {
+                return true;
+            }
+        }
 
-        this.ofertas.push(nuevaOferta);
-        
-    return "Oferta creada correctamente";
+        return false;
+    }
+    // probar foreach.
 
+    contarPostulacionesOferta(oferta) {
+        let contador = 0;
 
+        for (let i = 0; i < this.postulaciones.length; i++) {
+            if (this.postulaciones[i].ofertaLaboral === oferta) {
+                contador++;
+            }
+        }
+
+        return contador;
     }
 
 
-   //AGREGUE METODOS A SISTEMA PARA POSTULANTES 
-   //los llamo a todos en el view de OfertasPostulante , recorda que los metodos declarados aca son solo parametros , osea fijate que en lavista de ofertasPostulantes mi condicion llama a estos parametros usando los parametros de 
-    yaSePostulo(postulante, oferta) {
-    for (let i = 0; i < this.postulaciones.length; i++) {
-        let postulacionActual = this.postulaciones[i];
+    expCompatible(postulante, oferta) {
+        if (postulante.experiencia === "Senior" && (oferta.nivel === "Senior" || oferta.nivel === "Semi-Senior")) {
+            return true;
+        }
 
         if (
-            postulacionActual.postulante === postulante &&
-            postulacionActual.ofertaLaboral === oferta
+            postulante.experiencia === "Semi-Senior" &&
+            (oferta.nivel === "Senior" || oferta.nivel === "Semi-Senior" || oferta.nivel === "Junior")
         ) {
             return true;
         }
-    }
 
-    return false;
-}
-// probar foreach.
-
-contarPostulacionesOferta(oferta) {
-    let contador = 0;
-
-    for (let i = 0; i < this.postulaciones.length; i++) {
-        if (this.postulaciones[i].ofertaLaboral === oferta) {
-            contador++;
+        if (
+            postulante.experiencia === "Junior" &&
+            oferta.nivel === "Junior"
+        ) {
+            return true;
         }
+
+        return false;
+    }// en esta parte el unico que podria ver ambas postulaciones tanto jr ocmo señor seria el semi señor , el señor solo puede las señor y semi señor y el jr solo las jr y las de semi señor .
+    //PREGUNTARLE AL PROFESOR SI ESTO ESTA BIEN AL  FINAL O NO 
+
+    //LA REAL POSTULASAO (Crack de los data.id deaau)
+    postularse(postulante, oferta) {
+        if (oferta.getEstado() === "Activa" && this.expCompatible(postulante, oferta) && !this.yaSePostulo(postulante, oferta) && this.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones) {
+            let nuevaPostulacion = new Postulacion(postulante, oferta);
+            this.registrarPostulacion(postulante,oferta,"pendiente");
+
+            return "Postulación realizada correctamente";
+        }
+
+        return "No es posible postularse a esta oferta";
     }
 
-    return contador;
-}
+    //AGREGAR METODOS PARA MIS POSTULACIONES 
+    // Primer metodo que necesito , voy a neceistas 3 metodos .
 
+    obtenerMisPostulaciones(postulante){
+        let resultado = [];
 
-expCompatible(postulante, oferta) {
-    if (postulante.experiencia === "Senior") {
-        return true;
+        for ( let i = 0; i < this.postulaciones.length; i++){
+            if(postulacionActual.posicionPostulante === postulante){
+                resultado.push(postulacionActual);
+            }
+
+        }
+        return resultado;
+
     }
-
-    if (
-        postulante.experiencia === "Semi-Senior" &&
-        (oferta.nivel === "Semi-Senior" || oferta.nivel === "Junior")
-    ) {
-        return true;
-    }
-
-    if (
-        postulante.experiencia === "Junior" &&
-        oferta.nivel === "Junior"
-    ) {
-        return true;
-    }
-
-    return false;
-}// en esta parte el unico que podria ver ambas postulaciones tanto jr ocmo señor seria el semi señor , el señor solo puede las señor y semi señor y el jr solo las jr y las de semi señor .
-
-
-//LA REAL POSTULASAO (Crack de los data.id deaau)
-postularse(postulante, oferta) {
-    if (oferta.getEstado() === "Activa" &&this.expCompatible(postulante, oferta) && !this.yaSePostulo(postulante, oferta) && this.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones) {
-        let nuevaPostulacion = new Postulacion(postulante, oferta);
-        this.postulaciones.push(nuevaPostulacion);
-
-        return "Postulación realizada correctamente";
-    }
-
-    return "No es posible postularse a esta oferta";
-}
-
-//AGREGAR METODOS PARA MIS POSTULACIONES 
-// Primer metodo que necesito , voy a neceistas 3 metodos .
-
-obtenerMispostulaciones(postulante){
- 
-}
-
+// aca recorro todas las postulacuines y las guardo en un array porque el postulante puede que se haya postulado a varias .
+// este metodo lo uso en la visual de mis postulaciones ( me siento re crack porque filtro y muestro pantalla en el mismo metodo en la otra parte , genial mal )
 
 
 }

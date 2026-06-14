@@ -3,36 +3,36 @@
 function initMisPostulaciones() {
     let btnVolverMenuPostulante2 = document.querySelector("#btnVolverMenuPostulante2");
 
-    mostrarMispostulaciones();
+    mostrarMisPostulaciones();
 
     btnVolverMenuPostulante2.addEventListener("click", volverMenuPostulante);
 }
 
-function mostrarMispostulaciones() {
+function mostrarMisPostulaciones() {
     let tabla = document.querySelector("#tbodyListadoMisPos");
 
     tabla.innerHTML = "";
+    //llamo al metodo desde aca y loguardo en una variable ( para recorrer unicamente las postu de los logueados y no todas las postu)
+    let misPostulaciones = sistema.obtenerMisPostulaciones(sistema.usuarioLogueado);
 
-    for(let i = 0; i < sistema.postulaciones.length; i++){
-        let postulacionActual = sistema.postulaciones[i];
+    for(let i = 0; i < obtenerMisPostulaciones.length; i++){
+        let postulacionActual = misPostulaciones[i];
 
-        if(postulacionActual.postulante === sistema.usuarioLogueado){
-
-            tabla.innerHTML += `
+        tabla.innerHTML += `
                 <tr>
                     <td>${postulacionActual.getId()}</td>
                     <td>${postulacionActual.ofertaLaboral.titulo}</td>
                     <td>${postulacionActual.ofertaLaboral.empresa}</td>
                     <td>${postulacionActual.ofertaLaboral.nivel}</td>
                     <td>${postulacionActual.ofertaLaboral.area}</td>
-                    <td>${postulacionActual.ofertaLaboral.destacada}</td>
+                    <td>${postulacionActual.ofertaLaboral.destacada ? "⭐" : "-"}</td>
                     <td>${postulacionActual.estado}</td>
                 </tr>
             `;
         }
     }
-}
 
+//todo esto es solo la vista , la funcionabilidad e informacion viene del metodo que esta en sistemas ( asi pidio el profe las cosas , es bastane complejo pensarlo a vecs pero ta .)
 function volverMenuPostulante(){
     irA("view-postulante", initPostulante);
 }
