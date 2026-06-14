@@ -42,9 +42,9 @@ function mostrarPostulacionesPendientes() {
             `;
         }
     }
-
+//BUSCAMOS TODOS LOS BOTONES QUE CREAMOS DE FORMA DINAMICA 
     let botonesAceptar = document.querySelectorAll(".btnAceptarPostulacion");
-
+//LOS RECORREMOS Y CUANDO CONCIDEN CON LOS QUE HICIMOS CLICK LO RECONOCEMOS .( O NO SE COM LLAMARLO PERO COMO QUE NOS DAMOS CUENTA QUE ES EL , CAPAZ SE EEJCUTA O ESCUCHA )
     for (let i = 0; i < botonesAceptar.length; i++) {
         botonesAceptar[i].addEventListener("click", aceptarPostulacion);
     }
@@ -56,13 +56,13 @@ function mostrarPostulacionesPendientes() {
     }
     // todo esto dentro del metodo ya que genere la tabla y sin los botones dentro no funcionarian bien ( creo yo no lo probe y no lo pienso probar ya que me anda asi ajaj)
 }
-// ta esto es simple , con el id de data id actualizo la tabla 
+// ta esto es simple , con el id de data id actualizo la tabla, tipo cambiamos el estado 
 function aceptarPostulacion() {
     let idPostulacion = this.getAttribute("data-id");
     sistema.aceptarPostulacion(idPostulacion);
     mostrarPostulacionesPendientes();
 }
-
+//lo mismo pero para que el estado sea rechazado 
 function rechazarPostulacion() {
     let idPostulacion = this.getAttribute("data-id");
     sistema.rechazarPostulacion(idPostulacion);
