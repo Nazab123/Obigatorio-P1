@@ -277,7 +277,7 @@ class Sistema {
     //LA REAL POSTULASAO (Crack de los data.id deaau)
     postularse(postulante, oferta) {
         if (oferta.getEstado() === "Activa" && this.expCompatible(postulante, oferta) && !this.yaSePostulo(postulante, oferta) && this.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones) {
-            let nuevaPostulacion = new Postulacion(postulante, oferta);
+
             this.registrarPostulacion(postulante,oferta,"pendiente");
 
             return "Postulación realizada correctamente";
@@ -293,7 +293,8 @@ class Sistema {
         let resultado = [];
 
         for ( let i = 0; i < this.postulaciones.length; i++){
-            if(postulacionActual.posicionPostulante === postulante){
+            let postulacionActual = this.postulaciones[i];
+            if(postulacionActual.postulante === postulante){
                 resultado.push(postulacionActual);
             }
 
@@ -303,6 +304,24 @@ class Sistema {
     }
 // aca recorro todas las postulacuines y las guardo en un array porque el postulante puede que se haya postulado a varias .
 // este metodo lo uso en la visual de mis postulaciones ( me siento re crack porque filtro y muestro pantalla en el mismo metodo en la otra parte , genial mal )
+    
+//Conecta con la pantalla de ofertas destacadas , es el metodo que da la informacion a la pantalla para que la muestre.
 
+obtenerOfertasDestacadas() {
+    let resultado = [];
 
+    for (let i = 0; i < this.ofertas.length; i++) {
+
+        let ofertaActual = this.ofertas[i];
+
+        if (
+            ofertaActual.destacada === true &&
+            ofertaActual.getEstado() === "Activa"
+        ) {
+            resultado.push(ofertaActual);
+        }
+    }
+
+    return resultado;
+}
 }

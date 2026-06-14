@@ -15,7 +15,7 @@ function mostrarMisPostulaciones() {
     //llamo al metodo desde aca y loguardo en una variable ( para recorrer unicamente las postu de los logueados y no todas las postu)
     let misPostulaciones = sistema.obtenerMisPostulaciones(sistema.usuarioLogueado);
 
-    for(let i = 0; i < obtenerMisPostulaciones.length; i++){
+    for(let i = 0; i < misPostulaciones.length; i++){
         let postulacionActual = misPostulaciones[i];
 
         tabla.innerHTML += `
