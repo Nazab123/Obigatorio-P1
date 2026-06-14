@@ -322,6 +322,36 @@ obtenerOfertasDestacadas() {
         }
     }
 
-    return resultado;
+      return resultado;
 }
+
+//FUNCIONALIDADES PARA LOS BOTONES DE ACEPTAR O RECHAZAR POSTULACIONES DEL ADIM 
+aceptarPostulacion(idPostulacion) {
+    for (let i = 0; i < this.postulaciones.length; i++) {
+        let postulacionActual = this.postulaciones[i];
+
+        if (postulacionActual.getId() === idPostulacion) {
+            postulacionActual.estado = "aceptada";
+            return true;
+        }
+    }
+
+    return false;
+}
+
+rechazarPostulacion(idPostulacion) {
+    for (let i = 0; i < this.postulaciones.length; i++) {
+
+        let postulacionActual = this.postulaciones[i];
+
+        if (postulacionActual.getId() === idPostulacion) {
+            postulacionActual.estado = "rechazada";
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
 }
