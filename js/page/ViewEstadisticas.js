@@ -14,7 +14,7 @@ function initEstadistica() {
 
     btnVolverMenuAdmin4.addEventListener("click", volverAdmin);
 
- mostrarOfertaEstadistica()
+    mostrarOfertaEstadistica()
 }
 
 function volverAdmin() {

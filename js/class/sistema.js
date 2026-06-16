@@ -327,16 +327,54 @@ obtenerOfertasDestacadas() {
 
 //FUNCIONALIDADES PARA LOS BOTONES DE ACEPTAR O RECHAZAR POSTULACIONES DEL ADIM 
 aceptarPostulacion(idPostulacion) {
+    let postulacionAceptada = null;
+
     for (let i = 0; i < this.postulaciones.length; i++) {
         let postulacionActual = this.postulaciones[i];
 
         if (postulacionActual.getId() === idPostulacion) {
             postulacionActual.estado = "aceptada";
-            return true;
+            postulacionAceptada = postulacionActual;
+        }
+    }
+    //VOY A CAMBIAR ESTE METIDI QUE CREE EL OTRO DIA , VINDO LA LETRA ME DI CUENTA QUE PIDE MAS COSAS DENTRO DE ELLA 
+    //LE VOY A AGREGAR ESTE CORTE , necesitamos un contador de aceptadas y otras cositas mas porque nos pide rechazar todas las postulaciones a la oferta que tenga un limite o algo asi deice la letra
+
+
+    //recorremos 
+    if(postulacionAceptada === null ){
+        return false;
+
+    }
+    let oferta = postulacionAceptada.ofertaLaboral;
+    let aceptadas = 0;
+
+    for(let i = 0; i < this.postulaciones.length; i ++){
+        let postulacionActual = this.postulaciones[i];
+
+        if(postulacionActual.ofertaLaboral === oferta && postulacionActual.estado === "aceptada"){
+            aceptadas++;
         }
     }
 
-    return false;
+//SI SE CUBREN TODAS TENIAMOS QUE RECHAZAR , SEGUN LA LETRA ( uso el mismo for pero para rechazar basicamente copi pegae )
+
+if( aceptadas >= oferta.cantidadVacantes){
+    oferta.inactivarOferta();
+    for (let i = 0; i < this.postulaciones.length; i++) {
+            let postulacionActual = this.postulaciones[i];
+
+            if (
+                postulacionActual.ofertaLaboral === oferta &&
+                postulacionActual.estado === "pendiente"
+            ) {
+                postulacionActual.estado = "rechazada";
+            }
+        }
+
+}
+return true 
+
 }
 
 rechazarPostulacion(idPostulacion) {

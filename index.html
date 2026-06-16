@@ -265,7 +265,14 @@
     </table>
 
         <p id="pListadoOfertasAdmin"></p>
+
+           <button id="btnVolverMenuAdmin2">Volver</button>
+    </section>
+    </template>
+    <!-- CORREGI EL TEMPLATE QUE DE EDITAR OFERTAS , SE ENCONTRABA DENTRO DEL TEMPLATE DE LISTADO DE OFERTAS Y EN TEORIA SON VISTAS SEPARADAS , CHECK CON NAZA POR LAS DUDAS  -->
+
 <template id="view-editar-oferta">
+    <section>
     <h3>Editar oferta</h3>
 
     <input type="hidden" id="txtIdOfertaEditando">
@@ -311,12 +318,10 @@
     <button id="btnCancelarEditarOferta">Cancelar</button>
 
     <p id="pEditarOferta"></p>
-</div>
+</section>
 </template>
 
-        <button id="btnVolverMenuAdmin2">Volver</button>
-    </section>
-    </template>
+
     
 
 <template id="view-postulaciones-pendientes">
