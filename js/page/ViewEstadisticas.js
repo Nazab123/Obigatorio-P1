@@ -14,14 +14,17 @@ function initEstadistica() {
 
     btnVolverMenuAdmin4.addEventListener("click", volverAdmin);
 
-    mostrarOfertaEstadistica()
+    mostrarOfertaEstadistica();
+    mostrarTotalesEstadistica();
 }
 
 function volverAdmin() {
     irA("view-admin", initAdmin);
 }
 
-function mostrarOfertaEstadistica() {
+
+//ESTO ESTA BIEN ASI ? LO HICE CON EL TEXTO QUE TENEMOS DEL HTML PERO A CHECK
+function mostrarOfertaEstadistica(textoBuscado = "") {
 
     let tabla = document.querySelector("#tbodyPostulacionesPorOferta")
 
@@ -30,31 +33,36 @@ function mostrarOfertaEstadistica() {
 
 
     if (sistema.ofertas.length === 0) {
-    tabla.innerHTML = `<tr><td colspan="5">No hay ofertas registradas</td></tr>`;}
+        tabla.innerHTML = `<tr><td colspan="5">No hay ofertas registradas</td></tr>`;
+    }
 
-    for(let i = 0; i < sistema.ofertas.length; i++){
+    for (let i = 0; i < sistema.ofertas.length; i++) {
         let OfertaActual = sistema.ofertas[i];
 
-    let pendientes = 0
-    let aceptadas = 0
-    let rechazadas = 0
-
-    for (let j = 0; j < sistema.postulaciones.length; j++){
-
-        let postulacionActual = sistema.postulaciones[j];
-
-        if (OfertaActual === postulacionActual.ofertaLaboral){
-
-        if(postulacionActual.estado === "pendiente"){
-            pendientes++
-        } else if (postulacionActual.estado === "aceptada"){
-            aceptadas++
-        } else if (postulacionActual.estado === "rechazada"){
-            rechazadas ++
+        if (!OfertaActual.titulo.toLowerCase().includes(textoBuscado)) {
+            continue;
         }
 
+        let pendientes = 0
+        let aceptadas = 0
+        let rechazadas = 0
+
+        for (let j = 0; j < sistema.postulaciones.length; j++) {
+
+            let postulacionActual = sistema.postulaciones[j];
+
+            if (OfertaActual === postulacionActual.ofertaLaboral) {
+
+                if (postulacionActual.estado === "pendiente") {
+                    pendientes++
+                } else if (postulacionActual.estado === "aceptada") {
+                    aceptadas++
+                } else if (postulacionActual.estado === "rechazada") {
+                    rechazadas++
+                }
+
+            }
         }
-    }
 
 
 
@@ -95,6 +103,37 @@ function mostrarOfertaEstadistica() {
 
 // le estoy poneindo id a todo en las tablas para probar despues lo sacamoss
 
-function buscarOfertaEstadistica(){
+function buscarOfertaEstadistica() {
+    let txtBuscarOfertaEstadistica = document.querySelector("#txtBuscarOfertaEstadistica");
+    let textoBuscado = txtBuscarOfertaEstadistica.value.toLowerCase().trim();
 
+    mostrarOfertaEstadistica(textoBuscado);
+
+}
+
+
+function mostrarTotalesEstadistica() {
+
+    let pTotalOfertasPorEstado = document.querySelector("#pTotalOfertasPorEstado");
+
+    let activas = 0;
+    let inactivas = 0;
+    let cerradas = 0;
+
+
+
+
+    // voy a proseguir con un for y esa manos , dejo este comentario para continuar en clase
+    for (let i = 0; i < sistema.ofertas.length; i++) {
+        let OfertaActual = sistema.ofertas[i];
+
+        if (OfertaActual.getEstado() === "Activa") {
+            activas++;
+        } else if (OfertaActual.getEstado() === "Inactiva") {
+            inactivas++;
+        } else if (OfertaActual.getEstado() === "Cerrada") {
+            cerradas++;
+        }
+    }
+    pTotalOfertasPorEstado.innerHTML = `Activas: ${activas} | Inactivas: ${inactivas} | Cerradas: ${cerradas}`;
 }

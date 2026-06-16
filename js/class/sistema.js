@@ -146,7 +146,7 @@ class Sistema {
         this.postulaciones.push(nuevaPostulacion);
     }
 
-     crearOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada) {
+    crearOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada) {
 
         let nuevaOferta = new OfertaLaboral(
             titulo,
@@ -165,7 +165,7 @@ class Sistema {
 
 
     }
-//----------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------
 
     login(usuario, password) {
 
@@ -219,7 +219,7 @@ class Sistema {
         return null;
     }
 
-   
+
     //AGREGUE METODOS A SISTEMA PARA POSTULANTES 
     //los llamo a todos en el view de OfertasPostulante , recorda que los metodos declarados aca son solo parametros , osea fijate que en lavista de ofertasPostulantes mi condicion llama a estos parametros usando los parametros de 
     yaSePostulo(postulante, oferta) {
@@ -275,13 +275,20 @@ class Sistema {
     //PREGUNTARLE AL PROFESOR SI ESTO ESTA BIEN AL  FINAL O NO 
 
     //LA REAL POSTULASAO (Crack de los data.id deaau)
+    //no era tan crack me faltaban cosas jajaj
+
     postularse(postulante, oferta) {
         if (oferta.getEstado() === "Activa" && this.expCompatible(postulante, oferta) && !this.yaSePostulo(postulante, oferta) && this.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones) {
 
-            this.registrarPostulacion(postulante,oferta,"pendiente");
+            this.registrarPostulacion(postulante, oferta, "pendiente");
 
-            return "Postulación realizada correctamente";
+            if(this.contarPostulacionesOferta(oferta)>= oferta.limitePostulaciones){
+                oferta.inactivarOferta();
+            }
+        
+         return "Postulación realizada correctamente";
         }
+    
 
         return "No es posible postularse a esta oferta";
     }
@@ -289,12 +296,12 @@ class Sistema {
     //AGREGAR METODOS PARA MIS POSTULACIONES 
     // Primer metodo que necesito , voy a neceistas 3 metodos .
 
-    obtenerMisPostulaciones(postulante){
+    obtenerMisPostulaciones(postulante) {
         let resultado = [];
 
-        for ( let i = 0; i < this.postulaciones.length; i++){
+        for (let i = 0; i < this.postulaciones.length; i++) {
             let postulacionActual = this.postulaciones[i];
-            if(postulacionActual.postulante === postulante){
+            if (postulacionActual.postulante === postulante) {
                 resultado.push(postulacionActual);
             }
 
@@ -302,94 +309,102 @@ class Sistema {
         return resultado;
 
     }
-// aca recorro todas las postulacuines y las guardo en un array porque el postulante puede que se haya postulado a varias .
-// este metodo lo uso en la visual de mis postulaciones ( me siento re crack porque filtro y muestro pantalla en el mismo metodo en la otra parte , genial mal )
-    
-//Conecta con la pantalla de ofertas destacadas , es el metodo que da la informacion a la pantalla para que la muestre.
+    // aca recorro todas las postulacuines y las guardo en un array porque el postulante puede que se haya postulado a varias .
+    // este metodo lo uso en la visual de mis postulaciones ( me siento re crack porque filtro y muestro pantalla en el mismo metodo en la otra parte , genial mal )
 
-obtenerOfertasDestacadas() {
-    let resultado = [];
+    //Conecta con la pantalla de ofertas destacadas , es el metodo que da la informacion a la pantalla para que la muestre.
 
-    for (let i = 0; i < this.ofertas.length; i++) {
+    obtenerOfertasDestacadas() {
+        let resultado = [];
 
-        let ofertaActual = this.ofertas[i];
+        for (let i = 0; i < this.ofertas.length; i++) {
 
-        if (
-            ofertaActual.destacada === true &&
-            ofertaActual.getEstado() === "Activa"
-        ) {
-            resultado.push(ofertaActual);
-        }
-    }
-
-      return resultado;
-}
-
-//FUNCIONALIDADES PARA LOS BOTONES DE ACEPTAR O RECHAZAR POSTULACIONES DEL ADIM 
-aceptarPostulacion(idPostulacion) {
-    let postulacionAceptada = null;
-
-    for (let i = 0; i < this.postulaciones.length; i++) {
-        let postulacionActual = this.postulaciones[i];
-
-        if (postulacionActual.getId() === idPostulacion) {
-            postulacionActual.estado = "aceptada";
-            postulacionAceptada = postulacionActual;
-        }
-    }
-    //VOY A CAMBIAR ESTE METIDI QUE CREE EL OTRO DIA , VINDO LA LETRA ME DI CUENTA QUE PIDE MAS COSAS DENTRO DE ELLA 
-    //LE VOY A AGREGAR ESTE CORTE , necesitamos un contador de aceptadas y otras cositas mas porque nos pide rechazar todas las postulaciones a la oferta que tenga un limite o algo asi deice la letra
-
-
-    //recorremos 
-    if(postulacionAceptada === null ){
-        return false;
-
-    }
-    let oferta = postulacionAceptada.ofertaLaboral;
-    let aceptadas = 0;
-
-    for(let i = 0; i < this.postulaciones.length; i ++){
-        let postulacionActual = this.postulaciones[i];
-
-        if(postulacionActual.ofertaLaboral === oferta && postulacionActual.estado === "aceptada"){
-            aceptadas++;
-        }
-    }
-
-//SI SE CUBREN TODAS TENIAMOS QUE RECHAZAR , SEGUN LA LETRA ( uso el mismo for pero para rechazar basicamente copi pegae )
-
-if( aceptadas >= oferta.cantidadVacantes){
-    oferta.inactivarOferta();
-    for (let i = 0; i < this.postulaciones.length; i++) {
-            let postulacionActual = this.postulaciones[i];
+            let ofertaActual = this.ofertas[i];
 
             if (
-                postulacionActual.ofertaLaboral === oferta &&
-                postulacionActual.estado === "pendiente"
+                ofertaActual.destacada === true &&
+                ofertaActual.getEstado() === "Activa"
             ) {
-                postulacionActual.estado = "rechazada";
+                resultado.push(ofertaActual);
             }
         }
 
-}
-return true 
-
-}
-
-rechazarPostulacion(idPostulacion) {
-    for (let i = 0; i < this.postulaciones.length; i++) {
-
-        let postulacionActual = this.postulaciones[i];
-
-        if (postulacionActual.getId() === idPostulacion) {
-            postulacionActual.estado = "rechazada";
-            return true;
-        }
+        return resultado;
     }
 
-    return false;
-}
+    //FUNCIONALIDADES PARA LOS BOTONES DE ACEPTAR O RECHAZAR POSTULACIONES DEL ADIM 
+    aceptarPostulacion(idPostulacion) {
+        let postulacionAceptada = null;
+
+        for (let i = 0; i < this.postulaciones.length; i++) {
+            let postulacionActual = this.postulaciones[i];
+
+            if (postulacionActual.getId() === idPostulacion) {
+                postulacionActual.estado = "aceptada";
+                postulacionAceptada = postulacionActual;
+            }
+        }
+        //VOY A CAMBIAR ESTE METIDI QUE CREE EL OTRO DIA , VINDO LA LETRA ME DI CUENTA QUE PIDE MAS COSAS DENTRO DE ELLA 
+        //LE VOY A AGREGAR ESTE CORTE , necesitamos un contador de aceptadas y otras cositas mas porque nos pide rechazar todas las postulaciones a la oferta que tenga un limite o algo asi deice la letra
+
+
+        //recorremos 
+        if (postulacionAceptada === null) {
+            return false;
+
+        }
+        let oferta = postulacionAceptada.ofertaLaboral;
+        let aceptadas = 0;
+
+        for (let i = 0; i < this.postulaciones.length; i++) {
+            let postulacionActual = this.postulaciones[i];
+
+            if (postulacionActual.ofertaLaboral === oferta && postulacionActual.estado === "aceptada") {
+                aceptadas++;
+            }
+        }
+
+        //SI SE CUBREN TODAS TENIAMOS QUE RECHAZAR , SEGUN LA LETRA ( uso el mismo for pero para rechazar basicamente copi pegae )
+
+        if (aceptadas >= oferta.cantidadVacantes) {
+            oferta.inactivarOferta();
+            for (let i = 0; i < this.postulaciones.length; i++) {
+                let postulacionActual = this.postulaciones[i];
+
+                if (postulacionActual.ofertaLaboral === oferta && postulacionActual.estado === "pendiente") {
+                    postulacionActual.estado = "rechazada";
+                }
+
+            }
+
+        }
+        return true
+
+    }
+
+    rechazarPostulacion(idPostulacion) {
+        for (let i = 0; i < this.postulaciones.length; i++) {
+
+            let postulacionActual = this.postulaciones[i];
+
+            if (postulacionActual.getId() === idPostulacion) {
+                postulacionActual.estado = "rechazada";
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+//Hace falta hacer esto 
+    //function buscarOfertaEstadistica(){
+
+   // }
+
+   // function mostrarOfertaEstadistica(){
+
+    //}
+
 
 
 }
