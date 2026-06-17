@@ -137,3 +137,6 @@ function mostrarTotalesEstadistica() {
     }
     pTotalOfertasPorEstado.innerHTML = `Activas: ${activas} | Inactivas: ${inactivas} | Cerradas: ${cerradas}`;
 }
+
+// check si el formato es este o se pide estilo tabla 
+//faltan 2 metodos mas , el del porcentaje y otro que no se cual es
