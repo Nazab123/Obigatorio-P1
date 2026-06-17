@@ -404,7 +404,4 @@ class Sistema {
    // function mostrarOfertaEstadistica(){
 
     //}
-
-
-
 }
