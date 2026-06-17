@@ -2,11 +2,7 @@ function initEstadistica() {
 
     let txtBuscarOfertaEstadistica = document.querySelector("#txtBuscarOfertaEstadistica");
     let btnBuscarOfertaEstadistica = document.querySelector("#btnBuscarOfertaEstadistica");
-
     let pTotalOfertasPorEstado = document.querySelector("#pTotalOfertasPorEstado");
-    let pPorcentajeVacantesCubiertas = document.querySelector("#pPorcentajeVacantesCubiertas");
-    let pPostulanteMasPostulaciones = document.querySelector("#pPostulanteMasPostulaciones");
-
     let btnVolverMenuAdmin4 = document.querySelector("#btnVolverMenuAdmin4");
 
 
@@ -16,6 +12,8 @@ function initEstadistica() {
 
     mostrarOfertaEstadistica();
     mostrarTotalesEstadistica();
+    porcentaje();
+    postulanteMasPostulacionesActivas();
 }
 
 function volverAdmin() {
@@ -140,3 +138,61 @@ function mostrarTotalesEstadistica() {
 
 // check si el formato es este o se pide estilo tabla 
 //faltan 2 metodos mas , el del porcentaje y otro que no se cual es
+
+function porcentaje() {
+    let pPorcentajeVacantesCubiertas = document.querySelector("#pPorcentajeVacantesCubiertas");
+
+    let vacantesCubietas = 0;
+    let cantidadVacantes = 0;
+
+
+    for (i=0; i < sistema.ofertas.length; i++){
+        let ofetaVer=sistema.ofertas[i]
+
+        cantidadVacantes += Number(ofetaVer.cantidadVacantes)
+    }
+    for (i=0; i < sistema.postulaciones.length; i++){
+        let postulacionVer=sistema.postulaciones[i]
+
+
+        if(postulacionVer.estado === "aceptada"){
+            vacantesCubietas++
+
+        }
+    }
+
+    pPorcentajeVacantesCubiertas.innerHTML = `${vacantesCubietas*100/cantidadVacantes}%`;
+
+
+}
+
+function postulanteMasPostulacionesActivas(){
+
+    let pPostulanteMasPostulaciones = document.querySelector("#pPostulanteMasPostulaciones");
+
+    let postulanteMayor = null;
+    let mayorCantidad = 0;
+
+    sistema.postulantes.forEach(function(postulanteActual){
+
+        let cantidad = 0;
+
+        sistema.postulaciones.forEach(function(postulacionActual){
+
+            if(postulacionActual.postulante === postulanteActual && postulacionActual.ofertaLaboral.estado === "ctiva"){
+                cantidad++;
+
+            }
+        });
+
+        if(cantidad > mayorCantidad){
+            mayorCantidad = cantidad
+            postulanteMayor = postulanteActual
+        }
+    })
+
+    pPostulanteMasPostulaciones.innerHTML = `el postulante con más postulaciones activas es ${postulanteMayor}, tiene ${mayorCantidad} postulaciones activas`
+
+    //esto no esta andando pero no lo toques que ya lo agrego
+
+}

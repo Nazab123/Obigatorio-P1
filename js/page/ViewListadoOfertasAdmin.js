@@ -75,7 +75,7 @@ function procesarCierreOferta() {
     if (posicion !== -1) {
         sistema.ofertas[posicion].cerrarOferta();
     }
-
+    
     // actualizo la tabla para que se vea el nuevo estado
     mostrarListadoOfertasAdmin();
 }
@@ -196,6 +196,7 @@ this me devuele que devolvio
 
 luego de que cambio a comletado despues set atrivute y lo deshabilito
 
+HAY QUE CAMBIAR TODO Y PONER TODO EN SISTEMA
 
 
 */
