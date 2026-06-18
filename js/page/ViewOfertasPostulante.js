@@ -1,44 +1,67 @@
 function initOfertasPostulante(){
     let btnVolverMenuPostulante1 = document.querySelector("#btnVolverMenuPostulante1");
-    mostrarOfertasPostulante();
+    let btnAplicarFiltroOfertas = document.querySelector("#btnAplicarFiltroOfertas");
+
+    // esto es para que por defecto muestre primero el area postulante
+    mostrarOfertasPostulante("area");
+
+    btnAplicarFiltroOfertas.addEventListener("click", aplicarFiltroOfertas);
     btnVolverMenuPostulante1.addEventListener("click", volverMenuPostulante);
 }
 
-function mostrarOfertasPostulante(){
+function aplicarFiltroOfertas(){
+    let filtro = document.querySelector("#slcFiltroOfertas").value;
+
+    mostrarOfertasPostulante(filtro);
+}
+
+function mostrarOfertasPostulante(filtro){
     let listadoOfertas = document.querySelector("#tbodyListadoOfertasPostulante");
     
     listadoOfertas.innerHTML ="";
 
-    for(let i = 0; i< sistema.ofertas.length; i++){
+    for(let i = 0; i < sistema.ofertas.length; i++){
         let ofertaActual = sistema.ofertas[i];
 
-        //CAMBIE LA CONDICION DE ESTE IF PORQUE AGREGUE METODOS EN SISTEMAS PARA QUE MUESTRE SOLO LAS POSTULACIONES A LAS CUALES SU expCompatible  sea ( ese es el nombre de mi metodo ).Entre otras .
-        if(ofertaActual.getEstado() === "Activa" &&sistema.expCompatible(sistema.usuarioLogueado, ofertaActual) && !sistema.yaSePostulo(sistema.usuarioLogueado, ofertaActual) && sistema.contarPostulacionesOferta(ofertaActual) < ofertaActual.limitePostulaciones){
+        let cumpleFiltroArea = true;
 
-                listadoOfertas.innerHTML += `
+        if(filtro === "area" && ofertaActual.area !== sistema.usuarioLogueado.area){
+            cumpleFiltroArea = false;
+        }
+
+        if(
+            cumpleFiltroArea &&
+            ofertaActual.getEstado() === "Activa" &&
+            sistema.expCompatible(sistema.usuarioLogueado, ofertaActual) &&
+            !sistema.yaSePostulo(sistema.usuarioLogueado, ofertaActual) &&
+            sistema.contarPostulacionesOferta(ofertaActual) < ofertaActual.limitePostulaciones
+        ){
+            listadoOfertas.innerHTML += `
                 <tr>
-        <td>${ofertaActual.getId()}</td>
-        <td>${ofertaActual.titulo}</td>
-        <td>${ofertaActual.empresa}</td>
-        <td>${ofertaActual.nivel}</td>
-        <td>${ofertaActual.area}</td>
-        <td>${ofertaActual.destacada}</td>
-        <td>${ofertaActual.getEstado()}</td>
-        <td>
-            <button class="btnPostularme" data-id="${ofertaActual.getId()}">
-                Postularme
-            </button>
-        </td>
-    </tr>`;
+                    <td>${ofertaActual.getId()}</td>
+                    <td>${ofertaActual.titulo}</td>
+                    <td>${ofertaActual.empresa}</td>
+                    <td>${ofertaActual.nivel}</td>
+                    <td>${ofertaActual.area}</td>
+                    <td>${ofertaActual.destacada ? "⭐" : "-"}</td>
+                    <td>${ofertaActual.getEstado()}</td>
+                    <td>
+                        <button class="btnPostularme" data-id="${ofertaActual.getId()}">
+                            Postularme
+                        </button>
+                    </td>
+                </tr>`;
         }
     }
+
     let btnsPostularme = document.querySelectorAll(".btnPostularme");
-    //aca voy a usar el ALL del profesor 
-for(let i =0; i < btnsPostularme.length;i ++){
-    btnsPostularme[i].addEventListener("click", hacerPostulacion );
+
+    for(let i = 0; i < btnsPostularme.length; i++){
+        btnsPostularme[i].addEventListener("click", hacerPostulacion);
+    }
 }
 
-}
+
 // pongo el comentario aca abajo porque dentro no me deja ,cambia la creacion de la lista postulantes  y agregue lo de data id replicando lo que hizo el profesor en el toDo <button class="btnPostularme" data-id="${ofertaActual.getId()}">Postularme</button>
 
 function hacerPostulacion(){
@@ -46,11 +69,8 @@ function hacerPostulacion(){
     let ofertaSeleccionada = sistema.findOfertaById(idOferta);
     let respuesta = sistema.postularse(sistema.usuarioLogueado,ofertaSeleccionada);
 
+    //despues hay que sacar tus alert
     alert(respuesta);
-
-    mostrarOfertasPostulante();
-
-
 
 }
 

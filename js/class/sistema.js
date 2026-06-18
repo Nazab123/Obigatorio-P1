@@ -396,12 +396,190 @@ class Sistema {
         return false;
     }
 
-//Hace falta hacer esto 
-    //function buscarOfertaEstadistica(){
+    
+//Buscador de titulos de oferta
 
-   // }
+obtenerPostulacionesPorOferta(textoBuscado){
+    let resultado = [];
 
-   // function mostrarOfertaEstadistica(){
+    for (let i = 0; i < this.ofertas.length; i++) {
+        let ofertaActual = this.ofertas[i];
 
-    //}
+        if (!ofertaActual.titulo.toLowerCase().includes(textoBuscado)) {
+            continue;
+        }
+
+        let pendientes = 0;
+        let aceptadas = 0;
+        let rechazadas = 0;
+
+        for (let j = 0; j < this.postulaciones.length; j++) {
+            let postulacionActual = this.postulaciones[j];
+
+            if (ofertaActual === postulacionActual.ofertaLaboral) {
+                if (postulacionActual.estado === "pendiente") {
+                    pendientes++;
+                } else if (postulacionActual.estado === "aceptada") {
+                    aceptadas++;
+                } else if (postulacionActual.estado === "rechazada") {
+                    rechazadas++;
+                }
+            }
+        }
+
+        resultado.push({
+            titulo: ofertaActual.titulo,
+            pendientes: pendientes,
+            aceptadas: aceptadas,
+            rechazadas: rechazadas,
+            total: pendientes + aceptadas + rechazadas
+        });
+    }
+
+    return resultado;
+}
+
+obtenerTotalesOfertasPorEstado() {
+
+    let activas = 0;
+    let inactivas = 0;
+    let cerradas = 0;
+
+    this.ofertas.forEach(function(ofertaActual) {
+
+        if (ofertaActual.getEstado() === "Activa") {
+            activas++;
+        } else if (ofertaActual.getEstado() === "Inactiva") {
+            inactivas++;
+        } else if (ofertaActual.getEstado() === "Cerrada") {
+            cerradas++;
+        }
+
+    });
+
+    return {
+        activas: activas,
+        inactivas: inactivas,
+        cerradas: cerradas
+    };
+}
+
+obtenerPorcentajeVacantesCubiertas() {
+
+    let vacantesCubiertas = 0;
+    let cantidadVacantes = 0;
+
+    this.ofertas.forEach(function(ofertaActual) {
+        cantidadVacantes += Number(ofertaActual.cantidadVacantes);
+    });
+
+    this.postulaciones.forEach(function(postulacionActual) {
+        if (postulacionActual.estado === "aceptada") {
+            vacantesCubiertas++;
+        }
+    });
+
+    return vacantesCubiertas * 100 / cantidadVacantes;
+}
+
+obtenerPostulanteMasPostulacionesActivas() {
+
+    let postulanteMayor = null;
+    let mayorCantidad = 0;
+
+    for (let i = 0; i < this.postulantes.length; i++) {
+
+        let postulanteActual = this.postulantes[i];
+        let cantidad = 0;
+
+        for (let j = 0; j < this.postulaciones.length; j++) {
+
+            let postulacionActual = this.postulaciones[j];
+
+            if (
+                postulacionActual.postulante === postulanteActual &&
+                postulacionActual.ofertaLaboral.getEstado() === "Activa"
+            ) {
+                cantidad++;
+            }
+        }
+
+        if (cantidad > mayorCantidad) {
+            mayorCantidad = cantidad;
+            postulanteMayor = postulanteActual;
+        }
+    }
+
+    return {
+        postulante: postulanteMayor,
+        cantidad: mayorCantidad
+    };
+}
+
+obtenerTodasLasOfertas() {
+    return this.ofertas;
+}
+
+cerrarOfertaPorId(idOferta) {
+
+    let oferta = this.findOfertaById(idOferta);
+
+    if (oferta !== null) {
+        oferta.cerrarOferta();
+        return true;
+    }
+
+    return false;
+}
+
+editarOfertaPorId(idOferta, titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada) {
+
+    let oferta = this.findOfertaById(idOferta);
+
+    if (oferta !== null) {
+        oferta.editarOferta(
+            titulo,
+            empresa,
+            descripcion,
+            nivel,
+            area,
+            limitePostulaciones,
+            cantidadVacantes,
+            destacada
+        );
+
+        return true;
+    }
+
+    return false;
+}
+
+obtenerOfertasParaPostulante(postulante, filtro) {
+
+    let resultado = [];
+    let sistema = this;
+
+    this.ofertas.forEach(function (ofertaActual) {
+
+        let cumpleFiltroArea = true;
+
+        if (filtro === "area" && ofertaActual.area !== postulante.area) {
+            cumpleFiltroArea = false;
+        }
+
+        if (
+            cumpleFiltroArea &&
+            ofertaActual.getEstado() === "Activa" &&
+            sistema.expCompatible(postulante, ofertaActual) &&
+            !sistema.yaSePostulo(postulante, ofertaActual) &&
+            sistema.contarPostulacionesOferta(ofertaActual) < ofertaActual.limitePostulaciones
+        ) {
+            resultado.push(ofertaActual);
+        }
+
+    });
+
+    return resultado;
+}
+
 }

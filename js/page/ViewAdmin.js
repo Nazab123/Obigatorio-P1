@@ -17,6 +17,8 @@ function initAdmin() {
     btnCerrarSesionAdmin.addEventListener("click", cerrarSesionAdmin);
 }
 
+
+
 function cerrarSesionAdmin() {
     sistema.cerrarSesion();
     irA("view-login", initLogin);
@@ -96,7 +98,6 @@ function initEstadistica() {
 
     let txtBuscarOfertaEstadistica = document.querySelector("#txtBuscarOfertaEstadistica");
     let btnBuscarOfertaEstadistica = document.querySelector("#btnBuscarOfertaEstadistica");
-    let pTotalOfertasPorEstado = document.querySelector("#pTotalOfertasPorEstado");
     let btnVolverMenuAdmin4 = document.querySelector("#btnVolverMenuAdmin4");
 
 
@@ -114,83 +115,30 @@ function volverAdmin() {
     irA("view-admin", initAdmin);
 }
 
-
-//ESTO ESTA BIEN ASI ? LO HICE CON EL TEXTO QUE TENEMOS DEL HTML PERO A CHECK
 function mostrarOfertaEstadistica(textoBuscado = "") {
-
-    let tabla = document.querySelector("#tbodyPostulacionesPorOferta")
-
+    let tabla = document.querySelector("#tbodyPostulacionesPorOferta");
     tabla.innerHTML = "";
 
+    let datos = sistema.obtenerPostulacionesPorOferta(textoBuscado);
 
-
-    if (sistema.ofertas.length === 0) {
+    if (datos.length === 0) {
         tabla.innerHTML = `<tr><td colspan="5">No hay ofertas registradas</td></tr>`;
     }
 
-    for (let i = 0; i < sistema.ofertas.length; i++) {
-        let OfertaActual = sistema.ofertas[i];
-
-        if (!OfertaActual.titulo.toLowerCase().includes(textoBuscado)) {
-            continue;
-        }
-
-        let pendientes = 0
-        let aceptadas = 0
-        let rechazadas = 0
-
-        for (let j = 0; j < sistema.postulaciones.length; j++) {
-
-            let postulacionActual = sistema.postulaciones[j];
-
-            if (OfertaActual === postulacionActual.ofertaLaboral) {
-
-                if (postulacionActual.estado === "pendiente") {
-                    pendientes++
-                } else if (postulacionActual.estado === "aceptada") {
-                    aceptadas++
-                } else if (postulacionActual.estado === "rechazada") {
-                    rechazadas++
-                }
-
-            }
-        }
-
-
+    for (let i = 0; i < datos.length; i++) {
+        let fila = datos[i];
 
         tabla.innerHTML += `
-        <tr>
-            <td>${OfertaActual.titulo}</td>
-            <td>${pendientes}</td>
-            <td>${aceptadas}</td>
-            <td>${rechazadas}</td>
-            <td>${pendientes + aceptadas + rechazadas}</td>        
-        </tr>
-        `
+            <tr>
+                <td>${fila.titulo}</td>
+                <td>${fila.pendientes}</td>
+                <td>${fila.aceptadas}</td>
+                <td>${fila.rechazadas}</td>
+                <td>${fila.total}</td>
+            </tr>
+        `;
     }
 }
-
-
-/* 
-<h3>Postulaciones por oferta</h3>
-
-<table>
-    <thead>
-        <tr>
-            <th>Título de la oferta</th>
-            <th>Pendientes</th>
-            <th>Aceptadas</th>
-            <th>Rechazadas</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-
-    <tbody id="tbodyPostulacionesPorOferta">
-
-    </tbody>
-</table>
- */
-
 
 
 // le estoy poneindo id a todo en las tablas para probar despues lo sacamoss
@@ -203,96 +151,44 @@ function buscarOfertaEstadistica() {
 
 }
 
-
 function mostrarTotalesEstadistica() {
 
-    let pTotalOfertasPorEstado = document.querySelector("#pTotalOfertasPorEstado");
+    let tbodyTotalOfertasPorEstado = document.querySelector("#tbodyTotalOfertasPorEstado");
 
-    let activas = 0;
-    let inactivas = 0;
-    let cerradas = 0;
+    tbodyTotalOfertasPorEstado.innerHTML = "";
 
 
+    let totales = sistema.obtenerTotalesOfertasPorEstado();
 
-
-    // voy a proseguir con un for y esa manos , dejo este comentario para continuar en clase
-    for (let i = 0; i < sistema.ofertas.length; i++) {
-        let OfertaActual = sistema.ofertas[i];
-
-        if (OfertaActual.getEstado() === "Activa") {
-            activas++;
-        } else if (OfertaActual.getEstado() === "Inactiva") {
-            inactivas++;
-        } else if (OfertaActual.getEstado() === "Cerrada") {
-            cerradas++;
-        }
-    }
-    pTotalOfertasPorEstado.innerHTML = `Activas: ${activas} | Inactivas: ${inactivas} | Cerradas: ${cerradas}`;
+    tbodyTotalOfertasPorEstado.innerHTML=`
+    <tr>
+        <td>${totales.activas}</td>
+        <td>${totales.inactivas} </td>
+        <td>${totales.cerradas}</td>
+    </tr>`;
 }
-
-// check si el formato es este o se pide estilo tabla 
-//faltan 2 metodos mas , el del porcentaje y otro que no se cual es
 
 function porcentaje() {
+
     let pPorcentajeVacantesCubiertas = document.querySelector("#pPorcentajeVacantesCubiertas");
 
-    let vacantesCubietas = 0;
-    let cantidadVacantes = 0;
+    let porcentaje = sistema.obtenerPorcentajeVacantesCubiertas();
 
-
-    for (i=0; i < sistema.ofertas.length; i++){
-        let ofetaVer=sistema.ofertas[i]
-
-        cantidadVacantes += Number(ofetaVer.cantidadVacantes)
-    }
-    for (i=0; i < sistema.postulaciones.length; i++){
-        let postulacionVer=sistema.postulaciones[i]
-
-
-        if(postulacionVer.estado === "aceptada"){
-            vacantesCubietas++
-
-        }
-    }
-
-    pPorcentajeVacantesCubiertas.innerHTML = `${vacantesCubietas*100/cantidadVacantes}%`;
-
+    pPorcentajeVacantesCubiertas.innerHTML = `${porcentaje}%`;
 
 }
 
-function postulanteMasPostulacionesActivas(){
+function postulanteMasPostulacionesActivas() {
 
     let pPostulanteMasPostulaciones = document.querySelector("#pPostulanteMasPostulaciones");
 
-    let postulanteMayor = null;
-    let mayorCantidad = 0;
+    let resultado = sistema.obtenerPostulanteMasPostulacionesActivas();
 
-    sistema.postulantes.forEach(function(postulanteActual){
-
-        let cantidad = 0;
-
-        sistema.postulaciones.forEach(function(postulacionActual){
-
-            if(postulacionActual.postulante === postulanteActual && postulacionActual.ofertaLaboral.getEstado() === "Activa"){
-                cantidad++;
-
-            }
-        });
-
-        if(cantidad > mayorCantidad){
-            mayorCantidad = cantidad
-            postulanteMayor = postulanteActual
-        }
-    })
-
-    pPostulanteMasPostulaciones.innerHTML = `el postulante con más postulaciones activas es ${postulanteMayor.nombre}, tiene ${mayorCantidad} postulaciones activas`
-
-    //esto no esta andando pero no lo toques que ya lo agrego
-
+    pPostulanteMasPostulaciones.innerHTML =
+        `El postulante con más postulaciones activas es ${resultado.postulante.nombre}, tiene ${resultado.cantidad} postulaciones activas`;
 }
 
 //VIEW LISTADO
-
 
 function initListadoOfertasAdmin() {
 
@@ -315,14 +211,17 @@ function mostrarListadoOfertasAdmin (){
     tabla.innerHTML = "";
 
 // le pongo esto para que me muestre un error en caso de que este vacio
-if (sistema.ofertas.length === 0) {
+
+let ofertas = sistema.obtenerTodasLasOfertas();
+
+if (ofertas.length === 0) {
     tabla.innerHTML = `<tr><td colspan="8">No hay ofertas registradas</td></tr>`;
 }
 
-    for(let i = 0; i < sistema.ofertas.length; i++){
+    for(let i = 0; i < ofertas.length; i++){
 
 //aca aplico el operador ternario
-    let ofertaActual = sistema.ofertas[i];
+    let ofertaActual = ofertas[i];
 
         tabla.innerHTML += `
             <tr>
@@ -361,18 +260,10 @@ if (sistema.ofertas.length === 0) {
 
 function procesarCierreOferta() {
 
-    // obtengo el id de la oferta cuyo boton cerrar fue presionado
     let idOferta = this.getAttribute("data-id");
 
-    // busco la posicion de esa oferta en el array
-    let posicion = findCaseroID(sistema.ofertas, idOferta);
+    sistema.cerrarOfertaPorId(idOferta);
 
-    // si existe la cierro
-    if (posicion !== -1) {
-        sistema.ofertas[posicion].cerrarOferta();
-    }
-    
-    // actualizo la tabla para que se vea el nuevo estado
     mostrarListadoOfertasAdmin();
 }
 
@@ -397,10 +288,15 @@ function initEditarOferta() {
     btnGuardarCambiosOferta.addEventListener("click", guardarCambiosOferta);
     btnCancelarEditarOferta.addEventListener("click", cancelarEditarOferta);
 
-    let posicion = findCaseroID(sistema.ofertas, idOfertaEditando);
 
-    if (posicion !== -1) {
-        let oferta = sistema.ofertas[posicion];
+
+
+
+let oferta = sistema.findOfertaById(idOfertaEditando);
+
+if (oferta !== null) {
+
+
 
         document.querySelector("#txtEditarTituloOferta").value = oferta.titulo;
         document.querySelector("#txtEditarEmpresaOferta").value = oferta.empresa;
@@ -418,12 +314,9 @@ function initEditarOferta() {
     }
 }
 
-// Aca obtengo los datos nuevos que puso el admin y se los mando
-// al metodo editarOferta() para actualizar la oferta.
-function guardarCambiosOferta(){
-    let posicion = findCaseroID(sistema.ofertas, idOfertaEditando);
 
-    if (posicion !== -1) {
+function guardarCambiosOferta(){
+
         let titulo = document.querySelector("#txtEditarTituloOferta").value.trim();
         let empresa = document.querySelector("#txtEditarEmpresaOferta").value.trim();
         let descripcion = document.querySelector("#txtEditarDescripcionOferta").value.trim();
@@ -439,17 +332,17 @@ function guardarCambiosOferta(){
             esDestacada = true;
         }
 
-        sistema.ofertas[posicion].editarOferta(
-            titulo,
-            empresa,
-            descripcion,
-            nivel,
-            area,
-            limitePostulaciones,
-            cantidadVacantes,
-            esDestacada
-        );
-    }
+    sistema.editarOfertaPorId(
+    idOfertaEditando,
+    titulo,
+    empresa,
+    descripcion,
+    nivel,
+    area,
+    limitePostulaciones,
+    cantidadVacantes,
+    esDestacada
+    );
 
     idOfertaEditando = "";
     irA("view-table-ofertas-admin", initListadoOfertasAdmin);
