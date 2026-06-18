@@ -34,10 +34,9 @@ function mostrarMisPostulaciones() {
     }
 
 //todo esto es solo la vista , la funcionabilidad e informacion viene del metodo que esta en sistemas ( asi pidio el profe las cosas , es bastane complejo pensarlo a vecs pero ta .)
-function volverMenuPostulante(){
-    irA("view-postulante", initPostulante);
+function volverMenuPostulante() {
+    irA("view-ofertas-postulante", initOfertasPostulante);
 }
-
 //CHECKEAR ESTO ME CANSE Y SE ME SATURO LA MENTE A ESTA HORA 22:00
 // para esto hay que buscar pustulanteActual dentro de la oferta laboral y luego si  en titulo , empresa  nivel , area , destacada  y estado .
 

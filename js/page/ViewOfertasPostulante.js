@@ -76,5 +76,5 @@ function hacerPostulacion(){
 }
 
 function volverMenuPostulante() {
-    irA("view-postulante", initPostulante);
+    irA("view-ofertas-postulante", initOfertasPostulante);
 }
