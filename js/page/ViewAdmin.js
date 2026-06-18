@@ -1,13 +1,13 @@
 //VIEW ADMIN
 function initAdmin() {
-   
+
     let btnCrearOferta = document.querySelector("#btnCrearOferta");
     let btnCerrarSesionAdmin = document.querySelector("#btnCerrarSesionAdmin");
     let btnListadoOfertasAdmin = document.querySelector("#btnVerListadoOfertasAdmin");
     let btnPostulacionesPendientesAdmin = document.querySelector("#btnVerPostulacionesPendientes");
     let btnEstadísticas = document.querySelector("#btnVerEstadisticasAdmin");
 
-    
+
     btnListadoOfertasAdmin.addEventListener("click", listadoOfertasAdmin);
     btnPostulacionesPendientesAdmin.addEventListener("click", postulacionesPendientesAdmin);
     btnEstadísticas.addEventListener("click", estadisticas);
@@ -18,7 +18,7 @@ function initAdmin() {
 
 //FUNCIONES DE irA
 
-function volverAdmin(){
+function volverAdmin() {
     irA("view-table-ofertas-admin", initListadoOfertasAdmin);
 }
 
@@ -28,21 +28,21 @@ function cerrarSesionAdmin() {
     irA("view-login", initLogin);
 }
 
-function crearOferta(){
-     irA("view-crear-oferta", initCrearOferta);
+function crearOferta() {
+    irA("view-crear-oferta", initCrearOferta);
 }
 
-function listadoOfertasAdmin (){
-     irA("view-table-ofertas-admin", initListadoOfertasAdmin);
+function listadoOfertasAdmin() {
+    irA("view-table-ofertas-admin", initListadoOfertasAdmin);
 }
 
-function postulacionesPendientesAdmin (){
-     irA("view-postulaciones-pendientes", initPostulacionesPendientesAdmin);
+function postulacionesPendientesAdmin() {
+    irA("view-postulaciones-pendientes", initPostulacionesPendientesAdmin);
 
 }
 
-function estadisticas (){
-     irA("view-estadisticas-admin", initEstadistica);
+function estadisticas() {
+    irA("view-estadisticas-admin", initEstadistica);
 
 }
 
@@ -52,7 +52,7 @@ function estadisticas (){
 //VIEW CREAR OFERTA
 
 
-function initCrearOferta(){
+function initCrearOferta() {
 
     initAdmin();
     let btnGuardarOferta = document.querySelector("#btnGuardarOferta");
@@ -89,11 +89,11 @@ function guardarOferta() {
         esDestacada
     );
 
-   if (respuesta === "Oferta creada correctamente") {
-    irA("view-table-ofertas-admin", initListadoOfertasAdmin);
-} else {
-    document.querySelector("#pCrearOferta").innerHTML = respuesta;
-}
+    if (respuesta === "Oferta creada correctamente") {
+        irA("view-table-ofertas-admin", initListadoOfertasAdmin);
+    } else {
+        document.querySelector("#pCrearOferta").innerHTML = respuesta;
+    }
 }
 
 
@@ -114,8 +114,7 @@ function initEstadistica() {
 
     mostrarOfertaEstadistica();
     mostrarTotalesEstadistica();
-    porcentaje();
-    postulanteMasPostulacionesActivas();
+    mostrarResumenGeneral();
 }
 
 function mostrarOfertaEstadistica(textoBuscado = "") {
@@ -163,7 +162,7 @@ function mostrarTotalesEstadistica() {
 
     let totales = sistema.obtenerTotalesOfertasPorEstado();
 
-    tbodyTotalOfertasPorEstado.innerHTML=`
+    tbodyTotalOfertasPorEstado.innerHTML = `
     <tr>
         <td>${totales.activas}</td>
         <td>${totales.inactivas} </td>
@@ -171,8 +170,9 @@ function mostrarTotalesEstadistica() {
     </tr>`;
 }
 
-function porcentaje() {
+/* function porcentaje() {
 
+Estos fueron tus metodos , som 2 y yo hice dos en 1 es lo que  queria que hicieras el otro dia 
     let pPorcentajeVacantesCubiertas = document.querySelector("#pPorcentajeVacantesCubiertas");
 
     let porcentaje = sistema.obtenerPorcentajeVacantesCubiertas();
@@ -189,8 +189,25 @@ function postulanteMasPostulacionesActivas() {
 
     pPostulanteMasPostulaciones.innerHTML =
         `El postulante con más postulaciones activas es ${resultado.postulante.nombre}, tiene ${resultado.cantidad} postulaciones activas`;
-}
+} */
 
+function mostrarResumenGeneral() {
+    let tbodyResumenGeneral = document.querySelector("#tbodyResumenGeneral");
+
+    let porcentaje = sistema.obtenerPorcentajeVacantesCubiertas();
+    let resultado = sistema.obtenerPostulanteMasPostulacionesActivas();
+
+    tbodyResumenGeneral.innerHTML = `
+        <tr>
+            <td>Porcentaje de vacantes cubiertas</td>
+            <td>${porcentaje}%</td>
+        </tr>
+        <tr>
+            <td>Postulante con más postulaciones activas</td>
+            <td>${resultado.postulante.nombre}, tiene ${resultado.cantidad} postulaciones activas</td>
+        </tr>
+    `;
+}
 //VIEW LISTADO
 
 function initListadoOfertasAdmin() {
@@ -204,24 +221,24 @@ function initListadoOfertasAdmin() {
 
 }
 
-function mostrarListadoOfertasAdmin (){
+function mostrarListadoOfertasAdmin() {
 
     let tabla = document.querySelector("#tbodyListadoOfertasAdmin");
 
     tabla.innerHTML = "";
 
-// le pongo esto para que me muestre un error en caso de que este vacio
+    // le pongo esto para que me muestre un error en caso de que este vacio
 
-let ofertas = sistema.obtenerTodasLasOfertas();
+    let ofertas = sistema.obtenerTodasLasOfertas();
 
-if (ofertas.length === 0) {
-    tabla.innerHTML = `<tr><td colspan="8">No hay ofertas registradas</td></tr>`;
-}
+    if (ofertas.length === 0) {
+        tabla.innerHTML = `<tr><td colspan="8">No hay ofertas registradas</td></tr>`;
+    }
 
-    for(let i = 0; i < ofertas.length; i++){
+    for (let i = 0; i < ofertas.length; i++) {
 
-//aca aplico el operador ternario
-    let ofertaActual = ofertas[i];
+        //aca aplico el operador ternario
+        let ofertaActual = ofertas[i];
 
         tabla.innerHTML += `
             <tr>
@@ -244,14 +261,14 @@ if (ofertas.length === 0) {
     let botonesEditar = document.querySelectorAll(".btnEditarOferta");
     let botonesCerrar = document.querySelectorAll(".btnCerrarOferta");
 
-// recorro todos los botones editar y les asigno el evento click
-    for(let i = 0; i < botonesEditar.length; i++ ){
+    // recorro todos los botones editar y les asigno el evento click
+    for (let i = 0; i < botonesEditar.length; i++) {
         botonesEditar[i].addEventListener("click", procesarEditarOferta);
 
     }
 
-// recorro todos los botones cerrar y les asigno el evento click
-    for(let i = 0; i < botonesCerrar.length; i++){
+    // recorro todos los botones cerrar y les asigno el evento click
+    for (let i = 0; i < botonesCerrar.length; i++) {
         botonesCerrar[i].addEventListener("click", procesarCierreOferta);
 
     }
@@ -271,7 +288,7 @@ function procesarCierreOferta() {
 let idOfertaEditando = "";
 
 
-function procesarEditarOferta(){
+function procesarEditarOferta() {
 
     // guardo el id de la oferta seleccionada para usarlo en la pantalla de editar
     idOfertaEditando = this.getAttribute("data-id");
@@ -293,9 +310,9 @@ function initEditarOferta() {
 
 
 
-let oferta = sistema.findOfertaById(idOfertaEditando);
+    let oferta = sistema.findOfertaById(idOfertaEditando);
 
-if (oferta !== null) {
+    if (oferta !== null) {
 
 
 
@@ -316,33 +333,33 @@ if (oferta !== null) {
 }
 
 
-function guardarCambiosOferta(){
+function guardarCambiosOferta() {
 
-        let titulo = document.querySelector("#txtEditarTituloOferta").value.trim();
-        let empresa = document.querySelector("#txtEditarEmpresaOferta").value.trim();
-        let descripcion = document.querySelector("#txtEditarDescripcionOferta").value.trim();
-        let nivel = document.querySelector("#slcEditarNivelOferta").value;
-        let area = document.querySelector("#slcEditarAreaOferta").value;
-        let limitePostulaciones = Number(document.querySelector("#txtEditarLimitePostulaciones").value);
-        let cantidadVacantes = Number(document.querySelector("#txtEditarCantidadVacantes").value);
-        let destacada = document.querySelector("#slcEditarOfertaDestacada").value;
+    let titulo = document.querySelector("#txtEditarTituloOferta").value.trim();
+    let empresa = document.querySelector("#txtEditarEmpresaOferta").value.trim();
+    let descripcion = document.querySelector("#txtEditarDescripcionOferta").value.trim();
+    let nivel = document.querySelector("#slcEditarNivelOferta").value;
+    let area = document.querySelector("#slcEditarAreaOferta").value;
+    let limitePostulaciones = Number(document.querySelector("#txtEditarLimitePostulaciones").value);
+    let cantidadVacantes = Number(document.querySelector("#txtEditarCantidadVacantes").value);
+    let destacada = document.querySelector("#slcEditarOfertaDestacada").value;
 
-        let esDestacada = false;
+    let esDestacada = false;
 
-        if (destacada === "si") {
-            esDestacada = true;
-        }
+    if (destacada === "si") {
+        esDestacada = true;
+    }
 
     sistema.editarOfertaPorId(
-    idOfertaEditando,
-    titulo,
-    empresa,
-    descripcion,
-    nivel,
-    area,
-    limitePostulaciones,
-    cantidadVacantes,
-    esDestacada
+        idOfertaEditando,
+        titulo,
+        empresa,
+        descripcion,
+        nivel,
+        area,
+        limitePostulaciones,
+        cantidadVacantes,
+        esDestacada
     );
 
     idOfertaEditando = "";
@@ -352,7 +369,7 @@ function guardarCambiosOferta(){
 // Cancela la edición: limpia el id de la oferta que se estaba editando
 // y vuelve al listado sin realizar cambios.
 
-function cancelarEditarOferta(){
+function cancelarEditarOferta() {
     idOfertaEditando = "";
     irA("view-table-ofertas-admin", initListadoOfertasAdmin);
 }
@@ -379,7 +396,7 @@ function mostrarPostulacionesPendientes() {
     for (let i = 0; i < postulacionesPendientes.length; i++) {
         let postulacionActual = postulacionesPendientes[i];
 
-            tabla.innerHTML += `
+        tabla.innerHTML += `
                 <tr>
                     <td>${postulacionActual.getId()}</td>
                     <td>${postulacionActual.postulante.nombre}</td>
@@ -394,11 +411,11 @@ function mostrarPostulacionesPendientes() {
                     </td>
                 </tr>
             `;
-        }
-    
-//BUSCAMOS TODOS LOS BOTONES QUE CREAMOS DE FORMA DINAMICA 
+    }
+
+    //BUSCAMOS TODOS LOS BOTONES QUE CREAMOS DE FORMA DINAMICA 
     let botonesAceptar = document.querySelectorAll(".btnAceptarPostulacion");
-//LOS RECORREMOS Y CUANDO CONCIDEN CON LOS QUE HICIMOS CLICK LO RECONOCEMOS .( O NO SE COM LLAMARLO PERO COMO QUE NOS DAMOS CUENTA QUE ES EL , CAPAZ SE EEJCUTA O ESCUCHA )
+    //LOS RECORREMOS Y CUANDO CONCIDEN CON LOS QUE HICIMOS CLICK LO RECONOCEMOS .( O NO SE COM LLAMARLO PERO COMO QUE NOS DAMOS CUENTA QUE ES EL , CAPAZ SE EEJCUTA O ESCUCHA )
     for (let i = 0; i < botonesAceptar.length; i++) {
         botonesAceptar[i].addEventListener("click", aceptarPostulacion);
     }
