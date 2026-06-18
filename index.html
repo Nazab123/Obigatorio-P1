@@ -67,31 +67,27 @@
     </section>
 </template>
 
-<template id="view-postulante">
-
-    <nav class="navbar">
-        <a href="#" id="btnVerOfertas">Ofertas laborales</a>
-        <a href="#" id="btnVerMisPostulaciones">Mis postulaciones</a>
-        <a href="#" id="btnVerOfertasDestacadas">Ofertas destacadas</a>
-        <a href="#" id="btnCerrarSesionPostulante">Cerrar sesión</a>
-    </nav>
-
-    <section id="pantallaPostulante">
-        <h2>Menú Postulante</h2>
-
-        <p id="pBienvenidaPostulante"></p>
-    </section>
-
-</template>
-
-
 <template id="view-ofertas-postulante">
+    <nav class="navbar">
+
+    <div class="infoMenu">
+    <h3>POSTULANTE</h3>
+    <p>Portal laboral</p>
+    </div>
+
+    <a href="#" id="btnVerOfertas">Ofertas laborales</a>
+    <a href="#" id="btnVerMisPostulaciones">Mis postulaciones</a>
+    <a href="#" id="btnVerOfertasDestacadas">Ofertas destacadas</a>
+    <a href="#" id="btnCerrarSesionPostulante">Cerrar sesión</a>
+
+</nav>
+
    <section>
         <h2>Ofertas laborales activas</h2>
         <label for="slcFiltroOfertas">Filtro</label>
         <select id="slcFiltroOfertas">
-            <option value="area">Ver solo mi área</option>
-            <option value="todas">Ver todas</option>
+            <option value="todas">Ver todas </option>
+            <option value="area">Ver solo mi area</option>
         </select>
 
         
@@ -119,6 +115,20 @@
 </template>
 
 <template id="view-mis-postulaciones">
+    <nav class="navbar">
+
+    <div class="infoMenu">
+    <h3>POSTULANTE</h3>
+    <p>Portal laboral</p>
+</div>
+
+    <a href="#" id="btnVerOfertas">Ofertas laborales</a>
+    <a href="#" id="btnVerMisPostulaciones">Mis postulaciones</a>
+    <a href="#" id="btnVerOfertasDestacadas">Ofertas destacadas</a>
+    <a href="#" id="btnCerrarSesionPostulante">Cerrar sesión</a>
+
+</nav>
+
     <section>
         <h2>Mis postulaciones</h2>
 
@@ -147,6 +157,19 @@
     </template>
 
 <template id="view-ofertas-destacadas">
+    <nav class="navbar">
+
+    <div class="infoMenu">
+    <h3>POSTULANTE</h3>
+    <p>Portal laboral</p>
+</div>
+
+    <a href="#" id="btnVerOfertas">Ofertas laborales</a>
+    <a href="#" id="btnVerMisPostulaciones">Mis postulaciones</a>
+    <a href="#" id="btnVerOfertasDestacadas">Ofertas destacadas</a>
+    <a href="#" id="btnCerrarSesionPostulante">Cerrar sesión</a>
+
+</nav>
     <section id="pantallaOfertasDestacadas">
         <h2>Ofertas destacadas</h2>
         <p id="pOfertasDestacadas"></p>
@@ -191,6 +214,18 @@
 </template>
 
 <template id="view-crear-oferta">
+    <nav class="navbar">
+    <div class="infoMenu">
+    <h3>ADMIN</h3>
+    <p>Panel de control</p>
+    </div>
+
+    <a href="#" id="btnCrearOferta">Crear oferta laboral</a>
+    <a href="#" id="btnVerListadoOfertasAdmin">Listado de ofertas</a>
+    <a href="#" id="btnVerPostulacionesPendientes">Postulaciones pendientes</a>
+    <a href="#" id="btnVerEstadisticasAdmin">Estadísticas</a>
+    <a href="#" id="btnCerrarSesionAdmin">Cerrar sesión</a>
+</nav>
 
     <section id="pantallaCrearOferta">
         <h2>Crear oferta laboral</h2>
@@ -244,6 +279,18 @@
 
 
 <template id="view-table-ofertas-admin">
+    <nav class="navbar">
+    <div class="infoMenu">
+    <h3>ADMIN</h3>
+    <p>Panel de control</p>
+</div>
+
+    <a href="#" id="btnCrearOferta">Crear oferta laboral</a>
+    <a href="#" id="btnVerListadoOfertasAdmin">Listado de ofertas</a>
+    <a href="#" id="btnVerPostulacionesPendientes">Postulaciones pendientes</a>
+    <a href="#" id="btnVerEstadisticasAdmin">Estadísticas</a>
+    <a href="#" id="btnCerrarSesionAdmin">Cerrar sesión</a>
+</nav>
 
     <section id="pantallaListadoOfertasAdmin">
         <h2>Listado de ofertas</h2>
@@ -272,6 +319,18 @@
     <!-- CORREGI EL TEMPLATE QUE DE EDITAR OFERTAS , SE ENCONTRABA DENTRO DEL TEMPLATE DE LISTADO DE OFERTAS Y EN TEORIA SON VISTAS SEPARADAS , CHECK CON NAZA POR LAS DUDAS  -->
 
 <template id="view-editar-oferta">
+    <nav class="navbar">
+    <div class="infoMenu">
+    <h3>ADMIN</h3>
+    <p>Panel de control</p>
+</div>
+
+    <a href="#" id="btnCrearOferta">Crear oferta laboral</a>
+    <a href="#" id="btnVerListadoOfertasAdmin">Listado de ofertas</a>
+    <a href="#" id="btnVerPostulacionesPendientes">Postulaciones pendientes</a>
+    <a href="#" id="btnVerEstadisticasAdmin">Estadísticas</a>
+    <a href="#" id="btnCerrarSesionAdmin">Cerrar sesión</a>
+</nav>
     <section>
     <h3>Editar oferta</h3>
 
@@ -325,6 +384,18 @@
     
 
 <template id="view-postulaciones-pendientes">
+    <nav class="navbar">
+    <div class="infoMenu">
+    <h3>ADMIN</h3>
+    <p>Panel de control</p>
+</div>
+
+    <a href="#" id="btnCrearOferta">Crear oferta laboral</a>
+    <a href="#" id="btnVerListadoOfertasAdmin">Listado de ofertas</a>
+    <a href="#" id="btnVerPostulacionesPendientes">Postulaciones pendientes</a>
+    <a href="#" id="btnVerEstadisticasAdmin">Estadísticas</a>
+    <a href="#" id="btnCerrarSesionAdmin">Cerrar sesión</a>
+</nav>
     <section id="pantallaPostulacionesPendientes">
     <table>
         <thead>
@@ -352,6 +423,18 @@
 </template>
 
 <template id="view-estadisticas-admin">
+    <nav class="navbar">
+    <div class="infoMenu">
+    <h3>ADMIN</h3>
+    <p>Panel de control</p>
+</div>
+
+    <a href="#" id="btnCrearOferta">Crear oferta laboral</a>
+    <a href="#" id="btnVerListadoOfertasAdmin">Listado de ofertas</a>
+    <a href="#" id="btnVerPostulacionesPendientes">Postulaciones pendientes</a>
+    <a href="#" id="btnVerEstadisticasAdmin">Estadísticas</a>
+    <a href="#" id="btnCerrarSesionAdmin">Cerrar sesión</a>
+</nav>
     <section id="pantallaEstadisticasAdmin">
         <h2>Estadísticas del sistema</h2>
 
@@ -425,7 +508,7 @@
 <script src="js/page/ViewOfertasPostulante.js"></script>
 <script src="js/page/ViewMisPostulaciones.js"></script>
 <script src="js/page/ViewOfertasDestacadas.js"></script>
-<script src="js/page/ViewPostulacionesAdmin.js"></script>
+
 
 
 

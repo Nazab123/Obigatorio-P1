@@ -1,9 +1,4 @@
 
-//acá guardo mis array entonces no le pongo parámetros
-// los array siempre van en plural
-//no todas las clases tienen que ir en sistema
-// las clases si a las otras
-
 class Sistema {
     #tipoUser;
     constructor() {
@@ -21,14 +16,7 @@ class Sistema {
     //PRECARGA DE DATOS PAPÁ
     precargaDatos() {
 
-        /* 
-        Las precargas se hacen desde métodos del sistema cuando existe validación.
-        Postulantes pasan por registrarPostulante().
-        Ofertas pasan por crearOferta().
-        Admins y postulaciones usan push porque todavía no tienen método propio.
-        
-        //CREE LOS METODOS PARA RESITRAS ADMIN Y REGISTRAR POSTULACIONES , CORTA .
-        */
+      
         // ADMINISTRADORES
         this.registrarAdmin("adminrodri", "Rodri123", "Rodri");
         this.registrarAdmin("admingerard", "Gerard123", "El Gerry");
@@ -309,6 +297,24 @@ class Sistema {
         return resultado;
 
     }
+
+    //AGREGUE ESTE METODO PARA SEGUIR HACIENDO ESTO DE USAR METODOS DESDE ACA Y EN EL VIEW QUE NO SE USEN 
+    obtenerPostulacionesPendientes() {
+    let resultado = [];
+
+    for (let i = 0; i < this.postulaciones.length; i++) {
+        let postulacionActual = this.postulaciones[i];
+
+        if (postulacionActual.estado === "pendiente") {
+            resultado.push(postulacionActual);
+        }
+    }
+
+    return resultado;
+}
+
+
+
     // aca recorro todas las postulacuines y las guardo en un array porque el postulante puede que se haya postulado a varias .
     // este metodo lo uso en la visual de mis postulaciones ( me siento re crack porque filtro y muestro pantalla en el mismo metodo en la otra parte , genial mal )
 
@@ -333,69 +339,77 @@ class Sistema {
     }
 
     //FUNCIONALIDADES PARA LOS BOTONES DE ACEPTAR O RECHAZAR POSTULACIONES DEL ADIM 
-    aceptarPostulacion(idPostulacion) {
-        let postulacionAceptada = null;
+   aceptarPostulacion(idPostulacion) {
+    let postulacionAceptada = null;
 
-        for (let i = 0; i < this.postulaciones.length; i++) {
-            let postulacionActual = this.postulaciones[i];
+    for (let i = 0; i < this.postulaciones.length; i++) {
+        let postulacionActual = this.postulaciones[i];
 
-            if (postulacionActual.getId() === idPostulacion) {
-                postulacionActual.estado = "aceptada";
-                postulacionAceptada = postulacionActual;
-            }
+        if (postulacionActual.getId() === idPostulacion) {
+            postulacionActual.estado = "aceptada";
+            postulacionAceptada = postulacionActual;
         }
-        //VOY A CAMBIAR ESTE METIDI QUE CREE EL OTRO DIA , VINDO LA LETRA ME DI CUENTA QUE PIDE MAS COSAS DENTRO DE ELLA 
-        //LE VOY A AGREGAR ESTE CORTE , necesitamos un contador de aceptadas y otras cositas mas porque nos pide rechazar todas las postulaciones a la oferta que tenga un limite o algo asi deice la letra
-
-
-        //recorremos 
-        if (postulacionAceptada === null) {
-            return false;
-
-        }
-        let oferta = postulacionAceptada.ofertaLaboral;
-        let aceptadas = 0;
-
-        for (let i = 0; i < this.postulaciones.length; i++) {
-            let postulacionActual = this.postulaciones[i];
-
-            if (postulacionActual.ofertaLaboral === oferta && postulacionActual.estado === "aceptada") {
-                aceptadas++;
-            }
-        }
-
-        //SI SE CUBREN TODAS TENIAMOS QUE RECHAZAR , SEGUN LA LETRA ( uso el mismo for pero para rechazar basicamente copi pegae )
-
-        if (aceptadas >= oferta.cantidadVacantes) {
-            oferta.inactivarOferta();
-            for (let i = 0; i < this.postulaciones.length; i++) {
-                let postulacionActual = this.postulaciones[i];
-
-                if (postulacionActual.ofertaLaboral === oferta && postulacionActual.estado === "pendiente") {
-                    postulacionActual.estado = "rechazada";
-                }
-
-            }
-
-        }
-        return true
-
     }
 
-    rechazarPostulacion(idPostulacion) {
-        for (let i = 0; i < this.postulaciones.length; i++) {
+    if (postulacionAceptada === null) {
+        return "No se pudo aceptar la postulación";
+    }
 
+    let oferta = postulacionAceptada.ofertaLaboral;
+    let aceptadas = 0;
+    let rechazadasAutomaticamente = 0;
+    let cambioEstadoOferta = false;
+
+    for (let i = 0; i < this.postulaciones.length; i++) {
+        let postulacionActual = this.postulaciones[i];
+
+        if (
+            postulacionActual.ofertaLaboral === oferta &&
+            postulacionActual.estado === "aceptada"
+        ) {
+            aceptadas++;
+        }
+    }
+
+    if (aceptadas >= oferta.cantidadVacantes) {
+        oferta.inactivarOferta();
+        cambioEstadoOferta = true;
+
+        for (let i = 0; i < this.postulaciones.length; i++) {
             let postulacionActual = this.postulaciones[i];
 
-            if (postulacionActual.getId() === idPostulacion) {
+            if (
+                postulacionActual.ofertaLaboral === oferta &&
+                postulacionActual.estado === "pendiente"
+            ) {
                 postulacionActual.estado = "rechazada";
-                return true;
+                rechazadasAutomaticamente++;
             }
         }
-
-        return false;
     }
 
+    let mensaje = "Postulación aceptada correctamente";
+
+    if (cambioEstadoOferta === true) {
+        mensaje += "<br>La oferta pasó a estado Inactiva";
+        mensaje += "<br>Postulaciones rechazadas automáticamente: " + rechazadasAutomaticamente;
+    }
+
+    return mensaje;
+}
+
+   rechazarPostulacion(idPostulacion) {
+    for (let i = 0; i < this.postulaciones.length; i++) {
+        let postulacionActual = this.postulaciones[i];
+
+        if (postulacionActual.getId() === idPostulacion) {
+            postulacionActual.estado = "rechazada";
+            return "Postulación rechazada correctamente";
+        }
+    }
+
+    return "No se pudo rechazar la postulación";
+}
     
 //Buscador de titulos de oferta
 

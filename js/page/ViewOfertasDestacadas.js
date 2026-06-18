@@ -1,4 +1,5 @@
 function initOfertasDestacadas() {
+    initPostulante();
     let btnVolverMenuPostulante3 = document.querySelector("#btnVolverMenuPostulante3");
 
     mostrarOfertasDestacadas();

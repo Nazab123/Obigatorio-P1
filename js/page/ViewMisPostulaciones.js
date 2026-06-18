@@ -1,6 +1,7 @@
 
 
 function initMisPostulaciones() {
+    initPostulante();
     let btnVolverMenuPostulante2 = document.querySelector("#btnVolverMenuPostulante2");
 
     mostrarMisPostulaciones();

@@ -242,3 +242,25 @@ p {
     background: #b91c1c;
     text-decoration: none;
 }
+
+.infoMenu{
+    margin-right: 25px;
+    min-width: 140px;
+    text-align: center;
+}
+
+.infoMenu h3{
+    margin: 0;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.infoMenu p{
+    margin: 2px 0 0 0;
+    color: #d8c5ff;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

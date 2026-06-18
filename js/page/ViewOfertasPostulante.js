@@ -1,9 +1,10 @@
 function initOfertasPostulante(){
+    initPostulante();
     let btnVolverMenuPostulante1 = document.querySelector("#btnVolverMenuPostulante1");
     let btnAplicarFiltroOfertas = document.querySelector("#btnAplicarFiltroOfertas");
 
     // esto es para que por defecto muestre primero el area postulante
-    mostrarOfertasPostulante("area");
+    mostrarOfertasPostulante("todas");
 
     btnAplicarFiltroOfertas.addEventListener("click", aplicarFiltroOfertas);
     btnVolverMenuPostulante1.addEventListener("click", volverMenuPostulante);

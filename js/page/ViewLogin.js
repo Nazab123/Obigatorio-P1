@@ -18,18 +18,18 @@ function login() {
     let pLogin = document.querySelector("#pLogin");
 
     let respuesta = sistema.login(usuario, password);
-    if(respuesta ){
-        if(sistema.getTipoUser() === "Admin"){
-              irA("view-admin", initAdmin);
-        }else{
-             irA("view-postulante", initPostulante);
+    if (respuesta) {
+        if (sistema.getTipoUser() === "Admin") {
+            irA("view-table-ofertas-admin", initListadoOfertasAdmin);
+        } else {
+            irA("view-ofertas-postulante", initOfertasPostulante);
         }
-    }else{
-         pLogin.innerHTML = "Usuario y/o contraseña incorrecta";
+    } else {
+        pLogin.innerHTML = "Usuario y/o contraseña incorrecta";
     }
-    //modifique esto.
+   
 
-} 
+}
 
 function irRegistro() {
     irA("view-registro", initRegistro);
