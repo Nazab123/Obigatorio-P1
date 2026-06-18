@@ -5,18 +5,23 @@ function initAdmin() {
     let btnCerrarSesionAdmin = document.querySelector("#btnCerrarSesionAdmin");
     let btnListadoOfertasAdmin = document.querySelector("#btnVerListadoOfertasAdmin");
     let btnPostulacionesPendientesAdmin = document.querySelector("#btnVerPostulacionesPendientes");
-    let Estadísticas = document.querySelector("#btnVerEstadisticasAdmin");
+    let btnEstadísticas = document.querySelector("#btnVerEstadisticasAdmin");
 
     pBienvenidaAdmin.innerHTML = "Bienvenido/a " + sistema.usuarioLogueado.nombre;
 
     btnListadoOfertasAdmin.addEventListener("click", listadoOfertasAdmin);
     btnPostulacionesPendientesAdmin.addEventListener("click", postulacionesPendientesAdmin);
-    Estadísticas.addEventListener("click", estadisticas);
+    btnEstadísticas.addEventListener("click", estadisticas);
 
     btnCrearOferta.addEventListener("click", crearOferta);
     btnCerrarSesionAdmin.addEventListener("click", cerrarSesionAdmin);
 }
 
+//FUNCIONES DE irA
+
+function volverAdmin(){
+    irA("view-admin", initAdmin)
+}
 
 
 function cerrarSesionAdmin() {
@@ -43,6 +48,8 @@ function estadisticas (){
 }
 
 
+
+
 //VIEW CREAR OFERTA
 
 
@@ -53,12 +60,6 @@ function initCrearOferta(){
     btnGuardarOferta.addEventListener("click", guardarOferta);
     btnVolverMenuAdmin.addEventListener("click", volverAdmin);
 }
-
-function volverAdmin(){
-    irA("view-admin", initAdmin)
-}
-
-
 
 function guardarOferta() {
     let titulo = document.querySelector("#txtTituloOferta").value.trim();
@@ -87,7 +88,11 @@ function guardarOferta() {
         esDestacada
     );
 
+   if (respuesta === "Oferta creada correctamente") {
+    irA("view-table-ofertas-admin", initListadoOfertasAdmin);
+} else {
     document.querySelector("#pCrearOferta").innerHTML = respuesta;
+}
 }
 
 
@@ -109,10 +114,6 @@ function initEstadistica() {
     mostrarTotalesEstadistica();
     porcentaje();
     postulanteMasPostulacionesActivas();
-}
-
-function volverAdmin() {
-    irA("view-admin", initAdmin);
 }
 
 function mostrarOfertaEstadistica(textoBuscado = "") {
@@ -198,10 +199,6 @@ function initListadoOfertasAdmin() {
 
     btnVolverMenuAdmin2.addEventListener("click", volverAdmin);
 
-}
-
-function volverAdmin(){
-    irA("view-admin", initAdmin);
 }
 
 function mostrarListadoOfertasAdmin (){
