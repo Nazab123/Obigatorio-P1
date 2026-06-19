@@ -16,7 +16,7 @@ function initAdmin() {
     btnCerrarSesionAdmin.addEventListener("click", cerrarSesionAdmin);
 }
 
-//FUNCIONES DE irA
+//FUNCIONES DE irA 
 
 function volverAdmin() {
     irA("view-table-ofertas-admin", initListadoOfertasAdmin);
@@ -240,6 +240,7 @@ function mostrarListadoOfertasAdmin() {
         //aca aplico el operador ternario
         let ofertaActual = ofertas[i];
 
+ if (ofertaActual.getEstado() === "Activa"){
         tabla.innerHTML += `
             <tr>
                 <td>${ofertaActual.getId()}</td>
@@ -255,6 +256,7 @@ function mostrarListadoOfertasAdmin() {
                 </td>
             </tr>
         `;
+        }
     }
 
     // como los botones se repiten uso querySelectorAll para traerlos todos

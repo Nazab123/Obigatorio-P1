@@ -27,10 +27,22 @@ function mostrarOfertasDestacadas() {
                 <td>${ofertaActual.area}</td>
                 <td>⭐</td>
                 <td>${ofertaActual.getEstado()}</td>
+                                    <td>
+                        <button class="btnPostularme" data-id="${ofertaActual.getId()}">
+                            Postularme
+                        </button>
+                    </td>
             </tr>
         `;
     }
+    let btnsPostularme = document.querySelectorAll(".btnPostularme");
+
+    for(let i = 0; i < btnsPostularme.length; i++){
+        btnsPostularme[i].addEventListener("click", hacerPostulacion);
+    }
+    mostrarOfertasDestacadas();
 }
+
 
 function volverMenuPostulante() {
     irA("view-ofertas-postulante", initOfertasPostulante);
