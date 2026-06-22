@@ -345,7 +345,7 @@ class Sistema {
             aceptadas++;
         }
     }
-    
+
     let totalPostulaciones = this.contarPostulacionesOferta(oferta);
 
     if (aceptadas >= oferta.cantidadVacantes || totalPostulaciones >= oferta.limitePostulaciones) {
@@ -367,10 +367,21 @@ class Sistema {
 
     let mensaje = "Postulación aceptada correctamente";
 
-    if (cambioEstadoOferta === true) {
-        mensaje += "<br>La oferta pasó a estado Inactiva";
-        mensaje += "<br>Postulaciones rechazadas automáticamente: " + rechazadasAutomaticamente;
+if (cambioEstadoOferta === true) {
+
+    if (aceptadas >= oferta.cantidadVacantes && totalPostulaciones >= oferta.limitePostulaciones) {
+        mensaje += "<br>La oferta pasó a estado Inactiva porque se cubrieron todas las vacantes y se alcanzó el límite de postulaciones.";
+    } 
+    else if (aceptadas >= oferta.cantidadVacantes) {
+        mensaje += "<br>La oferta pasó a estado Inactiva porque se cubrieron todas las vacantes.";
+    } 
+    else {
+        mensaje += "<br>La oferta pasó a estado Inactiva porque se alcanzó el límite de postulaciones.";
     }
+
+    mensaje += "<br>Postulaciones rechazadas automáticamente: " + rechazadasAutomaticamente;
+}
+
 
     return mensaje;
     }
