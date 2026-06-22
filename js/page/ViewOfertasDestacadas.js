@@ -26,6 +26,7 @@ function mostrarOfertasDestacadas() {
                 <td>${ofertaActual.nivel}</td>
                 <td>${ofertaActual.area}</td>
                 <td>⭐</td>
+                <td>${ofertaActual.descripcion}</td>
                 <td>${ofertaActual.getEstado()}</td>
                         <td>
                         <button class="btnPostularme" data-id="${ofertaActual.getId()}">
