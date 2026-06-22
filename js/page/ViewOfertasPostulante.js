@@ -28,7 +28,7 @@ function mostrarOfertasPostulante(filtro){
     */
 
 
-let ofertasTabla = sistema.obtenerOfertasParaTablaPostulante(sistema.usuarioLogueado);
+let ofertasTabla = sistema.obtenerOfertasParaPostulante(sistema.usuarioLogueado, filtro);
 
 for (let i = 0; i < ofertasTabla.length; i++) {
     let ofertaActual = ofertasTabla[i];

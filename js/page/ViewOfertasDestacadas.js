@@ -13,7 +13,7 @@ function mostrarOfertasDestacadas() {
 
     tabla.innerHTML = "";
 
-    let ofertasDestacadas = sistema.obtenerOfertasDestacadas();
+    let ofertasDestacadas = sistema.obtenerOfertasParaTablaDestacadas(sistema.usuarioLogueado);
 
     for (let i = 0; i < ofertasDestacadas.length; i++) {
 
@@ -27,7 +27,7 @@ function mostrarOfertasDestacadas() {
                 <td>${ofertaActual.area}</td>
                 <td>⭐</td>
                 <td>${ofertaActual.getEstado()}</td>
-                                    <td>
+                        <td>
                         <button class="btnPostularme" data-id="${ofertaActual.getId()}">
                             Postularme
                         </button>
@@ -38,8 +38,16 @@ function mostrarOfertasDestacadas() {
     let btnsPostularme = document.querySelectorAll(".btnPostularme");
 
     for(let i = 0; i < btnsPostularme.length; i++){
-        btnsPostularme[i].addEventListener("click", hacerPostulacion);
+        btnsPostularme[i].addEventListener("click", hacerPostulacionDestacada);
     }
+}
+
+function hacerPostulacionDestacada(){
+    let idOferta = this.getAttribute("data-id");
+    let ofertaSeleccionada = sistema.findOfertaById(idOferta);
+    let respuesta = sistema.postularse(sistema.usuarioLogueado,ofertaSeleccionada);
+    mostrarOfertasDestacadas()
+
 }
 
 

@@ -313,31 +313,6 @@ class Sistema {
     return resultado;
 }
 
-
-
-    // aca recorro todas las postulacuines y las guardo en un array porque el postulante puede que se haya postulado a varias .
-    // este metodo lo uso en la visual de mis postulaciones ( me siento re crack porque filtro y muestro pantalla en el mismo metodo en la otra parte , genial mal )
-
-    //Conecta con la pantalla de ofertas destacadas , es el metodo que da la informacion a la pantalla para que la muestre.
-
-    obtenerOfertasDestacadas() {
-        let resultado = [];
-
-        for (let i = 0; i < this.ofertas.length; i++) {
-
-            let ofertaActual = this.ofertas[i];
-
-            if (
-                ofertaActual.destacada === true &&
-                ofertaActual.getEstado() === "Activa"
-            ) {
-                resultado.push(ofertaActual);
-            }
-        }
-
-        return resultado;
-    }
-
     //FUNCIONALIDADES PARA LOS BOTONES DE ACEPTAR O RECHAZAR POSTULACIONES DEL ADIM 
    aceptarPostulacion(idPostulacion) {
     let postulacionAceptada = null;
@@ -580,16 +555,10 @@ obtenerOfertasParaPostulante(postulante, filtro) {
         if (filtro === "area" && ofertaActual.area !== postulante.area) {
             cumpleFiltroArea = false;
         }
-
-        if (
-            cumpleFiltroArea &&
-            ofertaActual.getEstado() === "Activa" &&
-            sistema.expCompatible(postulante, ofertaActual) &&
-            !sistema.yaSePostulo(postulante, ofertaActual) &&
-            sistema.contarPostulacionesOferta(ofertaActual) < ofertaActual.limitePostulaciones
-        ) {
-            resultado.push(ofertaActual);
-        }
+            if (sistema.validarOfertaParaPostulante(postulante, ofertaActual) && cumpleFiltroArea
+            ) {
+                resultado.push(ofertaActual);
+            }
 
     });
 
@@ -605,6 +574,22 @@ obtenerOfertasParaTablaPostulante(postulante) {
         let ofertaActual = this.ofertas[i];
 
         if (this.validarOfertaParaPostulante(postulante, ofertaActual)){
+
+            resultado.push(ofertaActual);
+            
+        }
+    }
+
+    return resultado;
+}
+
+obtenerOfertasParaTablaDestacadas(postulante) {
+    let resultado = [];
+
+    for (let i = 0; i < this.ofertas.length; i++) {
+        let ofertaActual = this.ofertas[i];
+
+        if (this.validarOfertaParaPostulante(postulante, ofertaActual) && ofertaActual.destacada){
 
             resultado.push(ofertaActual);
             
