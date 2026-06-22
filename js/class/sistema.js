@@ -266,7 +266,7 @@ class Sistema {
     //no era tan crack me faltaban cosas jajaj
 
     postularse(postulante, oferta) {
-        if (oferta.getEstado() === "Activa" && this.expCompatible(postulante, oferta) && !this.yaSePostulo(postulante, oferta) && this.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones) {
+        if (oferta.getEstado() === "Activa" &&  this.expCompatible(postulante, oferta) && !this.yaSePostulo(postulante, oferta) && this.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones) {
 
             this.registrarPostulacion(postulante, oferta, "pendiente");
 
@@ -594,6 +594,39 @@ obtenerOfertasParaPostulante(postulante, filtro) {
     });
 
     return resultado;
+}
+
+// Recorro todas las ofertas y guardo solo las que el postulante puede ver/postularse.
+
+obtenerOfertasParaTablaPostulante(postulante) {
+    let resultado = [];
+
+    for (let i = 0; i < this.ofertas.length; i++) {
+        let ofertaActual = this.ofertas[i];
+
+        if (this.validarOfertaParaPostulante(postulante, ofertaActual)){
+
+            resultado.push(ofertaActual);
+            
+        }
+    }
+
+    return resultado;
+}
+
+// hice este método porque se venia repitiendoo
+validarOfertaParaPostulante(postulante, oferta) {
+
+    if (
+        oferta.getEstado() === "Activa" &&
+        this.expCompatible(postulante, oferta) &&
+        !this.yaSePostulo(postulante, oferta) &&
+        this.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones
+    ) {
+        return true;
+    }
+
+    return false;
 }
 
 }

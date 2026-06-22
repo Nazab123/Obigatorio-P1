@@ -21,22 +21,19 @@ function mostrarOfertasPostulante(filtro){
     
     listadoOfertas.innerHTML ="";
 
-    for(let i = 0; i < sistema.ofertas.length; i++){
-        let ofertaActual = sistema.ofertas[i];
+    /* 
+    en sistema hago una funcion que me traiga un array ya validado de todas las postulaciones con las validaciones 
+    de postulante y en esa misma le paso un parametro true of false que me diga si es detacada o no
+    entonces queda una funcion sola
+    */
 
-        let cumpleFiltroArea = true;
 
-        if(filtro === "area" && ofertaActual.area !== sistema.usuarioLogueado.area){
-            cumpleFiltroArea = false;
-        }
+let ofertasTabla = sistema.obtenerOfertasParaTablaPostulante(sistema.usuarioLogueado);
 
-        if(
-            cumpleFiltroArea &&
-            ofertaActual.getEstado() === "Activa" &&
-            sistema.expCompatible(sistema.usuarioLogueado, ofertaActual) &&
-            !sistema.yaSePostulo(sistema.usuarioLogueado, ofertaActual) &&
-            sistema.contarPostulacionesOferta(ofertaActual) < ofertaActual.limitePostulaciones
-        ){
+for (let i = 0; i < ofertasTabla.length; i++) {
+    let ofertaActual = ofertasTabla[i];
+
+    {
             listadoOfertas.innerHTML += `
                 <tr>
                     <td>${ofertaActual.getId()}</td>
@@ -69,9 +66,8 @@ function hacerPostulacion(){
     let idOferta = this.getAttribute("data-id");
     let ofertaSeleccionada = sistema.findOfertaById(idOferta);
     let respuesta = sistema.postularse(sistema.usuarioLogueado,ofertaSeleccionada);
-
-    //despues hay que sacar tus alert
-    alert(respuesta);
+    aplicarFiltroOfertas();
+    mostrarOfertasPostulante(filtro)
 
 }
 

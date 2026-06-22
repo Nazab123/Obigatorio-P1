@@ -40,7 +40,6 @@ function mostrarOfertasDestacadas() {
     for(let i = 0; i < btnsPostularme.length; i++){
         btnsPostularme[i].addEventListener("click", hacerPostulacion);
     }
-    mostrarOfertasDestacadas();
 }
 
 
