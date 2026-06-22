@@ -311,7 +311,7 @@ class Sistema {
     }
 
     return resultado;
-}
+    }
 
     //FUNCIONALIDADES PARA LOS BOTONES DE ACEPTAR O RECHAZAR POSTULACIONES DEL ADIM 
    aceptarPostulacion(idPostulacion) {
@@ -345,8 +345,10 @@ class Sistema {
             aceptadas++;
         }
     }
+    
+    let totalPostulaciones = this.contarPostulacionesOferta(oferta);
 
-    if (aceptadas >= oferta.cantidadVacantes) {
+    if (aceptadas >= oferta.cantidadVacantes || totalPostulaciones >= oferta.limitePostulaciones) {
         oferta.inactivarOferta();
         cambioEstadoOferta = true;
 
@@ -371,7 +373,7 @@ class Sistema {
     }
 
     return mensaje;
-}
+    }
 
    rechazarPostulacion(idPostulacion) {
     for (let i = 0; i < this.postulaciones.length; i++) {
