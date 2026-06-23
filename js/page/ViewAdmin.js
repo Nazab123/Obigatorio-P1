@@ -352,7 +352,7 @@ function guardarCambiosOferta() {
         esDestacada = true;
     }
 
-    sistema.editarOfertaPorId(
+    let respuesta = sistema.editarOfertaPorId(
         idOfertaEditando,
         titulo,
         empresa,
@@ -364,8 +364,12 @@ function guardarCambiosOferta() {
         esDestacada
     );
 
-    idOfertaEditando = "";
-    irA("view-table-ofertas-admin", initListadoOfertasAdmin);
+    if (respuesta === "Oferta editada correctamente") {
+        idOfertaEditando = "";
+        irA("view-table-ofertas-admin", initListadoOfertasAdmin);
+    } else {
+        document.querySelector("#pEditarOferta").innerHTML = respuesta;
+    }
 }
 
 // Cancela la edición: limpia el id de la oferta que se estaba editando
@@ -433,7 +437,7 @@ function mostrarPostulacionesPendientes() {
 function aceptarPostulacion() {
     let idPostulacion = this.getAttribute("data-id");
 
-    let mensaje = sistema.aceptarPostulacion(idPostulacion);
+    let mensaje = sistema.procesarPostulacion(idPostulacion, "Aceptada");
 
     document.querySelector("#pPostulacionesPendientes").innerHTML = mensaje;
 
@@ -443,7 +447,7 @@ function aceptarPostulacion() {
 function rechazarPostulacion() {
     let idPostulacion = this.getAttribute("data-id");
 
-    let mensaje = sistema.rechazarPostulacion(idPostulacion);
+    let mensaje = sistema.procesarPostulacion(idPostulacion, "Rechazada");
 
     document.querySelector("#pPostulacionesPendientes").innerHTML = mensaje;
 

@@ -136,22 +136,26 @@ class Sistema {
 
     crearOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada) {
 
-        let nuevaOferta = new OfertaLaboral(
-            titulo,
-            empresa,
-            descripcion,
-            nivel,
-            area,
-            limitePostulaciones,
-            cantidadVacantes,
-            destacada
-        );
+let respuesta = this.validarOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada);
 
-        this.ofertas.push(nuevaOferta);
+if (respuesta === "") {
+    let nuevaOferta = new OfertaLaboral(
+        titulo,
+        empresa,
+        descripcion,
+        nivel,
+        area,
+        limitePostulaciones,
+        cantidadVacantes,
+        destacada
+    );
 
-        return "Oferta creada correctamente";
+    this.ofertas.push(nuevaOferta);
 
+    respuesta = "Oferta creada correctamente";
+}
 
+return respuesta;
     }
     //----------------------------------------------------------------------------------
 
@@ -259,14 +263,10 @@ class Sistema {
         }
 
         return false;
-    }// en esta parte el unico que podria ver ambas postulaciones tanto jr ocmo señor seria el semi señor , el señor solo puede las señor y semi señor y el jr solo las jr y las de semi señor .
-    //PREGUNTARLE AL PROFESOR SI ESTO ESTA BIEN AL  FINAL O NO 
-
-    //LA REAL POSTULASAO (Crack de los data.id deaau)
-    //no era tan crack me faltaban cosas jajaj
+    }
 
     postularse(postulante, oferta) {
-        if (oferta.getEstado() === "Activa" &&  this.expCompatible(postulante, oferta) && !this.yaSePostulo(postulante, oferta) && this.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones) {
+        if (this.validarOfertaParaPostulante(postulante, oferta)) {
 
             this.registrarPostulacion(postulante, oferta, "pendiente");
 
@@ -313,38 +313,32 @@ class Sistema {
     return resultado;
     }
 
-    //FUNCIONALIDADES PARA LOS BOTONES DE ACEPTAR O RECHAZAR POSTULACIONES DEL ADIM 
-   aceptarPostulacion(idPostulacion) {
-    let postulacionAceptada = null;
+
+procesarPostulacion(idPostulacion, accion) {
+    let postulacionProcesada = null;
 
     for (let i = 0; i < this.postulaciones.length; i++) {
         let postulacionActual = this.postulaciones[i];
 
         if (postulacionActual.getId() === idPostulacion) {
-            postulacionActual.estado = "aceptada";
-            postulacionAceptada = postulacionActual;
+            postulacionActual.estado = accion;
+            postulacionProcesada = postulacionActual;
         }
     }
 
-    if (postulacionAceptada === null) {
-        return "No se pudo aceptar la postulación";
+    if (postulacionProcesada === null) {
+        return "No se pudo procesar la postulación";
     }
 
-    let oferta = postulacionAceptada.ofertaLaboral;
-    let aceptadas = 0;
+    if (accion === "rechazada") {
+        return "Postulación rechazada correctamente";
+    }
+
+    let oferta = postulacionProcesada.ofertaLaboral;
+
     let rechazadasAutomaticamente = 0;
     let cambioEstadoOferta = false;
-
-    for (let i = 0; i < this.postulaciones.length; i++) {
-        let postulacionActual = this.postulaciones[i];
-
-        if (
-            postulacionActual.ofertaLaboral === oferta &&
-            postulacionActual.estado === "aceptada"
-        ) {
-            aceptadas++;
-        }
-    }
+    let aceptadas = this.contarPostulacionesPorEstado(oferta, "aceptada");
 
     let totalPostulaciones = this.contarPostulacionesOferta(oferta);
 
@@ -367,38 +361,21 @@ class Sistema {
 
     let mensaje = "Postulación aceptada correctamente";
 
-if (cambioEstadoOferta === true) {
+    if (cambioEstadoOferta === true) {
+        if (aceptadas >= oferta.cantidadVacantes && totalPostulaciones >= oferta.limitePostulaciones) {
+            mensaje += "<br>La oferta pasó a estado Inactiva porque se cubrieron todas las vacantes y se alcanzó el límite de postulaciones.";
+        } else if (aceptadas >= oferta.cantidadVacantes) {
+            mensaje += "<br>La oferta pasó a estado Inactiva porque se cubrieron todas las vacantes.";
+        } else {
+            mensaje += "<br>La oferta pasó a estado Inactiva porque se alcanzó el límite de postulaciones.";
+        }
 
-    if (aceptadas >= oferta.cantidadVacantes && totalPostulaciones >= oferta.limitePostulaciones) {
-        mensaje += "<br>La oferta pasó a estado Inactiva porque se cubrieron todas las vacantes y se alcanzó el límite de postulaciones.";
-    } 
-    else if (aceptadas >= oferta.cantidadVacantes) {
-        mensaje += "<br>La oferta pasó a estado Inactiva porque se cubrieron todas las vacantes.";
-    } 
-    else {
-        mensaje += "<br>La oferta pasó a estado Inactiva porque se alcanzó el límite de postulaciones.";
+        mensaje += "<br>Postulaciones rechazadas automáticamente: " + rechazadasAutomaticamente;
     }
-
-    mensaje += "<br>Postulaciones rechazadas automáticamente: " + rechazadasAutomaticamente;
-}
-
 
     return mensaje;
-    }
-
-   rechazarPostulacion(idPostulacion) {
-    for (let i = 0; i < this.postulaciones.length; i++) {
-        let postulacionActual = this.postulaciones[i];
-
-        if (postulacionActual.getId() === idPostulacion) {
-            postulacionActual.estado = "rechazada";
-            return "Postulación rechazada correctamente";
-        }
-    }
-
-    return "No se pudo rechazar la postulación";
 }
-    
+
 //Buscador de titulos de oferta
 
 obtenerPostulacionesPorOferta(textoBuscado){
@@ -528,88 +505,59 @@ cerrarOfertaPorId(idOferta) {
 
     if (oferta !== null) {
         oferta.cerrarOferta();
-        return true;
     }
-
-    return false;
 }
 
 editarOfertaPorId(idOferta, titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada) {
 
-    let oferta = this.findOfertaById(idOferta);
+    let respuesta = this.validarOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada);
 
-    if (oferta !== null) {
-        oferta.editarOferta(
-            titulo,
-            empresa,
-            descripcion,
-            nivel,
-            area,
-            limitePostulaciones,
-            cantidadVacantes,
-            destacada
-        );
+    if (respuesta === "") {
+        let oferta = this.findOfertaById(idOferta);
 
-        return true;
+        if (oferta !== null) {
+            oferta.editarOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada);
+
+            respuesta = "Oferta editada correctamente";
+        } else {
+            respuesta = "No se pudo encontrar la oferta";
+        }
     }
 
-    return false;
+    return respuesta;
+}
+
+obtenerOfertasFiltradas(postulante, filtroArea, soloDestacadas) {
+    let resultado = [];
+
+    for (let i = 0; i < this.ofertas.length; i++) {
+        let ofertaActual = this.ofertas[i];
+
+        let cumpleArea = filtroArea !== "area" || ofertaActual.area === postulante.area;
+        let cumpleDestacada = soloDestacadas === false || ofertaActual.destacada === true;
+
+        if (
+            this.validarOfertaParaPostulante(postulante, ofertaActual) &&
+            cumpleArea &&
+            cumpleDestacada
+        ) {
+            resultado.push(ofertaActual);
+        }
+    }
+
+    return resultado;
 }
 
 obtenerOfertasParaPostulante(postulante, filtro) {
-
-    let resultado = [];
-    let sistema = this;
-
-    this.ofertas.forEach(function (ofertaActual) {
-
-        let cumpleFiltroArea = true;
-
-        if (filtro === "area" && ofertaActual.area !== postulante.area) {
-            cumpleFiltroArea = false;
-        }
-            if (sistema.validarOfertaParaPostulante(postulante, ofertaActual) && cumpleFiltroArea
-            ) {
-                resultado.push(ofertaActual);
-            }
-
-    });
-
-    return resultado;
+    return this.obtenerOfertasFiltradas(postulante, filtro, false);
 }
 
-// Recorro todas las ofertas y guardo solo las que el postulante puede ver/postularse.
-
 obtenerOfertasParaTablaPostulante(postulante) {
-    let resultado = [];
-
-    for (let i = 0; i < this.ofertas.length; i++) {
-        let ofertaActual = this.ofertas[i];
-
-        if (this.validarOfertaParaPostulante(postulante, ofertaActual)){
-
-            resultado.push(ofertaActual);
-            
-        }
-    }
-
-    return resultado;
+    return this.obtenerOfertasFiltradas(postulante, "todas", false);
 }
 
 obtenerOfertasParaTablaDestacadas(postulante) {
-    let resultado = [];
-
-    for (let i = 0; i < this.ofertas.length; i++) {
-        let ofertaActual = this.ofertas[i];
-
-        if (this.validarOfertaParaPostulante(postulante, ofertaActual) && ofertaActual.destacada){
-
-            resultado.push(ofertaActual);
-            
-        }
-    }
-
-    return resultado;
+    return this.obtenerOfertasFiltradas(postulante, "todas", true);
 }
 
 // hice este método porque se venia repitiendoo
@@ -625,6 +573,45 @@ validarOfertaParaPostulante(postulante, oferta) {
     }
 
     return false;
+}
+
+validarOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada) {
+
+    if (
+        titulo === "" ||
+        empresa === "" ||
+        descripcion === "" ||
+        nivel === "" ||
+        area === "" ||
+        limitePostulaciones === "" ||
+        cantidadVacantes === "" ||
+        destacada === ""
+    ) {
+        return "Todos los campos son obligatorios";
+    }
+
+    if (Number(limitePostulaciones) < Number(cantidadVacantes)) {
+        return "El límite de postulaciones debe ser mayor o igual a la cantidad de vacantes";
+    }
+
+    return "";
+}
+
+contarPostulacionesPorEstado(oferta, estado) {
+    let contador = 0;
+
+    for (let i = 0; i < this.postulaciones.length; i++) {
+        let postulacionActual = this.postulaciones[i];
+
+        if (
+            postulacionActual.ofertaLaboral === oferta &&
+            postulacionActual.estado === estado
+        ) {
+            contador++;
+        }
+    }
+
+    return contador;
 }
 
 }
