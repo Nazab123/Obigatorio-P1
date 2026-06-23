@@ -243,27 +243,27 @@ return respuesta;
     }
 
 
-    expCompatible(postulante, oferta) {
-        if (postulante.experiencia === "Senior" && (oferta.nivel === "Senior" || oferta.nivel === "Semi-Senior")) {
-            return true;
-        }
+expCompatible(postulante, oferta) {
 
-        if (
-            postulante.experiencia === "Semi-Senior" &&
-            (oferta.nivel === "Senior" || oferta.nivel === "Semi-Senior" || oferta.nivel === "Junior")
-        ) {
-            return true;
-        }
-
-        if (
-            postulante.experiencia === "Junior" &&
-            oferta.nivel === "Junior"
-        ) {
-            return true;
-        }
-
-        return false;
+    if (
+        postulante.experiencia === "Senior" &&
+        (oferta.nivel === "Senior" || oferta.nivel === "Semi-Senior")
+    ) {
+        return true;
     }
+
+    if (postulante.experiencia === "Semi-Senior") {
+        return true;
+    }
+
+    if (
+        postulante.experiencia === "Junior" &&
+        (oferta.nivel === "Junior" || oferta.nivel === "Semi-Senior")
+    ) {
+        return true;
+    }
+    return false
+}
 
     postularse(postulante, oferta) {
         if (this.validarOfertaParaPostulante(postulante, oferta)) {
