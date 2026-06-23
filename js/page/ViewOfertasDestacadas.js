@@ -43,14 +43,15 @@ function mostrarOfertasDestacadas() {
     }
 }
 
-function hacerPostulacionDestacada(){
+function hacerPostulacionDestacada() {
     let idOferta = this.getAttribute("data-id");
-    let ofertaSeleccionada = sistema.findOfertaById(idOferta);
-    let respuesta = sistema.postularse(sistema.usuarioLogueado,ofertaSeleccionada);
-    mostrarOfertasDestacadas()
 
+    let respuesta = sistema.postularsePorId(sistema.usuarioLogueado,idOferta);
+
+    document.querySelector("#pOfertasDestacadas").innerHTML = respuesta;
+
+    mostrarOfertasDestacadas();
 }
-
 
 function volverMenuPostulante() {
     irA("view-ofertas-postulante", initOfertasPostulante);

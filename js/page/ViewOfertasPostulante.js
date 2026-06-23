@@ -60,15 +60,13 @@ for (let i = 0; i < ofertasTabla.length; i++) {
 }
 
 
-// pongo el comentario aca abajo porque dentro no me deja ,cambia la creacion de la lista postulantes  y agregue lo de data id replicando lo que hizo el profesor en el toDo <button class="btnPostularme" data-id="${ofertaActual.getId()}">Postularme</button>
-
-function hacerPostulacion(){
+function hacerPostulacion() {
     let idOferta = this.getAttribute("data-id");
-    let ofertaSeleccionada = sistema.findOfertaById(idOferta);
-    let respuesta = sistema.postularse(sistema.usuarioLogueado,ofertaSeleccionada);
-    aplicarFiltroOfertas();
-    mostrarOfertasPostulante(filtro)
 
+    let respuesta = sistema.postularsePorId(sistema.usuarioLogueado, idOferta);
+    document.querySelector("#pOfertasPostulante").innerHTML = respuesta;
+
+    aplicarFiltroOfertas();
 }
 
 function volverMenuPostulante() {

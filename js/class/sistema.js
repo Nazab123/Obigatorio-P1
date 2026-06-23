@@ -613,5 +613,13 @@ contarPostulacionesPorEstado(oferta, estado) {
 
     return contador;
 }
+postularsePorId(postulante, idOferta) {
+    let ofertaSeleccionada = this.findOfertaById(idOferta);
 
+    if (ofertaSeleccionada !== null) {
+        return this.postularse(postulante, ofertaSeleccionada);
+    }
+
+    return "No se encontró la oferta";
+}
 }
