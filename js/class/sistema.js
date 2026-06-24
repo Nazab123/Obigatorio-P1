@@ -13,7 +13,7 @@ class Sistema {
         this.precargaDatos();
     }
 
-    //PRECARGA DE DATOS PAPÁ
+    //PRECARGA DE DATOS
     precargaDatos() {
 
       
@@ -93,13 +93,13 @@ class Sistema {
     }
 
 
-    //METODOS PARA LAS PR-RECARGAS 
+// Crea un administrador y lo agrega al sistema.
     registrarAdmin(usuario, contrasenia, nombre) {
         let nuevoAdmin = new Admin(usuario, contrasenia, nombre);
         this.admins.push(nuevoAdmin);
     }
 
-
+// Valida los datos ingresados y registra un nuevo postulante.
     registrarPostulante(usuario, password, nombre, experiencia, area) {
 
         let respuesta = validarRegistroPostulante(
@@ -128,15 +128,16 @@ class Sistema {
         return respuesta;
     }
 
+// Crea una postulación con el estado recibido por parámetro.
     registrarPostulacion(postulante, oferta, estado) {
         let nuevaPostulacion = new Postulacion(postulante, oferta);
         nuevaPostulacion.estado = estado;
         this.postulaciones.push(nuevaPostulacion);
     }
-
+// Valida y crea una nueva oferta laboral.
     crearOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada) {
 
-let respuesta = this.validarOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada);
+let respuesta = validarOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada);
 
 if (respuesta === "") {
     let nuevaOferta = new OfertaLaboral(
@@ -157,7 +158,8 @@ if (respuesta === "") {
 
 return respuesta;
     }
-    //----------------------------------------------------------------------------------
+
+    // Verifica las credenciales e inicia sesión según el tipo de usuario.
 
     login(usuario, password) {
 
@@ -191,15 +193,18 @@ return respuesta;
         return false;
     }
 
+    // Devuelve el tipo del usuario que tiene la sesión iniciada.
     getTipoUser() {
         return this.#tipoUser;
     }
 
+// Cierra la sesión actual.
     cerrarSesion() {
         this.usuarioLogueado = null;
         this.#tipoUser = null;
     }
 
+    // Busca una oferta por su id y la devuelve.
     findOfertaById(idBuscado) {
         for (let i = 0; i < this.ofertas.length; i++) {
 
@@ -211,9 +216,7 @@ return respuesta;
         return null;
     }
 
-
-    //AGREGUE METODOS A SISTEMA PARA POSTULANTES 
-    //los llamo a todos en el view de OfertasPostulante , recorda que los metodos declarados aca son solo parametros , osea fijate que en lavista de ofertasPostulantes mi condicion llama a estos parametros usando los parametros de 
+// Verifica si un postulante ya se postuló a una oferta.
     yaSePostulo(postulante, oferta) {
         for (let i = 0; i < this.postulaciones.length; i++) {
             let postulacionActual = this.postulaciones[i];
@@ -228,8 +231,8 @@ return respuesta;
 
         return false;
     }
-    // probar foreach.
 
+// Cuenta cuántas postulaciones tiene una oferta.
     contarPostulacionesOferta(oferta) {
         let contador = 0;
 
@@ -242,7 +245,7 @@ return respuesta;
         return contador;
     }
 
-
+// Verifica si el nivel de experiencia es compatible con la oferta.
 expCompatible(postulante, oferta) {
 
     if (
@@ -265,8 +268,9 @@ expCompatible(postulante, oferta) {
     return false
 }
 
+// Realiza una nueva postulación si cumple las condiciones necesarias.
     postularse(postulante, oferta) {
-        if (this.validarOfertaParaPostulante(postulante, oferta)) {
+        if (validarOfertaParaPostulante(postulante, oferta)) {
 
             this.registrarPostulacion(postulante, oferta, "pendiente");
 
@@ -281,9 +285,7 @@ expCompatible(postulante, oferta) {
         return "No es posible postularse a esta oferta";
     }
 
-    //AGREGAR METODOS PARA MIS POSTULACIONES 
-    // Primer metodo que necesito , voy a neceistas 3 metodos .
-
+// Obtiene todas las postulaciones realizadas por un postulante.
     obtenerMisPostulaciones(postulante) {
         let resultado = [];
 
@@ -298,7 +300,7 @@ expCompatible(postulante, oferta) {
 
     }
 
-    //AGREGUE ESTE METODO PARA SEGUIR HACIENDO ESTO DE USAR METODOS DESDE ACA Y EN EL VIEW QUE NO SE USEN 
+// Devuelve únicamente las postulaciones pendientes.
     obtenerPostulacionesPendientes() {
     let resultado = [];
 
@@ -313,7 +315,7 @@ expCompatible(postulante, oferta) {
     return resultado;
     }
 
-
+// Procesa una postulación aceptándola o rechazándola.
 procesarPostulacion(idPostulacion, accion) {
     let postulacionProcesada = null;
 
@@ -376,8 +378,7 @@ procesarPostulacion(idPostulacion, accion) {
     return mensaje;
 }
 
-//Buscador de titulos de oferta
-
+// Obtiene las estadísticas de postulaciones por oferta.
 obtenerPostulacionesPorOferta(textoBuscado){
     let resultado = [];
 
@@ -418,6 +419,7 @@ obtenerPostulacionesPorOferta(textoBuscado){
     return resultado;
 }
 
+// Cuenta las ofertas según su estado.
 obtenerTotalesOfertasPorEstado() {
 
     let activas = 0;
@@ -443,6 +445,7 @@ obtenerTotalesOfertasPorEstado() {
     };
 }
 
+// Calcula el porcentaje de vacantes cubiertas.
 obtenerPorcentajeVacantesCubiertas() {
 
     let vacantesCubiertas = 0;
@@ -461,6 +464,7 @@ obtenerPorcentajeVacantesCubiertas() {
     return vacantesCubiertas * 100 / cantidadVacantes;
 }
 
+// Busca el postulante con más postulaciones en ofertas activas.
 obtenerPostulanteMasPostulacionesActivas() {
 
     let postulanteMayor = null;
@@ -495,10 +499,12 @@ obtenerPostulanteMasPostulacionesActivas() {
     };
 }
 
+// Devuelve todas las ofertas registradas.
 obtenerTodasLasOfertas() {
     return this.ofertas;
 }
 
+// Cierra una oferta a partir de su id.
 cerrarOfertaPorId(idOferta) {
 
     let oferta = this.findOfertaById(idOferta);
@@ -508,9 +514,10 @@ cerrarOfertaPorId(idOferta) {
     }
 }
 
+// Modifica los datos de una oferta existente.
 editarOfertaPorId(idOferta, titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada) {
 
-    let respuesta = this.validarOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada);
+    let respuesta = validarOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada);
 
     if (respuesta === "") {
         let oferta = this.findOfertaById(idOferta);
@@ -527,6 +534,7 @@ editarOfertaPorId(idOferta, titulo, empresa, descripcion, nivel, area, limitePos
     return respuesta;
 }
 
+// Obtiene las ofertas aplicando filtros de área y destacadas.
 obtenerOfertasFiltradas(postulante, filtroArea, soloDestacadas) {
     let resultado = [];
 
@@ -536,11 +544,7 @@ obtenerOfertasFiltradas(postulante, filtroArea, soloDestacadas) {
         let cumpleArea = filtroArea !== "area" || ofertaActual.area === postulante.area;
         let cumpleDestacada = soloDestacadas === false || ofertaActual.destacada === true;
 
-        if (
-            this.validarOfertaParaPostulante(postulante, ofertaActual) &&
-            cumpleArea &&
-            cumpleDestacada
-        ) {
+        if (validarOfertaParaPostulante(postulante, ofertaActual) && cumpleArea && cumpleDestacada){
             resultado.push(ofertaActual);
         }
     }
@@ -548,55 +552,22 @@ obtenerOfertasFiltradas(postulante, filtroArea, soloDestacadas) {
     return resultado;
 }
 
+// Obtiene las ofertas disponibles para un postulante.
 obtenerOfertasParaPostulante(postulante, filtro) {
     return this.obtenerOfertasFiltradas(postulante, filtro, false);
 }
 
+// Obtiene las ofertas para mostrar en la tabla principal.
 obtenerOfertasParaTablaPostulante(postulante) {
     return this.obtenerOfertasFiltradas(postulante, "todas", false);
 }
 
+// Obtiene únicamente las ofertas destacadas.
 obtenerOfertasParaTablaDestacadas(postulante) {
     return this.obtenerOfertasFiltradas(postulante, "todas", true);
 }
 
-// hice este método porque se venia repitiendoo
-validarOfertaParaPostulante(postulante, oferta) {
-
-    if (
-        oferta.getEstado() === "Activa" &&
-        this.expCompatible(postulante, oferta) &&
-        !this.yaSePostulo(postulante, oferta) &&
-        this.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones
-    ) {
-        return true;
-    }
-
-    return false;
-}
-
-validarOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada) {
-
-    if (
-        titulo === "" ||
-        empresa === "" ||
-        descripcion === "" ||
-        nivel === "" ||
-        area === "" ||
-        limitePostulaciones === "" ||
-        cantidadVacantes === "" ||
-        destacada === ""
-    ) {
-        return "Todos los campos son obligatorios";
-    }
-
-    if (Number(limitePostulaciones) < Number(cantidadVacantes)) {
-        return "El límite de postulaciones debe ser mayor o igual a la cantidad de vacantes";
-    }
-
-    return "";
-}
-
+// Cuenta postulaciones de una oferta según un estado específico.
 contarPostulacionesPorEstado(oferta, estado) {
     let contador = 0;
 
@@ -613,6 +584,8 @@ contarPostulacionesPorEstado(oferta, estado) {
 
     return contador;
 }
+
+// Busca una oferta por id y realiza la postulación.
 postularsePorId(postulante, idOferta) {
     let ofertaSeleccionada = this.findOfertaById(idOferta);
 

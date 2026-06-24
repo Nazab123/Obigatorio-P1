@@ -1,3 +1,5 @@
+// Inicializa el menú del postulante y conecta los botones de navegación.
+
 function initPostulante(){
     let btnVerOfertas = document.querySelector("#btnVerOfertas");
     let btnVerMisPostulaciones = document.querySelector("#btnVerMisPostulaciones");
@@ -12,27 +14,33 @@ function initPostulante(){
     btnCerrarSesionPostulante.addEventListener("click", cerrarSesionPostulante);
 }
 
+// Cierra la sesión del postulante y vuelve al login.
 function cerrarSesionPostulante() {
     sistema.cerrarSesion();
     irA("view-login", initLogin);
 }
 
+// Navega a la pantalla de ofertas laborales disponibles.
 function verOfertas() {
     irA("view-ofertas-postulante", initOfertasPostulante);
 }
 
+// Navega a la pantalla donde el postulante ve sus postulaciones.
 function verMisPostulaciones() {
     irA("view-mis-postulaciones", initMisPostulaciones);
 }
 
+// Navega a la pantalla de ofertas destacadas.
 function verOfertasDestacadas() {
     irA("view-ofertas-destacadas", initOfertasDestacadas);
 }
 
+// Vuelve a la pantalla principal de ofertas del postulante.
 function volverMenuPostulante() {
     irA("view-ofertas-postulante", initOfertasPostulante);
 }
 
+// Inicializa la pantalla de mis postulaciones y muestra los datos.
 function initMisPostulaciones() {
     initPostulante();
     let btnVolverMenuPostulante2 = document.querySelector("#btnVolverMenuPostulante2");
@@ -42,6 +50,7 @@ function initMisPostulaciones() {
     btnVolverMenuPostulante2.addEventListener("click", volverMenuPostulante);
 }
 
+// Muestra en la tabla las postulaciones del usuario logueado.
 function mostrarMisPostulaciones() {
     let tabla = document.querySelector("#tbodyListadoMisPos");
 
@@ -68,6 +77,7 @@ function mostrarMisPostulaciones() {
 
     }
 
+// Inicializa la pantalla de ofertas destacadas y conecta sus eventos.
 function initOfertasDestacadas() {
     initPostulante();
     let btnVolverMenuPostulante3 = document.querySelector("#btnVolverMenuPostulante3");
@@ -77,6 +87,7 @@ function initOfertasDestacadas() {
     btnVolverMenuPostulante3.addEventListener("click", volverMenuPostulante);
 }
 
+// Muestra las ofertas destacadas disponibles para el postulante.
 function mostrarOfertasDestacadas() {
 
     let tabla = document.querySelector("#tbodyListadoDestacadas");
@@ -113,6 +124,7 @@ function mostrarOfertasDestacadas() {
     }
 }
 
+// Procesa la postulación desde la pantalla de ofertas destacadas.
 function hacerPostulacionDestacada() {
     let idOferta = this.getAttribute("data-id");
     let respuesta = sistema.postularsePorId(sistema.usuarioLogueado, idOferta);
@@ -121,7 +133,7 @@ function hacerPostulacionDestacada() {
     mostrarOfertasDestacadas();
 }
 
-
+// Inicializa la pantalla de ofertas laborales y aplica el filtro por defecto.
 function initOfertasPostulante(){
     initPostulante();
     let btnVolverMenuPostulante1 = document.querySelector("#btnVolverMenuPostulante1");
@@ -134,12 +146,14 @@ function initOfertasPostulante(){
     btnVolverMenuPostulante1.addEventListener("click", volverMenuPostulante);
 }
 
+// Lee el filtro seleccionado y actualiza el listado de ofertas.
 function aplicarFiltroOfertas(){
     let filtro = document.querySelector("#slcFiltroOfertas").value;
 
     mostrarOfertasPostulante(filtro);
 }
 
+// Muestra las ofertas disponibles para el postulante según el filtro recibido.
 function mostrarOfertasPostulante(filtro){
     let listadoOfertas = document.querySelector("#tbodyListadoOfertasPostulante");
     
@@ -175,7 +189,7 @@ for (let i = 0; i < ofertasTabla.length; i++) {
     }
 }
 
-
+// Procesa la postulación desde el listado general de ofertas.
 function hacerPostulacion() {
     let idOferta = this.getAttribute("data-id");
 

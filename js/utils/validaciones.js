@@ -1,3 +1,5 @@
+// Verifica si la contraseña cumple con los requisitos solicitados.
+
 function validarPassword(password) {
     let tieneMayus = false;
     let tieneMinus = false;
@@ -26,7 +28,7 @@ function validarPassword(password) {
     };
 }
 
-
+// Valida los datos ingresados para registrar un postulante.
 function validarRegistroPostulante(usuario, password, nombre, experiencia, area, sistema) {
     let respuesta = "";
     let resultadoContra = validarPassword(password);
@@ -59,12 +61,13 @@ function validarRegistroPostulante(usuario, password, nombre, experiencia, area,
         respuesta += "seleccione una opcion de area<br>";
     }
 
-    if (
-    findCasero(sistema.admins, "usuario", usuario) !== -1 ||
-    findCasero(sistema.postulantes, "usuario", usuario) !== -1
-    ) {
-    respuesta += "el usuario ya existe<br>";
-}
+    let usuarioBuscado = usuario.toLowerCase();
+
+    for(let i = 0; i < sistema.postulantes.length; i++){
+        if(sistema.postulantes[i].usuario.toLowerCase() === usuarioBuscado){
+            respuesta += "el usuario ya existe<br>";
+        }
+    }
 
     if (resultadoContra.contadorNumPas === 0) {
         respuesta += "la contraseña debe tener al menos un numero<br>";
@@ -79,4 +82,42 @@ function validarRegistroPostulante(usuario, password, nombre, experiencia, area,
     }
 
     return respuesta;
+}
+
+// Verifica si una oferta puede ser mostrada y utilizada por un postulante.
+function validarOfertaParaPostulante(postulante, oferta) {
+
+    if (
+        oferta.getEstado() === "Activa" &&
+        this.expCompatible(postulante, oferta) &&
+        !this.yaSePostulo(postulante, oferta) &&
+        this.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones
+    ) {
+        return true;
+    }
+
+    return false;
+}
+
+// Valida los datos necesarios para crear o editar una oferta laboral.
+function validarOferta(titulo, empresa, descripcion, nivel, area, limitePostulaciones, cantidadVacantes, destacada) {
+
+    if (
+        titulo === "" ||
+        empresa === "" ||
+        descripcion === "" ||
+        nivel === "" ||
+        area === "" ||
+        limitePostulaciones === "" ||
+        cantidadVacantes === "" ||
+        destacada === ""
+    ) {
+        return "Todos los campos son obligatorios";
+    }
+
+    if (Number(limitePostulaciones) < Number(cantidadVacantes)) {
+        return "El límite de postulaciones debe ser mayor o igual a la cantidad de vacantes";
+    }
+
+    return "";
 }
