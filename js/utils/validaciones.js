@@ -89,9 +89,9 @@ function validarOfertaParaPostulante(postulante, oferta) {
 
     if (
         oferta.getEstado() === "Activa" &&
-        this.expCompatible(postulante, oferta) &&
-        !this.yaSePostulo(postulante, oferta) &&
-        this.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones
+        sistema.expCompatible(postulante, oferta) &&
+        !sistema.yaSePostulo(postulante, oferta) &&
+        sistema.contarPostulacionesOferta(oferta) < oferta.limitePostulaciones
     ) {
         return true;
     }
@@ -117,6 +117,10 @@ function validarOferta(titulo, empresa, descripcion, nivel, area, limitePostulac
 
     if (Number(limitePostulaciones) < Number(cantidadVacantes)) {
         return "El límite de postulaciones debe ser mayor o igual a la cantidad de vacantes";
+    }
+    
+    if (Number(limitePostulaciones) <= 0 || Number(cantidadVacantes) <= 0) {
+    return "El límite de postulaciones y la cantidad de vacantes deben ser mayores a 0";
     }
 
     return "";

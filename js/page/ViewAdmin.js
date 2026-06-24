@@ -409,7 +409,7 @@ function mostrarPostulacionesPendientes() {
 function aceptarPostulacion() {
     let idPostulacion = this.getAttribute("data-id");
 
-    let mensaje = sistema.procesarPostulacion(idPostulacion, "Aceptada");
+    let mensaje = sistema.procesarPostulacion(idPostulacion, "aceptada");
 
     document.querySelector("#pPostulacionesPendientes").innerHTML = mensaje;
 
@@ -420,7 +420,7 @@ function aceptarPostulacion() {
 function rechazarPostulacion() {
     let idPostulacion = this.getAttribute("data-id");
 
-    let mensaje = sistema.procesarPostulacion(idPostulacion, "Rechazada");
+    let mensaje = sistema.procesarPostulacion(idPostulacion, "rechazada");
 
     document.querySelector("#pPostulacionesPendientes").innerHTML = mensaje;
 

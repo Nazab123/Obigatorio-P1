@@ -493,11 +493,19 @@ obtenerPostulanteMasPostulacionesActivas() {
         }
     }
 
+    if (postulanteMayor === null) {
+        return {
+            postulante: { nombre: "No hay postulaciones activas" },
+            cantidad: 0
+        };
+    }
+
     return {
         postulante: postulanteMayor,
         cantidad: mayorCantidad
     };
 }
+     
 
 // Devuelve todas las ofertas registradas.
 obtenerTodasLasOfertas() {
