@@ -1,4 +1,3 @@
-//aca va la misma funcion que en el login , para la inicialicacion de los botones en el template que llamamos con la funcion isA( conectar eventos )
 
 function initRegistro() {
     let btnRegistrar = document.querySelector("#btnRegistrar");
@@ -34,5 +33,3 @@ function registrarPostulante() {
 function irLogin() {
     irA("view-login", initLogin);
 }
-
-/* Movi la funcion de registrar postulantes de main para este archivo  */

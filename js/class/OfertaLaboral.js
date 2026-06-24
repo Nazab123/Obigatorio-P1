@@ -53,6 +53,4 @@ recibe los datos nuevos y actualiza los atributos del objeto sin crear una ofert
 }
     
 }
-    //preguntar al profe si se vuelve de inactiva a acriva en algun momento o de cerrada a inavtiva o activa.
-
-    //preguntar al profe si se edita una oferta cerrada
+    
