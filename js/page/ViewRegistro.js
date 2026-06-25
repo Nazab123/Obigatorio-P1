@@ -27,9 +27,13 @@ function registrarPostulante() {
     );
 
     pResultado.innerHTML = respuesta;
+    if (respuesta === "registro procesado") {
+        irLogin();
 }
 
+}
 /* vuelve al template de login con los parametros, de la funcion irA */
 function irLogin() {
     irA("view-login", initLogin);
 }
+
